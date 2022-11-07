@@ -1,0 +1,22 @@
+@import "../../scss/variables";
+
+.Navbar{
+    position: fixed;
+    z-index: 10;
+    width: 98%;
+    left: 1%;
+}
+
+.navbar{
+    background-color: $main-color;
+    @include radius;
+    @include shadow;
+}
+
+.mini-window{
+    @apply card card-compact dropdown-content w-60 bg-base-100 shadow;
+    background: $main-color;
+    @include radius;
+    @include shadow;
+    width: 248px;
+}

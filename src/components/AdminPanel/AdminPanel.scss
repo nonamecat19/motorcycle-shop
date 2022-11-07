@@ -1,0 +1,15 @@
+.AdminPanel{
+
+}
+
+.AdminPanelElement{
+  border-bottom: 1px solid #dcdcdc;
+  padding: 5px;
+  display: flex;
+}
+
+.window{
+  border: 1px solid #dcdcdc;
+  height: 60vh;
+  overflow-y: scroll;
+}

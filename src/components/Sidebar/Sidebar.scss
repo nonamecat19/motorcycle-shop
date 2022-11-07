@@ -1,0 +1,13 @@
+@import "../../scss/variables";
+
+.Sidebar{
+    position: fixed;
+    right: 5px;
+    top: 60px;
+    padding: 30px;
+    background: $main-color;
+    width: 250px;
+    margin: 20px 10px 0 0;
+    @include radius;
+    @include shadow;
+}

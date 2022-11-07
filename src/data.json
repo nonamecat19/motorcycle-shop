@@ -1,0 +1,292 @@
+{
+  "motorcycles":[
+    {
+      "id": 0,
+      "img": "0.png",
+      "brand":"Kawasaki",
+      "model":"R-30",
+      "price": 34,
+      "available": true,
+      "color": "green"
+    },
+    {
+      "id": 1,
+      "img": "2.png",
+      "brand":"Kawasaki",
+      "model":"R-30",
+      "price": 342,
+      "available": false,
+      "color": "green"
+    },
+    {
+      "id": 2,
+      "img": "2.png",
+      "brand": "Honda",
+      "model": "rr1000rr",
+      "price": 320,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 3,
+      "img": "3.png",
+      "brand": "Honda",
+      "model": "rr1000rr",
+      "price": 3500,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 4,
+      "img": "4.png",
+      "brand": "Honda",
+      "model": "rr1000rr",
+      "price": 3600,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 5,
+      "img": "5.png",
+      "brand": "Kawasaki",
+      "model": "Ninja 250R",
+      "price": 3700,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 6,
+      "img": "6.png",
+      "brand": "Kawasaki",
+      "model": "Ninja 300",
+      "price": 3800,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 7,
+      "img": "7.png",
+      "brand": "Kawasaki",
+      "model": "Ninja 400",
+      "price": 3900,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 8,
+      "img": "8.png",
+      "brand": "Kawasaki",
+      "model": "Ninja 1000",
+      "price": 3290,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 9,
+      "img": "9.png",
+      "brand": "Kawasaki",
+      "model": "Ninja H2",
+      "price": 3280,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 10,
+      "img": "10.png",
+      "brand": "Kawasaki",
+      "model": "Ninja ZX 10R",
+      "price": 3270,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 11,
+      "img": "11.png",
+      "brand": "Kawasaki",
+      "model": "Ninja ZX 10R",
+      "price": 3260,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 12,
+      "img": "12.png",
+      "brand": "Honda",
+      "model": "CBR",
+      "price": 3250,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 13,
+      "img": "13.png",
+      "brand": "Honda",
+      "model": "CBR Racing",
+      "price": 3240,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 14,
+      "img": "14.png",
+      "brand": "Honda",
+      "model": "CBR Racing",
+      "price": 3230,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 15,
+      "img": "15.png",
+      "brand": "Honda",
+      "model": "CBR 1000RR",
+      "price": 3220,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 16,
+      "img": "16.png",
+      "brand": "Kawasaki",
+      "model": "Ninja ZX 10R",
+      "price": 3210,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 17,
+      "img": "17.png",
+      "brand": "Honda",
+      "model": "CBR 600RR",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 18,
+      "img": "18.png",
+      "brand": "Honda",
+      "model": "CBR 250R",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 19,
+      "img": "19.png",
+      "brand": "Yamaha",
+      "model": "YZF-R1",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 20,
+      "img": "20.png",
+      "brand": "Honda",
+      "model": "XRE300",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 21,
+      "img": "21.png",
+      "brand": "Kawasaki",
+      "model": "Ninja ZX-14",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 22,
+      "img": "22.png",
+      "brand": "Honda",
+      "model": "CBR1000R",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 23,
+      "img": "23.png",
+      "brand": "Yamaha",
+      "model": "YZF-R1",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 24,
+      "img": "24.png",
+      "brand": "Honda",
+      "model": "CB 300R",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 25,
+      "img": "25.png",
+      "brand": "Suzuki",
+      "model": "GW250",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 26,
+      "img": "26.png",
+      "brand": "Suzuki",
+      "model": "Hayabusa",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 27,
+      "img": "27.png",
+      "brand": "Yamaha",
+      "model": "YZF-R1",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 28,
+      "img": "28.png",
+      "brand": "KTM",
+      "model": "1290 Super Duke R",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 29,
+      "img": "29.png",
+      "brand": "Honda",
+      "model": "Livo Scooter TVS",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 30,
+      "img": "30.png",
+      "brand": "Honda",
+      "model": "F1",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    },
+    {
+      "id": 31,
+      "img": "31.png",
+      "brand": "Honda",
+      "model": "Vario 150",
+      "price": 3200,
+      "available": true,
+      "color": "red"
+    }
+  ]
+}

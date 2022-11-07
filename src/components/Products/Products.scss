@@ -1,0 +1,13 @@
+@import "../../scss/variables";
+
+.Products {
+    width: calc(100% - 320px);
+    min-height: 400px;
+    background: $main-color;
+    margin: 80px 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    transition: 1s all;
+    @include radius;
+}
