@@ -6,19 +6,18 @@ export interface AdminPanelProps {
     cache: Cache,
     motorcycles: Motorcycles,
     setMotorcycles: Function,
-    filtered: any,
     setFiltered: Function,
     cardsFilter: Function,
     filterBrand: Ref<any>,
-    filterModel: Ref<any>
+    filterModel: Ref<any>,
+    filtered: any
 }
 
-export const AdminPanel: FC<AdminPanelProps> = props => {
-
+export const AdminPanel: FC<AdminPanelProps> = ({cache, motorcycles, setMotorcycles, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
 
     const defaultBrand = (): string[] => {
         let res: string[] = []
-        for (const i of props.motorcycles)
+        for (const i of motorcycles)
             res.push(i.brand)
         return res
     }
@@ -34,7 +33,7 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
 
     const defaultModel = (): string[] => {
         let res: string[] = []
-        for (const i of props.motorcycles)
+        for (const i of motorcycles)
             res.push(i.model)
         return res
     }
@@ -49,7 +48,7 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
 
     const defaultPrice = (): number[] => {
         let res: number[] = []
-        for (const i of props.motorcycles)
+        for (const i of motorcycles)
             res.push(i.price)
         return res
     }
@@ -64,7 +63,7 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
 
     const defaultImg = (): string[] => {
         let res: string[] = []
-        for (const i of props.motorcycles)
+        for (const i of motorcycles)
             res.push(i.img)
         return res
     }
@@ -79,7 +78,7 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
 
     const defaultAvailable = (): boolean[] => {
         let res: boolean[] = []
-        for (const i of props.motorcycles)
+        for (const i of motorcycles)
             res.push(i.available)
         return res
     }
@@ -89,17 +88,17 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
     }
 
 
-    const [deleteFlag, setDeleteFlag] = useState(new Array(props.motorcycles.length).fill(false))
+    const [deleteFlag, setDeleteFlag] = useState(new Array(motorcycles.length).fill(false))
     const deleteFlagHandler = (id: number) :void => {
         setDeleteFlag(deleteFlag.map((item, index) => index === id ? !item : item))
     }
 
 
     const changeData = () => {
-        let temp = props.motorcycles
+        let temp = motorcycles
         let result: Motorcycles = []
         let index: number = 0
-        for (let i: number = 0; i < props.motorcycles.length; i++){
+        for (let i: number = 0; i < motorcycles.length; i++){
             if(deleteFlag[i])
                 continue
             let element: MotorcycleElement =
@@ -116,7 +115,7 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
             index++
         }
         localStorage.setItem('motorcycles', JSON.stringify(result))
-        props.setMotorcycles(result)
+        setMotorcycles(result)
         document.location.reload();
     }
     
@@ -138,7 +137,7 @@ export const AdminPanel: FC<AdminPanelProps> = props => {
                     <form>
                         <div className="window">
                             {
-                                props.motorcycles.map(({id, img, brand, model, price}: MotorcycleElement) => (
+                                motorcycles.map(({id, img, brand, model, price}: MotorcycleElement) => (
                                     <div className="AdminPanelElement" key={id}>
                                         <label className="input-group flex justify-between">
                                             <span className="w-20">ID: {id}</span>

@@ -1,14 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.scss';
 import JSONData from '../../data.json'
-import {Products} from "../Products/Products";
-import {Sidebar} from "../Sidebar/Sidebar";
-import Navbar from "../Navbar/Navbar";
-import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
-import {Cache, Motorcycles} from '../../Types'
-import {AdminPanel} from "../AdminPanel/AdminPanel";
+import {Cache, Motorcycles, Orders} from '../../Types'
+import {Authorization} from "../Authorization/Authorization";
+import {Content} from "../Content/Content";
+import {useDispatch, useSelector} from "react-redux";
 
 export const App = () => {
+    // const [authForm, setAuthForm] = useState(false)
+
     let filterBrand: any = useRef()
     let filterModel: any = useRef()
 
@@ -17,7 +17,7 @@ export const App = () => {
     defaultMotoData = localData ? JSON.parse(localData) : JSONData.motorcycles;
     const [motorcycles, setMotorcycles] = useState(defaultMotoData)
     const [filtered, setFiltered] = useState(motorcycles)
-
+    // const filtered = useSelector(state => state.productFilter.filter)
 
     useEffect(() => {
         localStorage.setItem('motorcycles', JSON.stringify(motorcycles))
@@ -35,7 +35,6 @@ export const App = () => {
 
     const resetFilter = () => setFiltered(motorcycles)
     const cardsFilter = (model: string, brand: string) => {
-        console.log(model, brand)
         let data = brand === 'All' ? motorcycles : motorcycles.filter((item: any) => item.brand.includes(brand))
         setFiltered(data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase())))
     }
@@ -51,43 +50,53 @@ export const App = () => {
         return sum.toString()
     }
 
+    const [notify, setNotify] = useState(
+        {
+            header: "",
+            text: ""
+        }
+    )
+    const notifyRef = useRef()
+
+
+    let localOrders = localStorage.getItem('orders')
+    let defaultOrders: Orders = localOrders ? JSON.parse(localOrders) : [];
+    const [orders, setOrders] = useState(defaultOrders)
+
+    useEffect(() => {
+        localStorage.setItem('orders', JSON.stringify(orders))
+    }, [orders])
+
+    const authForm = useSelector((state: any) => state.authForm.auth)
 
     return (
         <div className="App">
-            <Navbar cart={cart} getFullPrice={getFullPrice}/>
-            <div className='content'>
-                <ShoppingCart
+            {
+                authForm
+                ?
+                <Authorization/>
+                :
+                <Content
                     cart={cart}
                     setCart={setCart}
-                    CardData={motorcycles}
+                    motorcycles={motorcycles}
+                    setMotorcycles={setMotorcycles}
                     cache={cache}
                     getFullPrice={getFullPrice}
-                />
-                <Products
-                    filtered={filtered}
-                    cart={cart}
-                    setCart={setCart}
-                    cache={cache}
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
-                />
-                <Sidebar
-                    filterBrand={filterBrand}
-                    filterModel={filterModel}
-                    cardsFilter={cardsFilter}
-                    // resetFilter={resetFilter}
-                />
-                <AdminPanel
-                    cache={cache}
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
-                    filtered={filtered}
+                    notify={notify}
+                    setNotify={setNotify}
+                    notifyRef={notifyRef}
+                    orders={orders}
+                    setOrders={setOrders}
                     setFiltered={setFiltered}
                     cardsFilter={cardsFilter}
                     filterBrand={filterBrand}
                     filterModel={filterModel}
+                    filtered={filtered}
                 />
-            </div>
+            }
+
+
         </div>
-  );
+  )
 }

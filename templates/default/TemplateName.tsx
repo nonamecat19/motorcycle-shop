@@ -5,7 +5,7 @@ export interface TemplateNameProps {
 
 }
 
-export const TemplateName: FC<TemplateNameProps> = props => {
+export const TemplateName: FC<TemplateNameProps> = ({}) => {
     return(
         <div className="TemplateName">
             TemplateName Component

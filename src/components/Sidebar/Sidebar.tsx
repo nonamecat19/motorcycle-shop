@@ -1,4 +1,3 @@
-import React, {useRef} from "react";
 import './Sidebar.scss'
 export const Sidebar = ({filterModel,filterBrand, cardsFilter}: any) => {
 
@@ -27,9 +26,6 @@ export const Sidebar = ({filterModel,filterBrand, cardsFilter}: any) => {
                 className="input w-full max-w-xs"
                 ref={filterModel}
                 onInput={() => cardsFilter(filterModel.current.value, filterBrand.current.value)}
-                // onInput={() => cardsFilter('Ninja', 'Kawasaki')}
-                // onInput={() => cardsFilter('', 'All')}
-
             />
         </div>
     )
