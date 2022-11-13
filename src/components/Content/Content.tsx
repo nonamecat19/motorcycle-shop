@@ -16,8 +16,8 @@ export interface ContentProps {
     setMotorcycles: Function
     cache: Cache
     getFullPrice: Function
-    notify: Notify
-    setNotify: Function
+    // notify: Notify
+    // setNotify: Function
     notifyRef: any
     orders: Orders
     setOrders: Function
@@ -30,7 +30,7 @@ export interface ContentProps {
     // setAuthForm: Function
 }
 
-export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
     return(
         <div className="Content">
             <Navbar
@@ -47,8 +47,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     setMotorcycles={setMotorcycles}
                     cache={cache}
                     getFullPrice={getFullPrice}
-                    notify={notify}
-                    setNotify={setNotify}
                     notifyRef={notifyRef}
                     orders={orders}
                     setOrders={setOrders}
@@ -78,8 +76,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     filtered={filtered}
                 />
                 <Notification
-                    header={notify.header}
-                    text={notify.text}
                     notifyRef={notifyRef}
                 />
                 <OrderList

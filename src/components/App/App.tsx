@@ -7,8 +7,6 @@ import {Content} from "../Content/Content";
 import {useDispatch, useSelector} from "react-redux";
 
 export const App = () => {
-    // const [authForm, setAuthForm] = useState(false)
-
     let filterBrand: any = useRef()
     let filterModel: any = useRef()
 
@@ -17,7 +15,6 @@ export const App = () => {
     defaultMotoData = localData ? JSON.parse(localData) : JSONData.motorcycles;
     const [motorcycles, setMotorcycles] = useState(defaultMotoData)
     const [filtered, setFiltered] = useState(motorcycles)
-    // const filtered = useSelector(state => state.productFilter.filter)
 
     useEffect(() => {
         localStorage.setItem('motorcycles', JSON.stringify(motorcycles))
@@ -83,8 +80,8 @@ export const App = () => {
                     setMotorcycles={setMotorcycles}
                     cache={cache}
                     getFullPrice={getFullPrice}
-                    notify={notify}
-                    setNotify={setNotify}
+                    // notify={notify}
+                    // setNotify={setNotify}
                     notifyRef={notifyRef}
                     orders={orders}
                     setOrders={setOrders}

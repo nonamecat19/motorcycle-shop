@@ -1,6 +1,9 @@
 import React, {FC, Fragment, ReactElement, ReactFragment, useState} from "react";
 import './ShopingCart.scss'
 import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Orders} from '../../Types'
+import {useDispatch} from "react-redux";
+import notify from "../../redux/slices/notify";
+import {setNotify} from "../../redux/slices/notify";
 
 interface ShoppingCartProps {
     "cart": Cart
@@ -9,8 +12,8 @@ interface ShoppingCartProps {
     "setMotorcycles": Function
     "cache": Cache
     "getFullPrice": Function
-    "notify": Notify
-    "setNotify": Function
+    // "notify": Notify
+    // "setNotify": Function
     "notifyRef": any
     "orders": Orders
     "setOrders": Function
@@ -24,12 +27,12 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         setMotorcycles,
         cache,
         getFullPrice,
-        notify,
-        setNotify,
         notifyRef,
         orders,
         setOrders
     }) => {
+
+    const dispatch = useDispatch()
 
     const buyProducts = () => {
         let tempOrder: OrderElement = {
@@ -51,10 +54,10 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         setMotorcycles(tempMotorcycles)
         setCart([])
 
-        setNotify({
+        dispatch(setNotify({
             header: "Успіх!",
             text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
-        })
+        }))
         notifyRef.current.checked = true
     }
 
