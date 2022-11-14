@@ -1,9 +1,9 @@
-import React, {FC, Fragment, ReactElement, ReactFragment, useState} from "react";
+import React, {FC, Fragment} from "react";
 import './ShopingCart.scss'
-import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Orders} from '../../Types'
-import {useDispatch} from "react-redux";
-import notify from "../../redux/slices/notify";
+import {Cache, Motorcycles, Cart, OrderElement} from '../../Types'
+import {useDispatch, useSelector} from "react-redux";
 import {setNotify} from "../../redux/slices/notify";
+import {setOrder} from "../../redux/slices/orderSlicer";
 
 interface ShoppingCartProps {
     "cart": Cart
@@ -12,11 +12,7 @@ interface ShoppingCartProps {
     "setMotorcycles": Function
     "cache": Cache
     "getFullPrice": Function
-    // "notify": Notify
-    // "setNotify": Function
     "notifyRef": any
-    "orders": Orders
-    "setOrders": Function
 }
 
 export const ShoppingCart: FC<ShoppingCartProps> = (
@@ -27,14 +23,15 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         setMotorcycles,
         cache,
         getFullPrice,
-        notifyRef,
-        orders,
-        setOrders
+        notifyRef
     }) => {
 
     const dispatch = useDispatch()
 
+
+
     const buyProducts = () => {
+        const orders = useSelector((state: any) => state.orders.orders)
         let tempOrder: OrderElement = {
             "number": orders.length,
             "products": [],
@@ -46,7 +43,9 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
             tempOrder.products.push(motorcycles[i])
             tempOrder.totalPrice += motorcycles[i].price
         }
-        setOrders([...orders, tempOrder])
+        console.log('+', orders)
+        dispatch(setOrder([...orders, tempOrder]))
+        console.log('++', orders)
 
         let tempMotorcycles = motorcycles
         for (let i of cart)

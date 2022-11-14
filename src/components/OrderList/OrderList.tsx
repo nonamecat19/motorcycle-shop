@@ -2,12 +2,16 @@ import React, {FC, useState} from 'react'
 import './OrderList.scss'
 import {MotorcycleElement, Motorcycles, OrderElement, Orders} from "../../Types";
 import JSONData from "../../data.json";
+import {useDispatch, useSelector} from "react-redux";
+import {setOrder} from "../../redux/slices/orderSlicer";
 
 interface OrderListProps {
-    orders: Orders
 }
 
-export const OrderList: FC<OrderListProps> = ({orders}) => {
+export const OrderList: FC<OrderListProps> = () => {
+    const dispatch = useDispatch()
+
+    const orders = useSelector((state: any) => state.order.order)
 
     let localComments = localStorage.getItem('comments')
     let defaultComments: string[] = localComments ? JSON.parse(localComments) : new Array(orders.length).fill("");

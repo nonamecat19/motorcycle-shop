@@ -11,7 +11,6 @@ export interface ContentProps {
 
 const Navbar: FC<ContentProps> = ({cart, getFullPrice}) => {
 
-    const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
 
     return(

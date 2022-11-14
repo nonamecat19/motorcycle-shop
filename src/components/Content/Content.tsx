@@ -7,7 +7,7 @@ import {Products} from "../Products/Products";
 import {Sidebar} from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
-import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
+import {Cache, Cart, Motorcycles} from "../../Types";
 
 export interface ContentProps {
     cart: Cart
@@ -16,28 +16,20 @@ export interface ContentProps {
     setMotorcycles: Function
     cache: Cache
     getFullPrice: Function
-    // notify: Notify
-    // setNotify: Function
     notifyRef: any
-    orders: Orders
-    setOrders: Function
     setFiltered: Function
     cardsFilter: Function
     filterBrand: Ref<any>
     filterModel: Ref<any>
     filtered: any,
-    // authForm: boolean
-    // setAuthForm: Function
 }
 
-export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notifyRef, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
     return(
         <div className="Content">
             <Navbar
                 cart={cart}
                 getFullPrice={getFullPrice}
-                // authForm={authForm}
-                // setAuthForm={setAuthForm}
             />
             <div className='content'>
                 <ShoppingCart
@@ -48,8 +40,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     cache={cache}
                     getFullPrice={getFullPrice}
                     notifyRef={notifyRef}
-                    orders={orders}
-                    setOrders={setOrders}
                 />
                 <Products
                     filtered={filtered}
@@ -78,9 +68,7 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                 <Notification
                     notifyRef={notifyRef}
                 />
-                <OrderList
-                    orders={orders}
-                />
+                <OrderList/>
 
             </div>
 
