@@ -47,7 +47,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
 
         let tempMotorcycles = motorcycles
         for (let i of cart)
-            tempMotorcycles[i].available = false
+            tempMotorcycles[i].number -= 1
         setMotorcycles(tempMotorcycles)
         setCart([])
 

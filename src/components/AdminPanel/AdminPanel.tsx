@@ -76,15 +76,20 @@ export const AdminPanel: FC<AdminPanelProps> = ({cache, motorcycles, setMotorcyc
         setImgData(res)
     }
 
-    const defaultAvailable = (): boolean[] => {
-        let res: boolean[] = []
+    const defaultCount = (): number[] => {
+        let res: number[] = []
         for (const i of motorcycles)
-            res.push(i.available)
+            res.push(i.number)
         return res
     }
-    const [availableFlag, setAvailableFlag] = useState(defaultAvailable())
-    const availableFlagHandler = (id: number) :void => {
-        setAvailableFlag(availableFlag.map((item, index) => index === id ? !item : item))
+
+    const [countData, setCountData] = useState(defaultCount())
+    const countHandler = (e: any) :void => {
+        const id: number = e.target.name
+        const value: number = e.target.value
+        let res: number[] = countData
+        res[id] = value
+        setCountData(res)
     }
 
 
@@ -108,7 +113,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({cache, motorcycles, setMotorcyc
                     "brand": brandData[i],
                     "model": modelData[i],
                     "price": priceData[i],
-                    "available": availableFlag[i],
+                    "number": countData[i],
                     "color": "grey"
                 }
             result.push(element)
@@ -131,7 +136,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({cache, motorcycles, setMotorcyc
                         <div className="w-32">Модель</div>
                         <div className="w-32">Ціна</div>
                         <div className="w-32">Зображення</div>
-                        <div className="w-24">Наявність</div>
+                        <div className="w-24">К-сть</div>
                         <div className="w-24">Видалити</div>
                     </div>
                     <form>
@@ -174,14 +179,15 @@ export const AdminPanel: FC<AdminPanelProps> = ({cache, motorcycles, setMotorcyc
                                                 name={id.toString()}
                                             />
                                             <input
-                                                type="checkbox"
-                                                className="checkbox ml-5 h-8 w-8"
-                                                defaultChecked={availableFlag[id]}
-                                                onChange={() => availableFlagHandler(id)}
+                                                type="number"
+                                                className="checkbox ml-2 h-8 w-16"
+                                                defaultValue={countData[id]}
+                                                onChange={countHandler}
+                                                name={id.toString()}
                                             />
                                             <input
                                                 type="checkbox"
-                                                className="toggle toggle-error ml-14 mt-1"
+                                                className="toggle toggle-error ml-10 mt-1"
                                                 defaultChecked={deleteFlag[id]}
                                                 onChange={() => deleteFlagHandler(id)}
                                             />

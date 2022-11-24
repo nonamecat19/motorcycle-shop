@@ -4,7 +4,7 @@ import JSONData from '../../data.json'
 import {Cache, Motorcycles, Orders} from '../../Types'
 import {Authorization} from "../Authorization/Authorization";
 import {Content} from "../Content/Content";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 export const App = () => {
     // const [authForm, setAuthForm] = useState(false)

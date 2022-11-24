@@ -30,7 +30,7 @@ export const Card = (props: any) => {
                         <button
                             className="btn btn-primary"
                             onClick={addToCart}
-                            disabled={!props.available}
+                            disabled={props.number === 0}
                         >
                             Купити - {props.price}$</button>
                     </div>

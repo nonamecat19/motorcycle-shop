@@ -19,7 +19,7 @@ export const Products = (props: any) => {
                     setCart={props.setCart}
                     motorcycles={props.motorcycles}
                     setMotorcycles={props.setMotorcycles}
-                    available={i.available}
+                    number={i.number}
                 />
             ))}
         </div>

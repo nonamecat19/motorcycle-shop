@@ -4,7 +4,7 @@ export type MotorcycleElement = {
     "brand": string,
     "model":string,
     "price": number,
-    "available": boolean,
+    "number": number,
     "color": string
 }
 
