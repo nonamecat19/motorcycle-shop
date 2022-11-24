@@ -13,52 +13,13 @@ interface ShoppingCartProps {
     "cache": Cache
     "getFullPrice": Function
     "notifyRef": any
+    "dispatch": Function
 }
 
-export const ShoppingCart: FC<ShoppingCartProps> = (
-    {
-        cart,
-        setCart,
-        motorcycles,
-        setMotorcycles,
-        cache,
-        getFullPrice,
-        notifyRef
-    }) => {
-
-    const dispatch = useDispatch()
 
 
-
-    const buyProducts = () => {
-        const orders = useSelector((state: any) => state.orders.orders)
-        let tempOrder: OrderElement = {
-            "number": orders.length,
-            "products": [],
-            "totalPrice": 0,
-            "rating": 0,
-            "comment": ""
-        }
-        for (let i of cart){
-            tempOrder.products.push(motorcycles[i])
-            tempOrder.totalPrice += motorcycles[i].price
-        }
-        console.log('+', orders)
-        dispatch(setOrder([...orders, tempOrder]))
-        console.log('++', orders)
-
-        let tempMotorcycles = motorcycles
-        for (let i of cart)
-            tempMotorcycles[i].available = false
-        setMotorcycles(tempMotorcycles)
-        setCart([])
-
-        dispatch(setNotify({
-            header: "Успіх!",
-            text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
-        }))
-        notifyRef.current.checked = true
-    }
+export const ShoppingCart: FC<ShoppingCartProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notifyRef, dispatch}) => {
+    const orders = useSelector((state: any) => state.order.order)
 
     const elements: Array<JSX.Element> = cart.map((item: number) => (
         <Fragment key={item}>
@@ -76,6 +37,38 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
             </div>
         </Fragment>
     ));
+
+    const buyProducts = () => {
+        let tempOrder: OrderElement = {
+            "number": orders.length,
+            "products": [],
+            "totalPrice": 0,
+            "rating": 0,
+            "comment": ""
+        }
+        for (let i of cart){
+            tempOrder.products.push(motorcycles[i])
+            tempOrder.totalPrice += motorcycles[i].price
+        }
+
+
+        dispatch(setOrder([...orders, tempOrder]))
+
+
+        let tempMotorcycles = motorcycles
+        for (let i of cart)
+            tempMotorcycles[i].available = false
+        setMotorcycles(tempMotorcycles)
+        setCart([])
+
+        dispatch(setNotify({
+            header: "Успіх!",
+            text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
+        }))
+        notifyRef.current.checked = true
+    }
+
+
 
     return(
         <div className='ShoppingCart'>

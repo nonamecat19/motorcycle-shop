@@ -1,3 +1,4 @@
+import React, {FC, Fragment} from "react";
 import {configureStore} from "@reduxjs/toolkit";
 import auth from "./slices/authFormSlicer";
 import notify from "./slices/notify";

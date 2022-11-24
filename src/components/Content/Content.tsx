@@ -8,6 +8,7 @@ import {Sidebar} from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
 import {Cache, Cart, Motorcycles} from "../../Types";
+import {useDispatch} from "react-redux";
 
 export interface ContentProps {
     cart: Cart
@@ -25,6 +26,9 @@ export interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notifyRef, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+
+    const dispatch = useDispatch()
+
     return(
         <div className="Content">
             <Navbar
@@ -40,6 +44,7 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     cache={cache}
                     getFullPrice={getFullPrice}
                     notifyRef={notifyRef}
+                    dispatch={dispatch}
                 />
                 <Products
                     filtered={filtered}
