@@ -14,8 +14,6 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
 
     const dispatch = useDispatch()
 
-    const clientId = "658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-
     const passwordInput = (repeat: boolean) => {
         return(
             <div className="relative">
@@ -75,7 +73,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                     {create ? passwordInput(true) : null}
                                     <div className="relative">
                                         <GoogleLogin
-                                            clientId={clientId}
+                                            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                                             buttonText="Увійти за допомогою Gmail"
                                             onSuccess={responseGoogle}
                                             onFailure={responseGoogle}

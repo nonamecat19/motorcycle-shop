@@ -1,9 +1,6 @@
-import React, {FC, Fragment} from "react";
+import React, {FC, Fragment, ReactElement, ReactFragment, useState} from "react";
 import './ShopingCart.scss'
-import {Cache, Motorcycles, Cart, OrderElement} from '../../Types'
-import {useDispatch, useSelector} from "react-redux";
-import {setNotify} from "../../redux/slices/notify";
-import {setOrder} from "../../redux/slices/orderSlicer";
+import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Orders} from '../../Types'
 
 interface ShoppingCartProps {
     "cart": Cart
@@ -12,14 +9,54 @@ interface ShoppingCartProps {
     "setMotorcycles": Function
     "cache": Cache
     "getFullPrice": Function
+    "notify": Notify
+    "setNotify": Function
     "notifyRef": any
-    "dispatch": Function
+    "orders": Orders
+    "setOrders": Function
 }
 
+export const ShoppingCart: FC<ShoppingCartProps> = (
+    {
+        cart,
+        setCart,
+        motorcycles,
+        setMotorcycles,
+        cache,
+        getFullPrice,
+        notify,
+        setNotify,
+        notifyRef,
+        orders,
+        setOrders
+    }) => {
 
+    const buyProducts = () => {
+        let tempOrder: OrderElement = {
+            "number": orders.length,
+            "products": [],
+            "totalPrice": 0,
+            "rating": 0,
+            "comment": ""
+        }
+        for (let i of cart){
+            tempOrder.products.push(motorcycles[i])
+            tempOrder.totalPrice += motorcycles[i].price
+        }
+        setOrders([...orders, tempOrder])
 
-export const ShoppingCart: FC<ShoppingCartProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notifyRef, dispatch}) => {
-    const orders = useSelector((state: any) => state.order.order)
+        let tempMotorcycles = motorcycles
+        for (let i of cart)
+            tempMotorcycles[i].available = false
+        setMotorcycles(tempMotorcycles)
+        setCart([])
+
+        setNotify({
+            header: "Успіх!",
+            text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
+        })
+        notifyRef.current.checked = true
+    }
 
     const elements: Array<JSX.Element> = cart.map((item: number) => (
         <Fragment key={item}>
@@ -37,38 +74,6 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({cart, setCart, motorcycles,
             </div>
         </Fragment>
     ));
-
-    const buyProducts = () => {
-        let tempOrder: OrderElement = {
-            "number": orders.length,
-            "products": [],
-            "totalPrice": 0,
-            "rating": 0,
-            "comment": ""
-        }
-        for (let i of cart){
-            tempOrder.products.push(motorcycles[i])
-            tempOrder.totalPrice += motorcycles[i].price
-        }
-
-
-        dispatch(setOrder([...orders, tempOrder]))
-
-
-        let tempMotorcycles = motorcycles
-        for (let i of cart)
-            tempMotorcycles[i].available = false
-        setMotorcycles(tempMotorcycles)
-        setCart([])
-
-        dispatch(setNotify({
-            header: "Успіх!",
-            text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
-        }))
-        notifyRef.current.checked = true
-    }
-
-
 
     return(
         <div className='ShoppingCart'>

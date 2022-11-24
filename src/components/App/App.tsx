@@ -7,27 +7,24 @@ import {Content} from "../Content/Content";
 import {useDispatch, useSelector} from "react-redux";
 
 export const App = () => {
+    // const [authForm, setAuthForm] = useState(false)
 
-    const dispatch = useDispatch()
-
-
-
-    let filterBrand: React.MutableRefObject<any> = useRef()
-    let filterModel: React.MutableRefObject<any> = useRef()
-
-
+    let filterBrand: any = useRef()
+    let filterModel: any = useRef()
 
     let localData = localStorage.getItem('motorcycles')
     let defaultMotoData: Motorcycles
     defaultMotoData = localData ? JSON.parse(localData) : JSONData.motorcycles;
     const [motorcycles, setMotorcycles] = useState(defaultMotoData)
     const [filtered, setFiltered] = useState(motorcycles)
+    // const filtered = useSelector(state => state.productFilter.filter)
 
     useEffect(() => {
         localStorage.setItem('motorcycles', JSON.stringify(motorcycles))
     }, [motorcycles])
 
     let Stored = localStorage.getItem('cart')
+
 
     let fromLocalStorage = Stored ? JSON.parse(Stored) : []
     const [cart, setCart] = useState(fromLocalStorage)
@@ -48,14 +45,27 @@ export const App = () => {
 
     const getFullPrice = () => {
         let sum: number = 0
-        for (let product of cart)
-            sum += motorcycles[product].price
+            for (let product of cart)
+                    sum += motorcycles[product].price
         return sum.toString()
     }
 
+    const [notify, setNotify] = useState(
+        {
+            header: "",
+            text: ""
+        }
+    )
     const notifyRef = useRef()
 
 
+    let localOrders = localStorage.getItem('orders')
+    let defaultOrders: Orders = localOrders ? JSON.parse(localOrders) : [];
+    const [orders, setOrders] = useState(defaultOrders)
+
+    useEffect(() => {
+        localStorage.setItem('orders', JSON.stringify(orders))
+    }, [orders])
 
     const authForm = useSelector((state: any) => state.authForm.auth)
 
@@ -63,24 +73,30 @@ export const App = () => {
         <div className="App">
             {
                 authForm
-                    ?
-                    <Authorization/>
-                    :
-                    <Content
-                        cart={cart}
-                        setCart={setCart}
-                        motorcycles={motorcycles}
-                        setMotorcycles={setMotorcycles}
-                        cache={cache}
-                        getFullPrice={getFullPrice}
-                        notifyRef={notifyRef}
-                        setFiltered={setFiltered}
-                        cardsFilter={cardsFilter}
-                        filterBrand={filterBrand}
-                        filterModel={filterModel}
-                        filtered={filtered}
-                    />
+                ?
+                <Authorization/>
+                :
+                <Content
+                    cart={cart}
+                    setCart={setCart}
+                    motorcycles={motorcycles}
+                    setMotorcycles={setMotorcycles}
+                    cache={cache}
+                    getFullPrice={getFullPrice}
+                    notify={notify}
+                    setNotify={setNotify}
+                    notifyRef={notifyRef}
+                    orders={orders}
+                    setOrders={setOrders}
+                    setFiltered={setFiltered}
+                    cardsFilter={cardsFilter}
+                    filterBrand={filterBrand}
+                    filterModel={filterModel}
+                    filtered={filtered}
+                />
             }
+
+
         </div>
-    )
+  )
 }
