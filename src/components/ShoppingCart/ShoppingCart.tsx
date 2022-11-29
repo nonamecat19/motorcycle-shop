@@ -1,26 +1,23 @@
 import React, {FC, Fragment, ReactElement, ReactFragment, useState} from "react";
 import './ShopingCart.scss'
 import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Orders} from '../../Types'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setCache} from './../../redux/slices/cacheSlicer'
+import {setCart} from "../../redux/slices/cartSlicer";
 
 interface ShoppingCartProps {
-    "cart": Cart
-    "setCart": Function
-    "motorcycles": Motorcycles
-    "setMotorcycles": Function
-    "getFullPrice": Function
-    "notify": Notify
-    "setNotify": Function
-    "notifyRef": any
-    "orders": Orders
-    "setOrders": Function
+    motorcycles: Motorcycles
+    setMotorcycles: Function
+    getFullPrice: Function
+    notify: Notify
+    setNotify: Function
+    notifyRef: any
+    orders: Orders
+    setOrders: Function
 }
 
 export const ShoppingCart: FC<ShoppingCartProps> = (
     {
-        cart,
-        setCart,
         motorcycles,
         setMotorcycles,
         getFullPrice,
@@ -32,7 +29,8 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
     }) => {
 
     const {cache} = useSelector((state: any) => state.cache)
-
+    const {cart} = useSelector((state: any) => state.cart)
+    const dispatch = useDispatch()
     const buyProducts = () => {
         let tempOrder: OrderElement = {
             "number": orders.length,
@@ -51,7 +49,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         for (let i of cart)
             tempMotorcycles[i].number -= 1
         setMotorcycles(tempMotorcycles)
-        setCart([])
+        dispatch(setCart([]))
 
         setNotify({
             header: "Успіх!",

@@ -6,15 +6,14 @@ import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
 import {redirect, useNavigate} from "react-router-dom";
 
 export interface ContentProps {
-    cart: Cart
     getFullPrice: Function
 }
 
-const Navbar: FC<ContentProps> = ({cart, getFullPrice}) => {
+const Navbar: FC<ContentProps> = ({getFullPrice}) => {
     const navigate = useNavigate();
     const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
-
+    const {cart} = useSelector((state: any) => state.cart)
     const loginHandler = () => {
         navigate('/auth')
         dispatch(toggleAuthForm())

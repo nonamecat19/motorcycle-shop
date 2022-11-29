@@ -1,11 +1,9 @@
 import React, {FC, Ref} from 'react'
 import './ContentPage.scss'
 import {Content} from "../../components/Content/Content";
-import {Cart, Motorcycles, Notify, Orders} from "../../Types";
+import {Motorcycles, Notify, Orders} from "../../Types";
 
 export interface ContentPageProps {
-    cart: Cart
-    setCart: Function
     motorcycles: Motorcycles
     setMotorcycles: Function
     getFullPrice: Function
@@ -21,12 +19,10 @@ export interface ContentPageProps {
     filtered: any
 }
 
-export const ContentPage: FC<ContentPageProps> = ({cart, setCart, motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const ContentPage: FC<ContentPageProps> = ({motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
     return(
         <div className="ContentPage">
             <Content
-                cart={cart}
-                setCart={setCart}
                 motorcycles={motorcycles}
                 setMotorcycles={setMotorcycles}
                 getFullPrice={getFullPrice}

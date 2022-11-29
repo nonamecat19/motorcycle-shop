@@ -25,22 +25,13 @@ export const App = () => {
         localStorage.setItem('motorcycles', JSON.stringify(motorcycles))
     }, [motorcycles])
 
-    let Stored = localStorage.getItem('cart')
-
-
-    let fromLocalStorage = Stored ? JSON.parse(Stored) : []
-    const [cart, setCart] = useState(fromLocalStorage)
-
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart))
-    }, [cart])
-
     const resetFilter = () => setFiltered(motorcycles)
     const cardsFilter = (model: string, brand: string) => {
         let data = brand === 'All' ? motorcycles : motorcycles.filter((item: any) => item.brand.includes(brand))
         setFiltered(data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase())))
     }
 
+    const {cart} = useSelector((state: any) => state.cart)
     const getFullPrice = () => {
         let sum: number = 0
         for (let product of cart)
@@ -71,8 +62,6 @@ export const App = () => {
         <div className="App">
             <Routes>
                 <Route path='/' element={<ContentPage
-                    cart={cart}
-                    setCart={setCart}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
                     getFullPrice={getFullPrice}

@@ -10,8 +10,6 @@ import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
 import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
 
 export interface ContentProps {
-    cart: Cart
-    setCart: Function
     motorcycles: Motorcycles
     setMotorcycles: Function
     getFullPrice: Function
@@ -27,17 +25,14 @@ export interface ContentProps {
     filtered: any
 }
 
-export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
     return(
         <div className="Content">
             <Navbar
-                cart={cart}
                 getFullPrice={getFullPrice}
             />
             <div className='content'>
                 <ShoppingCart
-                    cart={cart}
-                    setCart={setCart}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
                     getFullPrice={getFullPrice}
@@ -49,8 +44,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                 />
                 <Products
                     filtered={filtered}
-                    cart={cart}
-                    setCart={setCart}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
                 />

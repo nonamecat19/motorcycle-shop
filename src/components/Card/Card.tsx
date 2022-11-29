@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import './Card.scss';
 import {Cart, Motorcycles} from "../../Types";
+import {useDispatch, useSelector} from "react-redux";
+import {setCart} from "../../redux/slices/cartSlicer";
 
 export interface CardProps {
     img: string
@@ -9,8 +11,6 @@ export interface CardProps {
     model: string
     price: number
     id: number
-    cart: Cart
-    setCart: Function
     motorcycles: Motorcycles
     setMotorcycles: Function
     number: number
@@ -24,14 +24,15 @@ export const Card: FC<CardProps> = (
         model,
         price,
         id,
-        cart,
-        setCart,
         motorcycles,
         setMotorcycles,
         number
     }) => {
+    const dispatch = useDispatch()
+    const {cart} = useSelector((state: any) => state.cart)
+
     const addToCart = (e: any) => {
-        setCart([...cart, id])
+        dispatch(setCart([...cart, id]))
         e.target.disabled = true
         let changedData = motorcycles
         // changedData[id].number = 1
