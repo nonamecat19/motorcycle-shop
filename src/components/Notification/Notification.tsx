@@ -1,13 +1,13 @@
 import React, {FC, Ref} from 'react'
 import './Notification.scss'
+import {useSelector} from "react-redux";
 
 interface NotificationProps {
-    "header": string
-    "text": string
-    "notifyRef": Ref<any>
+    notifyRef: Ref<any>
 }
 
-export const Notification: FC<NotificationProps> = ({header, text, notifyRef}) => {
+export const Notification: FC<NotificationProps> = ({notifyRef}) => {
+    const {header, text, ref} = useSelector((state: any) => state.notification)
     return(
         <>
             <input

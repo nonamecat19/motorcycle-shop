@@ -6,11 +6,8 @@ import {Motorcycles, Notify, Orders} from "../../Types";
 export interface ContentPageProps {
     motorcycles: Motorcycles
     setMotorcycles: Function
-    getFullPrice: Function
-    notify: Notify
-    setNotify: Function
-    notifyRef: any
     orders: Orders
+    notifyRef: any
     setOrders: Function
     setFiltered: Function
     cardsFilter: Function
@@ -19,17 +16,14 @@ export interface ContentPageProps {
     filtered: any
 }
 
-export const ContentPage: FC<ContentPageProps> = ({motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const ContentPage: FC<ContentPageProps> = ({motorcycles, setMotorcycles, orders, notifyRef, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
     return(
         <div className="ContentPage">
             <Content
                 motorcycles={motorcycles}
                 setMotorcycles={setMotorcycles}
-                getFullPrice={getFullPrice}
-                notify={notify}
-                setNotify={setNotify}
-                notifyRef={notifyRef}
                 orders={orders}
+                notifyRef={notifyRef}
                 setOrders={setOrders}
                 setFiltered={setFiltered}
                 cardsFilter={cardsFilter}

@@ -8,13 +8,11 @@ import {Sidebar} from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
 import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
+import {useSelector} from "react-redux";
 
 export interface ContentProps {
     motorcycles: Motorcycles
     setMotorcycles: Function
-    getFullPrice: Function
-    notify: Notify
-    setNotify: Function
     notifyRef: any
     orders: Orders
     setOrders: Function
@@ -25,7 +23,15 @@ export interface ContentProps {
     filtered: any
 }
 
-export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+    const {cart} = useSelector((state: any) => state.cart)
+    const getFullPrice = () => {
+        let sum: number = 0
+        for (let product of cart)
+            sum += motorcycles[product].price
+        return sum.toString()
+    }
+
     return(
         <div className="Content">
             <Navbar
@@ -36,8 +42,6 @@ export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, getFullP
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
                     getFullPrice={getFullPrice}
-                    notify={notify}
-                    setNotify={setNotify}
                     notifyRef={notifyRef}
                     orders={orders}
                     setOrders={setOrders}
@@ -62,8 +66,6 @@ export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, getFullP
                     filtered={filtered}
                 />
                 <Notification
-                    header={notify.header}
-                    text={notify.text}
                     notifyRef={notifyRef}
                 />
                 <OrderList

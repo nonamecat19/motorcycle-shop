@@ -1,3 +1,5 @@
+import {Ref} from "react";
+
 export type MotorcycleElement = {
     "id": number,
     "img": string,
@@ -17,6 +19,7 @@ export type Cache = {
 export type Notify = {
     "header": string
     "text": string
+    "ref": Ref<any>
 }
 
 export type Cart = Array<number>

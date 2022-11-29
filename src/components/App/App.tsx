@@ -31,20 +31,6 @@ export const App = () => {
         setFiltered(data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase())))
     }
 
-    const {cart} = useSelector((state: any) => state.cart)
-    const getFullPrice = () => {
-        let sum: number = 0
-        for (let product of cart)
-            sum += motorcycles[product].price
-        return sum.toString()
-    }
-
-    const [notify, setNotify] = useState(
-        {
-            header: "",
-            text: ""
-        }
-    )
     const notifyRef = useRef()
 
 
@@ -64,11 +50,8 @@ export const App = () => {
                 <Route path='/' element={<ContentPage
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
-                    getFullPrice={getFullPrice}
-                    notify={notify}
-                    setNotify={setNotify}
-                    notifyRef={notifyRef}
                     orders={orders}
+                    notifyRef={notifyRef}
                     setOrders={setOrders}
                     setFiltered={setFiltered}
                     cardsFilter={cardsFilter}
