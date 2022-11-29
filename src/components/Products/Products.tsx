@@ -1,15 +1,23 @@
 import {Card} from "../Card/Card";
-import React from "react";
+import React, {FC, Ref} from "react";
 import './Products.scss'
-import {MotorcycleElement} from '../../Types'
+import {Cart, MotorcycleElement, Motorcycles, Notify, Orders} from '../../Types'
 import {useSelector} from "react-redux";
 
-export const Products = (props: any) => {
+export interface ProductsProps {
+    filtered: any
+    cart: Cart
+    setCart: Function
+    motorcycles: Motorcycles
+    setMotorcycles: Function
+}
+
+export const Products: FC<ProductsProps> = ({filtered, cart, setCart, motorcycles, setMotorcycles}) => {
     const {cache} = useSelector((state: any) => state.cache)
 
-    return(
+    return (
         <div className='Products'>
-            {props.filtered.map((i: MotorcycleElement) =>  (
+            {filtered.map((i: MotorcycleElement) => (
                 <Card
                     key={i.id}
                     img={cache["./" + i.img]}
@@ -18,10 +26,10 @@ export const Products = (props: any) => {
                     model={i.model}
                     price={i.price}
                     id={i.id}
-                    cart={props.cart}
-                    setCart={props.setCart}
-                    motorcycles={props.motorcycles}
-                    setMotorcycles={props.setMotorcycles}
+                    cart={cart}
+                    setCart={setCart}
+                    motorcycles={motorcycles}
+                    setMotorcycles={setMotorcycles}
                     number={i.number}
                 />
             ))}
