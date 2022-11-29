@@ -1,33 +1,61 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './Card.scss';
+import {Cart, Motorcycles} from "../../Types";
 
-export const Card = (props: any) => {
+export interface CardProps {
+    img: string
+    color: string
+    brand: string
+    model: string
+    price: number
+    id: number
+    cart: Cart
+    setCart: Function
+    motorcycles: Motorcycles
+    setMotorcycles: Function
+    number: number
+}
+
+export const Card: FC<CardProps> = (
+    {
+        img,
+        color,
+        brand,
+        model,
+        price,
+        id,
+        cart,
+        setCart,
+        motorcycles,
+        setMotorcycles,
+        number
+    }) => {
     const addToCart = (e: any) => {
-        props.setCart([...props.cart, props.id])
+        setCart([...cart, id])
         e.target.disabled = true
-        let changedData = props.motorcycles
-        changedData[props.id].available = false
-        props.setMotorcycles(changedData)
+        let changedData = motorcycles
+        // changedData[id].number = 1
+        setMotorcycles(changedData)
         localStorage.setItem('motorcycles', JSON.stringify(changedData))
     }
 
-    return(
+    return (
         <div className="wrap Card">
             <div className="card w-64 bg-base-100 shadow-xl relative mt-1">
                 <div
                     className="img"
-                    style={{backgroundImage: `url("${props.img}")`}}
+                    style={{backgroundImage: `url("${img}")`}}
                 >
                 </div>
                 <div className="card-body">
-                    <h2 className="card-title">{props.brand}</h2>
-                    <h4>{props.model}</h4>
+                    <h2 className="card-title">{brand}</h2>
+                    <h4>{model}</h4>
                     <div className="card-actions justify-end">
                         <button
                             onClick={addToCart}
-                            disabled={props.number === 0}
+                            disabled={number === 0}
                         >
-                            В кошик - {props.price}$
+                            В кошик - {price}$
                         </button>
                     </div>
                 </div>
