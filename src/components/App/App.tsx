@@ -5,6 +5,9 @@ import {Cache, Motorcycles, Orders} from '../../Types'
 import {Authorization} from "../Authorization/Authorization";
 import {Content} from "../Content/Content";
 import {useSelector} from "react-redux";
+import {Router, Route, Link, Routes} from "react-router-dom";
+import {AuthPage} from "../../pages/AuthPage/AuthPage";
+import {ContentPage} from "../../pages/ContentPage/ContentPage";
 
 export const App = () => {
     let filterBrand: any = useRef()
@@ -43,8 +46,8 @@ export const App = () => {
 
     const getFullPrice = () => {
         let sum: number = 0
-            for (let product of cart)
-                    sum += motorcycles[product].price
+        for (let product of cart)
+            sum += motorcycles[product].price
         return sum.toString()
     }
 
@@ -69,12 +72,8 @@ export const App = () => {
 
     return (
         <div className="App">
-            {
-                authForm
-                ?
-                <Authorization/>
-                :
-                <Content
+            <Routes>
+                <Route path='/' element={<ContentPage
                     cart={cart}
                     setCart={setCart}
                     motorcycles={motorcycles}
@@ -91,10 +90,10 @@ export const App = () => {
                     filterBrand={filterBrand}
                     filterModel={filterModel}
                     filtered={filtered}
-                />
-            }
-
-
+                />}/>
+                <Route
+                    path='auth' element={<AuthPage/>}/>
+            </Routes>
         </div>
-  )
+    )
 }

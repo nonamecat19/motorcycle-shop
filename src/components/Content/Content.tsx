@@ -25,7 +25,7 @@ export interface ContentProps {
     cardsFilter: Function
     filterBrand: Ref<any>
     filterModel: Ref<any>
-    filtered: any,
+    filtered: any
 }
 
 export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {

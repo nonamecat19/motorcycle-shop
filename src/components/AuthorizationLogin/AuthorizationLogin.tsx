@@ -3,19 +3,20 @@ import './AuthorizationLogin.scss'
 import GoogleLogin from 'react-google-login';
 import {useDispatch, useSelector} from "react-redux";
 import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
+import {redirect, useNavigate} from 'react-router-dom';
 
 export interface AuthorizationLogin {
 
 }
 
 export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
-
+    const navigate = useNavigate();
     const [create, setCreate] = useState(false)
 
     const dispatch = useDispatch()
 
     const passwordInput = (repeat: boolean) => {
-        return(
+        return (
             <div className="relative">
                 <input
                     id={repeat ? "repeatPassword" : "password"}
@@ -38,14 +39,16 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
     }
 
     const AuthSubmitHandler = () => {
+        navigate("/")
         dispatch(toggleAuthForm())
     }
 
-    return(
+    return (
         <div className="AuthorizationFormLogin">
             <div className="min-h-screen py-6 flex flex-col justify-center py-12">
                 <div className="relative py-0">
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 shadow-lg transform skew-y-0 -rotate-6 rounded-3xl">
+                    <div
+                        className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 shadow-lg transform skew-y-0 -rotate-6 rounded-3xl">
                     </div>
                     <div className="relative px-16 py-5 bg-white shadow-lg rounded-3xl">
                         <div className="max-w-md mx-auto">

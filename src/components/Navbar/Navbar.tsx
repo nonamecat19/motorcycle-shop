@@ -3,6 +3,7 @@ import './Navbar.scss'
 import {Cart} from "../../Types";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
+import {redirect, useNavigate} from "react-router-dom";
 
 export interface ContentProps {
     cart: Cart
@@ -10,9 +11,14 @@ export interface ContentProps {
 }
 
 const Navbar: FC<ContentProps> = ({cart, getFullPrice}) => {
-
+    const navigate = useNavigate();
     const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
+
+    const loginHandler = () => {
+        navigate('/auth')
+        dispatch(toggleAuthForm())
+    }
 
     return(
         <div className='Navbar'>
@@ -48,7 +54,7 @@ const Navbar: FC<ContentProps> = ({cart, getFullPrice}) => {
                             <li>
                                 <a
                                     className="justify-between"
-                                    onClick={() => dispatch(toggleAuthForm())}
+                                    onClick={loginHandler}
                                 >
                                     Профіль
                                 </a>
