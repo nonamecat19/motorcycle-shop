@@ -1,13 +1,7 @@
 @import "../../scss/variables";
 
 .Sidebar{
-    position: fixed;
-    right: 5px;
-    top: 60px;
-    padding: 30px;
-    background: $main-color;
-    width: 250px;
-    margin: 20px 10px 0 0;
     @include radius;
     @include shadow;
+    @apply fixed p-8 w-64 top-[60px] right-[5px] bg-main mt-[20px] mr-[10px]
 }

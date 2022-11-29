@@ -1,19 +1,12 @@
 .Authorization{
-  height: 100vh;
-  //filter: blur(2px);
-  position: relative;
-
   .darker{
-    position: absolute;
-    height: 10%;
-    width: 100vw;
-    background: black;
+    @apply absolute w-screen bg-black h-[10%]
   }
+
+  @apply h-screen relative
 }
 
 
 .auth-form{
-  height: 300px;
-  width: 300px;
-  background-color: #fff;
+  @apply bg-white h-[300px] w-[300px]
 }

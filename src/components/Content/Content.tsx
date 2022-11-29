@@ -26,8 +26,6 @@ export interface ContentProps {
     filterBrand: Ref<any>
     filterModel: Ref<any>
     filtered: any,
-    // authForm: boolean
-    // setAuthForm: Function
 }
 
 export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
@@ -36,8 +34,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
             <Navbar
                 cart={cart}
                 getFullPrice={getFullPrice}
-                // authForm={authForm}
-                // setAuthForm={setAuthForm}
             />
             <div className='content'>
                 <ShoppingCart
@@ -65,7 +61,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     filterBrand={filterBrand}
                     filterModel={filterModel}
                     cardsFilter={cardsFilter}
-                    // resetFilter={resetFilter}
                 />
                 <AdminPanel
                     cache={cache}

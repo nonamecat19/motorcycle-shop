@@ -1,19 +1,10 @@
 @import "../../scss/variables";
 
-
-//*{
-//    outline: 1px solid red;
-//}
-
 .windowCart{
-    border: 1px solid #dcdcdc;
-    min-height: 120px;
-    max-height: calc(100vh - 200px);
-    overflow-y: scroll;
+    @apply min-h-[120px] overflow-y-scroll max-h-[calc(100vh-200px)]
+    border border-[#dcdcdc]
 }
 
 .cart{
-    min-height: 200px;
-    max-height: 96vh;
-    max-width: 600px;
+    @apply min-h-[200px] max-h-[96vh] max-w-[600px]
 }

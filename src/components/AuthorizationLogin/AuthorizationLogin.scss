@@ -1,12 +1,11 @@
 @import "../../scss/variables";
 .AuthorizationFormLogin{
   input{
-    color: $second-color;
+    @apply text-second
   }
 
 }
 
-
 .auth-submit{
-  background: $second-color;
+  @apply bg-second
 }

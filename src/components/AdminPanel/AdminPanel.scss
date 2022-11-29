@@ -3,13 +3,9 @@
 }
 
 .AdminPanelElement{
-  border-bottom: 1px solid #dcdcdc;
-  padding: 5px;
-  display: flex;
+  @apply p-1 flex border-b border-[#dcdcdc]
 }
 
 .window{
-  border: 1px solid #dcdcdc;
-  height: 60vh;
-  overflow-y: scroll;
+  @apply overflow-y-scroll h-[60vh] border border-[#dcdcdc]
 }

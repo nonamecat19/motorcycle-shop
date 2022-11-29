@@ -1,18 +1,9 @@
-/*@tailwind base;*/
-/*@tailwind components;*/
-/*@tailwind utilities;*/
-
 @import "../../scss/variables";
 
 .App{
-    min-height: 100vh;
-}
-
-*{
-    /*outline: red solid 1px*/
+    @apply min-h-screen
 }
 
 .content{
-    display: flex;
-    width: 100vw;
+    @apply flex w-screen
 }

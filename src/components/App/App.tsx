@@ -7,8 +7,6 @@ import {Content} from "../Content/Content";
 import {useSelector} from "react-redux";
 
 export const App = () => {
-    // const [authForm, setAuthForm] = useState(false)
-
     let filterBrand: any = useRef()
     let filterModel: any = useRef()
 
