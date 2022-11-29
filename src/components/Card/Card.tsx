@@ -12,27 +12,23 @@ export const Card = (props: any) => {
     }
 
     return(
-        <div className="wrap">
-            <div
-                className="h-8 img"
-                style={{backgroundImage: `url("${props.img}")`}}
-            >
-            </div>
-            <div className="card w-64 bg-base-100 shadow-xl relative mt-36">
+        <div className="wrap Card">
+            <div className="card w-64 bg-base-100 shadow-xl relative mt-1">
                 <div
-                    className="h-12"
-                    style={{backgroundColor: props.color}}
-                ></div>
+                    className="img"
+                    style={{backgroundImage: `url("${props.img}")`}}
+                >
+                </div>
                 <div className="card-body">
                     <h2 className="card-title">{props.brand}</h2>
                     <h4>{props.model}</h4>
                     <div className="card-actions justify-end">
                         <button
-                            className="btn btn-primary"
                             onClick={addToCart}
                             disabled={props.number === 0}
                         >
-                            Купити - {props.price}$</button>
+                            В кошик - {props.price}$
+                        </button>
                     </div>
                 </div>
             </div>
