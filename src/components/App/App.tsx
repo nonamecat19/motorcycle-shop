@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 import {Router, Route, Link, Routes} from "react-router-dom";
 import {AuthPage} from "../../pages/AuthPage/AuthPage";
 import {ContentPage} from "../../pages/ContentPage/ContentPage";
+import {ProductPage} from "../../pages/ProductPage/ProductPage";
 
 export const App = () => {
     let filterBrand: any = useRef()
@@ -91,8 +92,8 @@ export const App = () => {
                     filterModel={filterModel}
                     filtered={filtered}
                 />}/>
-                <Route
-                    path='auth' element={<AuthPage/>}/>
+                <Route path='auth' element={<AuthPage/>}/>
+                <Route path='products/:id' element={<ProductPage/>}/>
             </Routes>
         </div>
     )
