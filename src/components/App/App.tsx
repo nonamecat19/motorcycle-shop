@@ -41,10 +41,6 @@ export const App = () => {
         setFiltered(data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase())))
     }
 
-    const cache: Cache = {};
-    const importAll = (r: any): void => r.keys().forEach((key: string) => (cache[key] = r(key)));
-    importAll(require.context('../../assets/motorcycle/', true, /\.(png|ico|svg|jpg|gif)$/))
-
     const getFullPrice = () => {
         let sum: number = 0
         for (let product of cart)
@@ -79,7 +75,6 @@ export const App = () => {
                     setCart={setCart}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
-                    cache={cache}
                     getFullPrice={getFullPrice}
                     notify={notify}
                     setNotify={setNotify}

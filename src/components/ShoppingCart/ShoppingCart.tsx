@@ -1,13 +1,14 @@
 import React, {FC, Fragment, ReactElement, ReactFragment, useState} from "react";
 import './ShopingCart.scss'
 import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Orders} from '../../Types'
+import {useSelector} from "react-redux";
+import {setCache} from './../../redux/slices/cacheSlicer'
 
 interface ShoppingCartProps {
     "cart": Cart
     "setCart": Function
     "motorcycles": Motorcycles
     "setMotorcycles": Function
-    "cache": Cache
     "getFullPrice": Function
     "notify": Notify
     "setNotify": Function
@@ -22,7 +23,6 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         setCart,
         motorcycles,
         setMotorcycles,
-        cache,
         getFullPrice,
         notify,
         setNotify,
@@ -30,6 +30,8 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         orders,
         setOrders
     }) => {
+
+    const {cache} = useSelector((state: any) => state.cache)
 
     const buyProducts = () => {
         let tempOrder: OrderElement = {

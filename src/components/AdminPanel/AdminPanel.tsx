@@ -1,9 +1,9 @@
 import React, {FC, Ref, useState} from 'react'
 import './AdminPanel.scss'
 import {Motorcycles, MotorcycleElement, Cache} from '../../Types'
+import {useSelector} from "react-redux";
 
 export interface AdminPanelProps {
-    cache: Cache,
     motorcycles: Motorcycles,
     setMotorcycles: Function,
     setFiltered: Function,
@@ -13,8 +13,8 @@ export interface AdminPanelProps {
     filtered: any
 }
 
-export const AdminPanel: FC<AdminPanelProps> = ({cache, motorcycles, setMotorcycles, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
-
+export const AdminPanel: FC<AdminPanelProps> = ({motorcycles, setMotorcycles, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+    const {cache} = useSelector((state: any) => state.cache)
     const defaultBrand = (): string[] => {
         let res: string[] = []
         for (const i of motorcycles)

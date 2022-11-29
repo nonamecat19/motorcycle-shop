@@ -14,7 +14,6 @@ export interface ContentProps {
     setCart: Function
     motorcycles: Motorcycles
     setMotorcycles: Function
-    cache: Cache
     getFullPrice: Function
     notify: Notify
     setNotify: Function
@@ -28,7 +27,7 @@ export interface ContentProps {
     filtered: any
 }
 
-export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, cache, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorcycles, getFullPrice, notify, setNotify, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
     return(
         <div className="Content">
             <Navbar
@@ -41,7 +40,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     setCart={setCart}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
-                    cache={cache}
                     getFullPrice={getFullPrice}
                     notify={notify}
                     setNotify={setNotify}
@@ -53,7 +51,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     filtered={filtered}
                     cart={cart}
                     setCart={setCart}
-                    cache={cache}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
                 />
@@ -63,7 +60,6 @@ export const Content: FC<ContentProps> = ({cart, setCart, motorcycles, setMotorc
                     cardsFilter={cardsFilter}
                 />
                 <AdminPanel
-                    cache={cache}
                     motorcycles={motorcycles}
                     setMotorcycles={setMotorcycles}
                     setFiltered={setFiltered}
