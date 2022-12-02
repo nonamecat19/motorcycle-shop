@@ -10,7 +10,7 @@ export type MotorcycleElement = {
     "color": string
 }
 
-export type Motorcycles = Array<MotorcycleElement>
+export type Motorcycles = MotorcycleElement[]
 
 export type Cache = {
     [key: string]: string
@@ -22,7 +22,7 @@ export type Notify = {
     "ref": Ref<any>
 }
 
-export type Cart = Array<number>
+export type Cart = number[]
 
 export type OrderElement = {
     "number": number
@@ -32,4 +32,4 @@ export type OrderElement = {
     "comment": string
 }
 
-export type Orders = Array<OrderElement>
+export type Orders = OrderElement[]

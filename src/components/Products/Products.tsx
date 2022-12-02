@@ -10,7 +10,13 @@ export interface ProductsProps {
     setMotorcycles: Function
 }
 
-export const Products: FC<ProductsProps> = ({filtered, motorcycles, setMotorcycles}) => {
+export const Products: FC<ProductsProps> = (
+    {
+        filtered,
+        motorcycles,
+        setMotorcycles
+    }) => {
+
     const {cache} = useSelector((state: any) => state.cache)
 
     return (

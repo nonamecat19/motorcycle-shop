@@ -3,6 +3,7 @@ import './Card.scss';
 import {Cart, Motorcycles} from "../../Types";
 import {useDispatch, useSelector} from "react-redux";
 import {setCart} from "../../redux/slices/cartSlicer";
+import { Link } from 'react-router-dom';
 
 export interface CardProps {
     img: string
@@ -49,7 +50,9 @@ export const Card: FC<CardProps> = (
                 >
                 </div>
                 <div className="card-body">
-                    <h2 className="card-title">{brand}</h2>
+                    <Link to={`products/motorcycles/${id}`}>
+                        <h2 className="card-title">{brand}</h2>
+                    </Link>
                     <h4>{model}</h4>
                     <div className="card-actions justify-end">
                         <button

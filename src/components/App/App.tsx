@@ -60,7 +60,7 @@ export const App = () => {
                     filtered={filtered}
                 />}/>
                 <Route path='auth' element={<AuthPage/>}/>
-                <Route path='products/:id' element={<ProductPage/>}/>
+                <Route path='products/:category/:id' element={<ProductPage/>}/>
             </Routes>
         </div>
     )
