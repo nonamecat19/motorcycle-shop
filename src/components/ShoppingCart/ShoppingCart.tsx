@@ -4,8 +4,8 @@ import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Order
 import {useDispatch, useSelector} from "react-redux";
 import {setCache} from './../../redux/slices/cacheSlicer'
 import {setCart} from "../../redux/slices/cartSlicer";
-import { setNotification } from "../../redux/slices/notificationSlicer";
-import { setMotorcycles } from "../../redux/slices/motorcyclesSlicer";
+import {setNotification} from "../../redux/slices/notificationSlicer";
+import {setMotorcycles} from "../../redux/slices/motorcyclesSlicer";
 
 interface ShoppingCartProps {
     getFullPrice: Function
@@ -37,7 +37,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
             "comment": ""
         }
         let tempMotorcycles = motorcycles
-        for (let i of cart){
+        for (let i of cart) {
             tempOrder.products.push(motorcycles[i])
             tempOrder.totalPrice += motorcycles[i].price
             // tempMotorcycles[i].number -= 1
@@ -59,7 +59,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         <Fragment key={item}>
             <div className="h-32 image-full flex justify-around items-center">
                 <div className="w-60">
-                    <img className="h-32 m-auto" src={cache["./"  + item + ".png"]} alt="Shoes" />
+                    <img className="h-32 m-auto" src={cache["./" + item + ".png"]} alt="Shoes"/>
                 </div>
                 <div className="float-left w-32">
                     <h2 className="card-title">{motorcycles[item].brand}</h2>
@@ -72,9 +72,9 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
         </Fragment>
     ));
 
-    return(
+    return (
         <div className='ShoppingCart'>
-            <input type="checkbox" id="my-modal-cart" className="modal-toggle" />
+            <input type="checkbox" id="my-modal-cart" className="modal-toggle"/>
             <div className="modal">
                 <div className="modal-box cart max-w-4xl relative">
                     <label htmlFor="my-modal-cart" className="btn btn-sm absolute right-2 top-2">✕</label>
