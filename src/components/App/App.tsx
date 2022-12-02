@@ -14,16 +14,11 @@ export const App = () => {
     let filterBrand: any = useRef()
     let filterModel: any = useRef()
 
-    let localData = localStorage.getItem('motorcycles')
-    let defaultMotoData: Motorcycles
-    defaultMotoData = localData ? JSON.parse(localData) : JSONData.motorcycles;
-    const [motorcycles, setMotorcycles] = useState(defaultMotoData)
+
+    let {motorcycles} = useSelector((state: any) => state.motorcycles)
+
     const [filtered, setFiltered] = useState(motorcycles)
     // const filtered = useSelector(state => state.productFilter.filter)
-
-    useEffect(() => {
-        localStorage.setItem('motorcycles', JSON.stringify(motorcycles))
-    }, [motorcycles])
 
     const resetFilter = () => setFiltered(motorcycles)
     const cardsFilter = (model: string, brand: string) => {
@@ -48,8 +43,6 @@ export const App = () => {
         <div className="App">
             <Routes>
                 <Route path='/' element={<ContentPage
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
                     orders={orders}
                     notifyRef={notifyRef}
                     setOrders={setOrders}

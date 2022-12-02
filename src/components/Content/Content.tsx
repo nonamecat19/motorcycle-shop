@@ -11,8 +11,6 @@ import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
 import {useSelector} from "react-redux";
 
 export interface ContentProps {
-    motorcycles: Motorcycles
-    setMotorcycles: Function
     notifyRef: any
     orders: Orders
     setOrders: Function
@@ -23,7 +21,8 @@ export interface ContentProps {
     filtered: any
 }
 
-export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({notifyRef, orders, setOrders, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+    let {motorcycles} = useSelector((state: any) => state.motorcycles)
     const {cart} = useSelector((state: any) => state.cart)
     const getFullPrice = () => {
         let sum: number = 0
@@ -39,8 +38,6 @@ export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, notifyRe
             />
             <div className='content'>
                 <ShoppingCart
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
                     getFullPrice={getFullPrice}
                     notifyRef={notifyRef}
                     orders={orders}
@@ -48,8 +45,6 @@ export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, notifyRe
                 />
                 <Products
                     filtered={filtered}
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
                 />
                 <Sidebar
                     filterBrand={filterBrand}
@@ -57,8 +52,6 @@ export const Content: FC<ContentProps> = ({motorcycles, setMotorcycles, notifyRe
                     cardsFilter={cardsFilter}
                 />
                 <AdminPanel
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
                     setFiltered={setFiltered}
                     cardsFilter={cardsFilter}
                     filterBrand={filterBrand}

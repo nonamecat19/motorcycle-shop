@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import './Card.scss';
 import {Cart, Motorcycles} from "../../Types";
+import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {setCart} from "../../redux/slices/cartSlicer";
-import { Link } from 'react-router-dom';
+import { setMotorcycles } from '../../redux/slices/motorcyclesSlicer';
 
 export interface CardProps {
     img: string
@@ -12,8 +13,6 @@ export interface CardProps {
     model: string
     price: number
     id: number
-    motorcycles: Motorcycles
-    setMotorcycles: Function
     number: number
 }
 
@@ -25,10 +24,9 @@ export const Card: FC<CardProps> = (
         model,
         price,
         id,
-        motorcycles,
-        setMotorcycles,
         number
     }) => {
+    let {motorcycles} = useSelector((state: any) => state.motorcycles)
     const dispatch = useDispatch()
     const {cart} = useSelector((state: any) => state.cart)
 
@@ -37,7 +35,7 @@ export const Card: FC<CardProps> = (
         e.target.disabled = true
         let changedData = motorcycles
         // changedData[id].number = 1
-        setMotorcycles(changedData)
+        dispatch(setMotorcycles(changedData))
         localStorage.setItem('motorcycles', JSON.stringify(changedData))
     }
 

@@ -1,11 +1,10 @@
 import React, {FC, Ref, useState} from 'react'
 import './AdminPanel.scss'
 import {Motorcycles, MotorcycleElement, Cache} from '../../Types'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { setMotorcycles } from '../../redux/slices/motorcyclesSlicer';
 
 export interface AdminPanelProps {
-    motorcycles: Motorcycles,
-    setMotorcycles: Function,
     setFiltered: Function,
     cardsFilter: Function,
     filterBrand: Ref<any>,
@@ -13,7 +12,9 @@ export interface AdminPanelProps {
     filtered: any
 }
 
-export const AdminPanel: FC<AdminPanelProps> = ({motorcycles, setMotorcycles, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const AdminPanel: FC<AdminPanelProps> = ({setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+    let {motorcycles} = useSelector((state: any) => state.motorcycles)
+    const dispatch = useDispatch()
     const {cache} = useSelector((state: any) => state.cache)
     const defaultBrand = (): string[] => {
         let res: string[] = []
@@ -120,7 +121,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({motorcycles, setMotorcycles, se
             index++
         }
         localStorage.setItem('motorcycles', JSON.stringify(result))
-        setMotorcycles(result)
+        dispatch(setMotorcycles(result))
         document.location.reload();
     }
     

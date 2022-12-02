@@ -6,15 +6,11 @@ import {useSelector} from "react-redux";
 
 export interface ProductsProps {
     filtered: any
-    motorcycles: Motorcycles
-    setMotorcycles: Function
 }
 
 export const Products: FC<ProductsProps> = (
     {
-        filtered,
-        motorcycles,
-        setMotorcycles
+        filtered
     }) => {
 
     const {cache} = useSelector((state: any) => state.cache)
@@ -30,8 +26,6 @@ export const Products: FC<ProductsProps> = (
                     model={i.model}
                     price={i.price}
                     id={i.id}
-                    motorcycles={motorcycles}
-                    setMotorcycles={setMotorcycles}
                     number={i.number}
                 />
             ))}
