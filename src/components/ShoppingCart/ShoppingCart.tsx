@@ -6,31 +6,30 @@ import {setCache} from './../../redux/slices/cacheSlicer'
 import {setCart} from "../../redux/slices/cartSlicer";
 import {setNotification} from "../../redux/slices/notificationSlicer";
 import {setMotorcycles} from "../../redux/slices/motorcyclesSlicer";
+import {setOrder} from "../../redux/slices/orderSlicer";
+
 
 interface ShoppingCartProps {
     getFullPrice: Function
     notifyRef: any
-    orders: Orders
-    setOrders: Function
 }
 
 export const ShoppingCart: FC<ShoppingCartProps> = (
     {
         getFullPrice,
         notifyRef,
-        orders,
-        setOrders
     }) => {
 
     const {motorcycles} = useSelector((state: any) => state.motorcycles)
     const {cache} = useSelector((state: any) => state.cache)
     const {cart} = useSelector((state: any) => state.cart)
     const {notification} = useSelector((state: any) => state.notification)
+    const {order} = useSelector((state: any) => state.order)
 
     const dispatch = useDispatch()
     const buyProducts = () => {
         let tempOrder: OrderElement = {
-            "number": orders.length,
+            "number": order.length,
             "products": [],
             "totalPrice": 0,
             "rating": 0,
@@ -42,7 +41,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
             tempOrder.totalPrice += motorcycles[i].price
             // tempMotorcycles[i].number -= 1
         }
-        setOrders([...orders, tempOrder])
+        dispatch(setOrder([...order, tempOrder]))
 
 
         dispatch(setMotorcycles(tempMotorcycles))

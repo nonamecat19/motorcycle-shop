@@ -4,6 +4,7 @@ import cache from "./slices/cacheSlicer";
 import cart from "./slices/cartSlicer";
 import notification from "./slices/notificationSlicer";
 import motorcycles from "./slices/motorcyclesSlicer";
+import order from "./slices/orderSlicer";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         cache: cache,
         cart: cart,
         notification: notification,
-        motorcycles: motorcycles
+        motorcycles: motorcycles,
+        order: order
     }
 })

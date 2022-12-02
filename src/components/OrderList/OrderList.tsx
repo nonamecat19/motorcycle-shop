@@ -2,15 +2,17 @@ import React, {FC, useState} from 'react'
 import './OrderList.scss'
 import {MotorcycleElement, Motorcycles, OrderElement, Orders} from "../../Types";
 import JSONData from "../../data.json";
+import {useSelector} from "react-redux";
 
 interface OrderListProps {
-    orders: Orders
+
 }
 
-export const OrderList: FC<OrderListProps> = ({orders}) => {
+export const OrderList: FC<OrderListProps> = ({}) => {
 
+    let {order} = useSelector((state: any) => state.order)
     let localComments = localStorage.getItem('comments')
-    let defaultComments: string[] = localComments ? JSON.parse(localComments) : new Array(orders.length).fill("");
+    let defaultComments: string[] = localComments ? JSON.parse(localComments) : new Array(order.length).fill("");
     const [comments, setComments] = useState(defaultComments)
 
     const commentsHandler = (event: any) => {
@@ -37,7 +39,7 @@ export const OrderList: FC<OrderListProps> = ({orders}) => {
         localStorage.setItem('comments', JSON.stringify(comments))
     }
 
-    let orderList = orders.map((item: OrderElement) => {
+    let orderList = order.map((item: OrderElement) => {
         return(
             <div key={item.number} className="flex">
                 <div className="collapse collapse-arrow w-full rounded m-1 orderCollapse">

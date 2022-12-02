@@ -29,23 +29,13 @@ export const App = () => {
     const notifyRef = useRef()
 
 
-    let localOrders = localStorage.getItem('orders')
-    let defaultOrders: Orders = localOrders ? JSON.parse(localOrders) : [];
-    const [orders, setOrders] = useState(defaultOrders)
-
-    useEffect(() => {
-        localStorage.setItem('orders', JSON.stringify(orders))
-    }, [orders])
-
     const authForm = useSelector((state: any) => state.authForm.auth)
 
     return (
         <div className="App">
             <Routes>
                 <Route path='/' element={<ContentPage
-                    orders={orders}
                     notifyRef={notifyRef}
-                    setOrders={setOrders}
                     setFiltered={setFiltered}
                     cardsFilter={cardsFilter}
                     filterBrand={filterBrand}
