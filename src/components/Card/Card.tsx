@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import './Card.scss';
 import {Cart, Motorcycles} from "../../Types";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {setCart} from "../../redux/slices/cartSlicer";
-import { setMotorcycles } from '../../redux/slices/motorcyclesSlicer';
+import {setMotorcycles} from '../../redux/slices/motorcyclesSlicer';
 
 export interface CardProps {
     img: string

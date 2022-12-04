@@ -17,11 +17,13 @@ export const App = () => {
     return (
         <div className="App">
             <Routes>
-                <Route path='/' element={<ContentPage
-                    notifyRef={notifyRef}
-                    filterBrand={filterBrand}
-                    filterModel={filterModel}
-                />}/>
+                <Route path='/' element={
+                    <ContentPage
+                        notifyRef={notifyRef}
+                        filterBrand={filterBrand}
+                        filterModel={filterModel}
+                    />
+                }/>
                 <Route path='auth' element={<AuthPage/>}/>
                 <Route path='products/:category/:id' element={<ProductPage/>}/>
             </Routes>

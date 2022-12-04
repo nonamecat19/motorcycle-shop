@@ -1,14 +1,14 @@
 import './Sidebar.scss'
 import {Ref} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { cardsFilter } from '../../redux/slices/motorcyclesSlicer';
+import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
 
 export interface SidebarProps {
     filterModel: any
     filterBrand: any
 }
 
-export const Sidebar = ({filterModel,filterBrand}: SidebarProps) => {
+export const Sidebar = ({filterModel, filterBrand}: SidebarProps) => {
     const dispatch = useDispatch()
     const filterHandler = () => {
         const data = {
@@ -17,7 +17,7 @@ export const Sidebar = ({filterModel,filterBrand}: SidebarProps) => {
         }
         dispatch(cardsFilter(data))
     }
-    return(
+    return (
         <div className='Sidebar'>
             <label htmlFor="brandFilter">Марка</label>
             <select

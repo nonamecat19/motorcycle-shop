@@ -26,7 +26,7 @@ export const Content: FC<ContentProps> = ({notifyRef, filterBrand, filterModel})
         return sum.toString()
     }
 
-    return(
+    return (
         <div className="Content">
             <Navbar
                 getFullPrice={getFullPrice}

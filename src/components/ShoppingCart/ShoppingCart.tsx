@@ -8,7 +8,6 @@ import {setNotification} from "../../redux/slices/notificationSlicer";
 import {setMotorcycles} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
 
-
 interface ShoppingCartProps {
     getFullPrice: Function
     notifyRef: any

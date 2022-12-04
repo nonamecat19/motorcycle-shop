@@ -22,7 +22,7 @@ export const OrderList: FC<OrderListProps> = ({}) => {
     }
 
     let orderProducts = (motorcycles: Motorcycles) => {
-        return(
+        return (
             motorcycles.map((item: MotorcycleElement) => (
                 <div
                     className="orderProducts flex justify-between"
@@ -40,10 +40,10 @@ export const OrderList: FC<OrderListProps> = ({}) => {
     }
 
     let orderList = order.map((item: OrderElement) => {
-        return(
+        return (
             <div key={item.number} className="flex">
                 <div className="collapse collapse-arrow w-full rounded m-1 orderCollapse">
-                    <input type="checkbox" className="peer" />
+                    <input type="checkbox" className="peer"/>
                     <div className="collapse-title bg-primary text-primary-content flex justify-between">
                         <div>Замовлення №{item.number}</div>
                         <div>{item.totalPrice}$</div>
@@ -66,7 +66,7 @@ export const OrderList: FC<OrderListProps> = ({}) => {
         )
     })
 
-    return(
+    return (
         <div className="OrderList">
             <input
                 type="checkbox"
