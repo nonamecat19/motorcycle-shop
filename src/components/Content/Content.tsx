@@ -12,14 +12,12 @@ import {useSelector} from "react-redux";
 
 export interface ContentProps {
     notifyRef: any
-    setFiltered: Function
     cardsFilter: Function
     filterBrand: Ref<any>
     filterModel: Ref<any>
-    filtered: any
 }
 
-export const Content: FC<ContentProps> = ({notifyRef, setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const Content: FC<ContentProps> = ({notifyRef, cardsFilter, filterBrand, filterModel}) => {
     let {motorcycles} = useSelector((state: any) => state.motorcycles)
     const {cart} = useSelector((state: any) => state.cart)
     const getFullPrice = () => {
@@ -39,20 +37,16 @@ export const Content: FC<ContentProps> = ({notifyRef, setFiltered, cardsFilter, 
                     getFullPrice={getFullPrice}
                     notifyRef={notifyRef}
                 />
-                <Products
-                    filtered={filtered}
-                />
+                <Products/>
                 <Sidebar
                     filterBrand={filterBrand}
                     filterModel={filterModel}
                     cardsFilter={cardsFilter}
                 />
                 <AdminPanel
-                    setFiltered={setFiltered}
                     cardsFilter={cardsFilter}
                     filterBrand={filterBrand}
                     filterModel={filterModel}
-                    filtered={filtered}
                 />
                 <Notification
                     notifyRef={notifyRef}

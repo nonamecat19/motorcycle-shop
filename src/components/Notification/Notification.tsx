@@ -1,4 +1,4 @@
-import React, {FC, Ref} from 'react'
+import React, {FC, Ref, useRef} from 'react'
 import './Notification.scss'
 import {useSelector} from "react-redux";
 
@@ -8,7 +8,8 @@ interface NotificationProps {
 
 export const Notification: FC<NotificationProps> = ({notifyRef}) => {
     const {header, text, ref} = useSelector((state: any) => state.notification)
-    return(
+    const refMy = useRef()
+    return (
         <>
             <input
                 type="checkbox"

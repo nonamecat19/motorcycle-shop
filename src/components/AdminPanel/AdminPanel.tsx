@@ -5,14 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import { setMotorcycles } from '../../redux/slices/motorcyclesSlicer';
 
 export interface AdminPanelProps {
-    setFiltered: Function,
     cardsFilter: Function,
     filterBrand: Ref<any>,
     filterModel: Ref<any>,
-    filtered: any
 }
 
-export const AdminPanel: FC<AdminPanelProps> = ({setFiltered, cardsFilter, filterBrand, filterModel, filtered}) => {
+export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filterModel}) => {
     let {motorcycles} = useSelector((state: any) => state.motorcycles)
     const dispatch = useDispatch()
     const {cache} = useSelector((state: any) => state.cache)

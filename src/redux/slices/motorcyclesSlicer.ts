@@ -7,10 +7,14 @@ const getInitialState = () => {
     return localData ? JSON.parse(localData) : JSONData.motorcycles;
 }
 
-const initialState: {
+interface State {
     motorcycles: Motorcycles
-} = {
-    motorcycles: getInitialState()
+    filtered: Motorcycles
+}
+
+const initialState: State = {
+    motorcycles: getInitialState(),
+    filtered: getInitialState()
 }
 
 export const motorcyclesSlicer = createSlice({
@@ -20,10 +24,13 @@ export const motorcyclesSlicer = createSlice({
         setMotorcycles: (state, action) => {
             state.motorcycles = action.payload
             localStorage.setItem('motorcycles', JSON.stringify(action.payload))
+        },
+        setFiltered: (state, action) => {
+            state.filtered = action.payload
         }
     }
 })
 
-export const {setMotorcycles} = motorcyclesSlicer.actions
+export const {setMotorcycles, setFiltered} = motorcyclesSlicer.actions
 
 export default motorcyclesSlicer.reducer

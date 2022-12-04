@@ -4,11 +4,12 @@ import JSONData from '../../data.json'
 import {Cache, Motorcycles, Orders} from '../../Types'
 import {Authorization} from "../Authorization/Authorization";
 import {Content} from "../Content/Content";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Router, Route, Link, Routes} from "react-router-dom";
 import {AuthPage} from "../../pages/AuthPage/AuthPage";
 import {ContentPage} from "../../pages/ContentPage/ContentPage";
 import {ProductPage} from "../../pages/ProductPage/ProductPage";
+import { setFiltered } from '../../redux/slices/motorcyclesSlicer';
 
 export const App = () => {
     let filterBrand: any = useRef()
@@ -16,14 +17,14 @@ export const App = () => {
 
 
     let {motorcycles} = useSelector((state: any) => state.motorcycles)
+    const dispatch = useDispatch()
 
-    const [filtered, setFiltered] = useState(motorcycles)
     // const filtered = useSelector(state => state.productFilter.filter)
 
-    const resetFilter = () => setFiltered(motorcycles)
+    // const resetFilter = () => setFiltered(motorcycles)
     const cardsFilter = (model: string, brand: string) => {
         let data = brand === 'All' ? motorcycles : motorcycles.filter((item: any) => item.brand.includes(brand))
-        setFiltered(data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase())))
+        dispatch(setFiltered(data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()))))
     }
 
     const notifyRef = useRef()
@@ -36,11 +37,9 @@ export const App = () => {
             <Routes>
                 <Route path='/' element={<ContentPage
                     notifyRef={notifyRef}
-                    setFiltered={setFiltered}
                     cardsFilter={cardsFilter}
                     filterBrand={filterBrand}
                     filterModel={filterModel}
-                    filtered={filtered}
                 />}/>
                 <Route path='auth' element={<AuthPage/>}/>
                 <Route path='products/:category/:id' element={<ProductPage/>}/>
@@ -48,3 +47,4 @@ export const App = () => {
         </div>
     )
 }
+

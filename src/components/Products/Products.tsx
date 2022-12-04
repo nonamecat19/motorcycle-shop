@@ -5,15 +5,13 @@ import {Cart, MotorcycleElement, Motorcycles, Notify, Orders} from '../../Types'
 import {useSelector} from "react-redux";
 
 export interface ProductsProps {
-    filtered: any
+
 }
 
-export const Products: FC<ProductsProps> = (
-    {
-        filtered
-    }) => {
+export const Products: FC<ProductsProps> = ({}) => {
 
     const {cache} = useSelector((state: any) => state.cache)
+     const {motorcycles, filtered} = useSelector((state: any) => state.motorcycles)
 
     return (
         <div className='Products'>

@@ -1,10 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {Notify} from "../../Types";
 
-// const defaultRef = () => {
-//     return useRef(null)
-// }
-
 const initialState: Notify = {
     header: '',
     text: '',
