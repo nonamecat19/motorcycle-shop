@@ -2,15 +2,13 @@ import React, {FC, Ref, useState} from 'react'
 import './AdminPanel.scss'
 import {Motorcycles, MotorcycleElement, Cache} from '../../Types'
 import {useDispatch, useSelector} from "react-redux";
-import { setMotorcycles } from '../../redux/slices/motorcyclesSlicer';
+import {setMotorcycles} from '../../redux/slices/motorcyclesSlicer';
 
 export interface AdminPanelProps {
-    cardsFilter: Function,
-    filterBrand: Ref<any>,
-    filterModel: Ref<any>,
+
 }
 
-export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filterModel}) => {
+export const AdminPanel: FC<AdminPanelProps> = ({}) => {
     let {motorcycles} = useSelector((state: any) => state.motorcycles)
     const dispatch = useDispatch()
     const {cache} = useSelector((state: any) => state.cache)
@@ -28,7 +26,6 @@ export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filte
         res[id] = value
         setBrandData(res)
     }
-
 
     const defaultModel = (): string[] => {
         let res: string[] = []
@@ -83,7 +80,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filte
     }
 
     const [countData, setCountData] = useState(defaultCount())
-    const countHandler = (e: any) :void => {
+    const countHandler = (e: any): void => {
         const id: number = e.target.name
         const value: number = e.target.value
         let res: number[] = countData
@@ -93,7 +90,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filte
 
 
     const [deleteFlag, setDeleteFlag] = useState(new Array(motorcycles.length).fill(false))
-    const deleteFlagHandler = (id: number) :void => {
+    const deleteFlagHandler = (id: number): void => {
         setDeleteFlag(deleteFlag.map((item, index) => index === id ? !item : item))
     }
 
@@ -102,8 +99,8 @@ export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filte
         let temp = motorcycles
         let result: Motorcycles = []
         let index: number = 0
-        for (let i: number = 0; i < motorcycles.length; i++){
-            if(deleteFlag[i])
+        for (let i: number = 0; i < motorcycles.length; i++) {
+            if (deleteFlag[i])
                 continue
             let element: MotorcycleElement =
                 {
@@ -122,10 +119,10 @@ export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filte
         dispatch(setMotorcycles(result))
         document.location.reload();
     }
-    
-    return(
+
+    return (
         <div>
-            <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+            <input type="checkbox" id="my-modal-6" className="modal-toggle"/>
             <div className="modal modal-middle">
                 <div className="modal-box w-11/12 max-w-4xl">
                     <h3 className="font-bold text-lg">Адмінпанель</h3>
@@ -197,7 +194,8 @@ export const AdminPanel: FC<AdminPanelProps> = ({cardsFilter, filterBrand, filte
                         </div>
                         <div className="modal-action">
                             <label htmlFor="my-modal-6" className="btn">Вийти без змін</label>
-                            <label onClick={() => changeData()} htmlFor="my-modal-6" className="btn">Внести зміни</label>
+                            <label onClick={() => changeData()} htmlFor="my-modal-6" className="btn">Внести
+                                зміни</label>
                         </div>
                     </form>
                 </div>

@@ -1,18 +1,27 @@
 import './Sidebar.scss'
 import {Ref} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import { cardsFilter } from '../../redux/slices/motorcyclesSlicer';
 
 export interface SidebarProps {
-    cardsFilter: Function
-    filterBrand: Ref<any>
-    filterModel: Ref<any>
+    filterModel: any
+    filterBrand: any
 }
-export const Sidebar = ({filterModel,filterBrand, cardsFilter}: any) => {
 
+export const Sidebar = ({filterModel,filterBrand}: SidebarProps) => {
+    const dispatch = useDispatch()
+    const filterHandler = () => {
+        const data = {
+            model: filterModel?.current.value,
+            brand: filterBrand?.current.value
+        }
+        dispatch(cardsFilter(data))
+    }
     return(
         <div className='Sidebar'>
             <label htmlFor="brandFilter">Марка</label>
             <select
-                onChange={() => cardsFilter(filterModel.current.value, filterBrand.current.value)}
+                onInput={filterHandler}
                 ref={filterBrand}
                 defaultValue='All'
                 id="brandFilter"
@@ -32,7 +41,7 @@ export const Sidebar = ({filterModel,filterBrand, cardsFilter}: any) => {
                 placeholder="Ninja 250R"
                 className="input w-full max-w-xs"
                 ref={filterModel}
-                onInput={() => cardsFilter(filterModel.current.value, filterBrand.current.value)}
+                onInput={filterHandler}
             />
         </div>
     )

@@ -3,18 +3,16 @@ import './ContentPage.scss'
 import {Content} from "../../components/Content/Content";
 
 export interface ContentPageProps {
-    notifyRef: any
-    cardsFilter: Function
+    notifyRef: Ref<any>
     filterBrand: Ref<any>
     filterModel: Ref<any>
 }
 
-export const ContentPage: FC<ContentPageProps> = ({notifyRef, cardsFilter, filterBrand, filterModel}) => {
+export const ContentPage: FC<ContentPageProps> = ({notifyRef, filterBrand, filterModel}) => {
     return(
         <div className="ContentPage">
             <Content
                 notifyRef={notifyRef}
-                cardsFilter={cardsFilter}
                 filterBrand={filterBrand}
                 filterModel={filterModel}
             />

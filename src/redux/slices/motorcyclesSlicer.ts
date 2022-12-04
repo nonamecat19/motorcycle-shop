@@ -27,10 +27,16 @@ export const motorcyclesSlicer = createSlice({
         },
         setFiltered: (state, action) => {
             state.filtered = action.payload
+        },
+        cardsFilter: (state, action) => {
+            let {model, brand} = action.payload
+            let data = brand === 'All' ? state.motorcycles : state.motorcycles.filter((item: any) => item.brand.includes(brand))
+            state.filtered = data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()))
         }
     }
 })
 
-export const {setMotorcycles, setFiltered} = motorcyclesSlicer.actions
+export const {setMotorcycles, setFiltered, cardsFilter} = motorcyclesSlicer.actions
+
 
 export default motorcyclesSlicer.reducer

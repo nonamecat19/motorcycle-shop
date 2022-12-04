@@ -11,13 +11,12 @@ import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
 import {useSelector} from "react-redux";
 
 export interface ContentProps {
-    notifyRef: any
-    cardsFilter: Function
+    notifyRef: Ref<any>
     filterBrand: Ref<any>
     filterModel: Ref<any>
 }
 
-export const Content: FC<ContentProps> = ({notifyRef, cardsFilter, filterBrand, filterModel}) => {
+export const Content: FC<ContentProps> = ({notifyRef, filterBrand, filterModel}) => {
     let {motorcycles} = useSelector((state: any) => state.motorcycles)
     const {cart} = useSelector((state: any) => state.cart)
     const getFullPrice = () => {
@@ -41,13 +40,8 @@ export const Content: FC<ContentProps> = ({notifyRef, cardsFilter, filterBrand, 
                 <Sidebar
                     filterBrand={filterBrand}
                     filterModel={filterModel}
-                    cardsFilter={cardsFilter}
                 />
-                <AdminPanel
-                    cardsFilter={cardsFilter}
-                    filterBrand={filterBrand}
-                    filterModel={filterModel}
-                />
+                <AdminPanel/>
                 <Notification
                     notifyRef={notifyRef}
                 />
