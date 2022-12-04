@@ -3,8 +3,7 @@ import './Card.scss';
 import {Cart, Motorcycles} from "../../Types";
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {setCart} from "../../redux/slices/cartSlicer";
-import {setMotorcycles} from '../../redux/slices/motorcyclesSlicer';
+import {setMotorcycles, setCart} from '../../redux/slices/motorcyclesSlicer';
 
 export interface CardProps {
     img: string
@@ -26,9 +25,8 @@ export const Card: FC<CardProps> = (
         id,
         number
     }) => {
-    let {motorcycles} = useSelector((state: any) => state.motorcycles)
+    let {motorcycles, cart} = useSelector((state: any) => state.motorcycles)
     const dispatch = useDispatch()
-    const {cart} = useSelector((state: any) => state.cart)
 
     const addToCart = (e: any) => {
         dispatch(setCart([...cart, id]))

@@ -1,27 +1,20 @@
-import React, {FC, Fragment, ReactElement, ReactFragment, useState} from "react";
+import {FC, Fragment} from "react";
 import './ShopingCart.scss'
-import {Cache, Motorcycles, MotorcycleElement, Notify, Cart, OrderElement, Orders} from '../../Types'
 import {useDispatch, useSelector} from "react-redux";
 import {setCache} from './../../redux/slices/cacheSlicer'
-import {setCart} from "../../redux/slices/cartSlicer";
 import {setNotification} from "../../redux/slices/notificationSlicer";
-import {setMotorcycles} from "../../redux/slices/motorcyclesSlicer";
+import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
+import {OrderElement} from "../../Types";
 
 interface ShoppingCartProps {
     getFullPrice: Function
     notifyRef: any
 }
 
-export const ShoppingCart: FC<ShoppingCartProps> = (
-    {
-        getFullPrice,
-        notifyRef,
-    }) => {
-
-    const {motorcycles} = useSelector((state: any) => state.motorcycles)
+export const ShoppingCart: FC<ShoppingCartProps> = ({getFullPrice, notifyRef}) => {
+    const {motorcycles, filtered, cart} = useSelector((state: any) => state.motorcycles)
     const {cache} = useSelector((state: any) => state.cache)
-    const {cart} = useSelector((state: any) => state.cart)
     const {notification} = useSelector((state: any) => state.notification)
     const {order} = useSelector((state: any) => state.order)
 
@@ -40,16 +33,14 @@ export const ShoppingCart: FC<ShoppingCartProps> = (
             tempOrder.totalPrice += motorcycles[i].price
             // tempMotorcycles[i].number -= 1
         }
-        dispatch(setOrder([...order, tempOrder]))
-
-
-        dispatch(setMotorcycles(tempMotorcycles))
-        dispatch(setCart([]))
-
-        dispatch(setNotification({
+        const notificationValue = {
             header: "Успіх!",
             text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
-        }))
+        }
+        dispatch(setOrder([...order, tempOrder]))
+        dispatch(setMotorcycles(tempMotorcycles))
+        dispatch(setCart([]))
+        dispatch(setNotification(notificationValue))
         notifyRef.current.checked = true
     }
 

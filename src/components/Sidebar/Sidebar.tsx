@@ -1,5 +1,5 @@
 import './Sidebar.scss'
-import {Ref} from "react";
+import {FC, Ref} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
 
@@ -8,7 +8,7 @@ export interface SidebarProps {
     filterBrand: any
 }
 
-export const Sidebar = ({filterModel, filterBrand}: SidebarProps) => {
+export const Sidebar: FC<SidebarProps> = ({filterModel, filterBrand}) => {
     const dispatch = useDispatch()
     const filterHandler = () => {
         const data = {

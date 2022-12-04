@@ -1,20 +1,29 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Motorcycles} from "../../Types";
+import {Cart, Motorcycles} from "../../Types";
 import JSONData from "../../data.json";
 
-const getInitialState = () => {
+const getInitialMotorcycles = () => {
     let localData = localStorage.getItem('motorcycles')
     return localData ? JSON.parse(localData) : JSONData.motorcycles;
+}
+
+const getInitialCart = () => {
+    let Stored = localStorage.getItem('cart')
+    return Stored ? JSON.parse(Stored) : []
 }
 
 interface State {
     motorcycles: Motorcycles
     filtered: Motorcycles
+    cart: Cart
+    fullPrice: string
 }
 
 const initialState: State = {
-    motorcycles: getInitialState(),
-    filtered: getInitialState()
+    motorcycles: getInitialMotorcycles(),
+    filtered: getInitialMotorcycles(),
+    cart: getInitialCart(),
+    fullPrice: "0"
 }
 
 export const motorcyclesSlicer = createSlice({
@@ -32,11 +41,22 @@ export const motorcyclesSlicer = createSlice({
             let {model, brand} = action.payload
             let data = brand === 'All' ? state.motorcycles : state.motorcycles.filter((item: any) => item.brand.includes(brand))
             state.filtered = data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()))
+        },
+        setCart: (state, action) => {
+            state.cart = action.payload
+            localStorage.setItem('cart', JSON.stringify(action.payload))
+
+
+            let sum: number = 0
+            for (let product of state.cart)
+                sum += state.motorcycles[product].price
+
+            state.fullPrice = sum.toString()
         }
     }
 })
 
-export const {setMotorcycles, setFiltered, cardsFilter} = motorcyclesSlicer.actions
+export const {setMotorcycles, setFiltered, cardsFilter, setCart} = motorcyclesSlicer.actions
 
 
 export default motorcyclesSlicer.reducer

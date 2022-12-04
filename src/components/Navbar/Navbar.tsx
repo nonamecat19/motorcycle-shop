@@ -13,7 +13,7 @@ const Navbar: FC<ContentProps> = ({getFullPrice}) => {
     const navigate = useNavigate();
     const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
-    const {cart} = useSelector((state: any) => state.cart)
+    const {motorcycles, filtered, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
     const loginHandler = () => {
         navigate('/auth')
         dispatch(toggleAuthForm())

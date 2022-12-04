@@ -17,8 +17,7 @@ export interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({notifyRef, filterBrand, filterModel}) => {
-    let {motorcycles} = useSelector((state: any) => state.motorcycles)
-    const {cart} = useSelector((state: any) => state.cart)
+    let {motorcycles, filtered, cart} = useSelector((state: any) => state.motorcycles)
     const getFullPrice = () => {
         let sum: number = 0
         for (let product of cart)
