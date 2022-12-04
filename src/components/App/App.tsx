@@ -1,9 +1,5 @@
-import React, {Ref, useEffect, useRef, useState} from 'react';
+import {Ref, useEffect, useRef, useState} from 'react';
 import './App.scss';
-import JSONData from '../../data.json'
-import {Cache, Motorcycles, Orders} from '../../Types'
-import {Authorization} from "../Authorization/Authorization";
-import {Content} from "../Content/Content";
 import {useDispatch, useSelector} from "react-redux";
 import {Router, Route, Routes} from "react-router-dom";
 import {AuthPage} from "../../pages/AuthPage/AuthPage";
