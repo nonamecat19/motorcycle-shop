@@ -1,4 +1,11 @@
 import './Sidebar.scss'
+import {Ref} from "react";
+
+export interface SidebarProps {
+    cardsFilter: Function
+    filterBrand: Ref<any>
+    filterModel: Ref<any>
+}
 export const Sidebar = ({filterModel,filterBrand, cardsFilter}: any) => {
 
     return(
