@@ -1,12 +1,11 @@
 import {FC, Fragment, useContext} from "react";
 import './ShopingCart.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {setCache} from './../../redux/slices/cacheSlicer'
 import {setNotification} from "../../redux/slices/notificationSlicer";
 import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
 import {ContextStoreType, OrderElement} from "../../Types";
-import { MyContext } from "../ContextStore/ContextStore";
+import {MyContext} from "../ContextStore/ContextStore";
 
 interface ShoppingCartProps {
 
@@ -43,6 +42,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
         dispatch(setMotorcycles(tempMotorcycles))
         dispatch(setCart([]))
         dispatch(setNotification(notificationValue))
+        // TODO: fix
         // @ts-ignore
         notifyRef.current.checked = true
     }

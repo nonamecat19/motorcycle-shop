@@ -1,7 +1,6 @@
-import React, {FC, useState} from 'react'
+import {FC, useState} from 'react'
 import './OrderList.scss'
-import {MotorcycleElement, Motorcycles, OrderElement, Orders} from "../../Types";
-import JSONData from "../../data.json";
+import {MotorcycleElement, Motorcycles, OrderElement} from "../../Types";
 import {useSelector} from "react-redux";
 
 interface OrderListProps {

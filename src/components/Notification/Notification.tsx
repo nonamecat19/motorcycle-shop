@@ -1,4 +1,4 @@
-import React, {FC, Ref, useContext, useRef} from 'react'
+import {FC, useContext} from 'react'
 import './Notification.scss'
 import {useSelector} from "react-redux";
 import {ContextStoreType} from "../../Types";
@@ -12,7 +12,6 @@ export const Notification: FC<NotificationProps> = ({}) => {
     const context = useContext(MyContext) as ContextStoreType
     const {notifyRef} = context
     const {header, text} = useSelector((state: any) => state.notification)
-    const refMy = useRef()
     return (
         <>
             <input

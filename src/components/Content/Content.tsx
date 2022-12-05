@@ -1,4 +1,4 @@
-import React, {FC, Ref} from 'react'
+import {FC} from 'react'
 import './Content.scss'
 import {AdminPanel} from "../AdminPanel/AdminPanel";
 import {Notification} from "../Notification/Notification";
@@ -7,8 +7,6 @@ import {Products} from "../Products/Products";
 import {Sidebar} from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
-import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
-import {useSelector} from "react-redux";
 
 export interface ContentProps {
 }

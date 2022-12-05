@@ -1,5 +1,5 @@
 import './Sidebar.scss'
-import {FC, Ref, useContext} from "react";
+import {FC, useContext} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
 import {MyContext} from '../ContextStore/ContextStore';

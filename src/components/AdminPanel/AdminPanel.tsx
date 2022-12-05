@@ -1,6 +1,6 @@
-import React, {FC, Ref, useState} from 'react'
+import {FC, useState} from 'react'
 import './AdminPanel.scss'
-import {Motorcycles, MotorcycleElement, Cache} from '../../Types'
+import {Motorcycles, MotorcycleElement} from '../../Types'
 import {useDispatch, useSelector} from "react-redux";
 import {setMotorcycles} from '../../redux/slices/motorcyclesSlicer';
 

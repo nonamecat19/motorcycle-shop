@@ -1,6 +1,5 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import './Card.scss';
-import {Cart, Motorcycles} from "../../Types";
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {setMotorcycles, setCart} from '../../redux/slices/motorcyclesSlicer';

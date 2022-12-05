@@ -1,9 +1,8 @@
-import React, {FC} from 'react'
+import {FC} from 'react'
 import './Navbar.scss'
-import {Cart} from "../../Types";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
-import {redirect, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export interface ContentProps {
 
@@ -39,10 +38,19 @@ const Navbar: FC<ContentProps> = ({}) => {
                         </label>
                         <div tabIndex={0} className="mini-window">
                             <div className="card-body">
-                                <span className="font-bold text-lg">{cart.length} Покупок</span>
-                                <span className="text-info">Всього: {fullPrice}$</span>
+                                <span className="font-bold text-lg">
+                                    {cart.length} Покупок
+                                </span>
+                                <span className="text-info">
+                                    Всього: {fullPrice}$
+                                </span>
                                 <div className="card-actions">
-                                    <label htmlFor="my-modal-cart" className="btn">Оформити замовлення</label>
+                                    <label
+                                        htmlFor="my-modal-cart"
+                                        className="btn"
+                                    >
+                                        Оформити замовлення
+                                    </label>
                                 </div>
                             </div>
                         </div>
