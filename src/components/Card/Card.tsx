@@ -53,7 +53,7 @@ export const Card: FC<CardProps> = (
                             {/*<img src={cartIcon}/>*/}
                             <button
                                 className="toCart"
-                                disabled={number === 0}
+                                disabled={id in cart}
                                 onClick={addToCart}
                                 style={{backgroundImage: `url("${cartIcon}")`}}
                             ></button>
