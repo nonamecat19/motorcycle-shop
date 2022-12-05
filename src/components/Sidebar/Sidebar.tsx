@@ -1,18 +1,24 @@
 import './Sidebar.scss'
-import {FC, Ref} from "react";
+import {FC, Ref, useContext} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
+import {MyContext} from '../ContextStore/ContextStore';
+import {ContextStoreType} from "../../Types";
 
 export interface SidebarProps {
-    filterModel: any
-    filterBrand: any
+
 }
 
-export const Sidebar: FC<SidebarProps> = ({filterModel, filterBrand}) => {
+export const Sidebar: FC<SidebarProps> = ({}) => {
     const dispatch = useDispatch()
+    const context = useContext(MyContext) as ContextStoreType
+    const {filterBrand, filterModel} = context
     const filterHandler = () => {
+        // TODO fix TS
         const data = {
+            // @ts-ignore
             model: filterModel?.current.value,
+            // @ts-ignore
             brand: filterBrand?.current.value
         }
         dispatch(cardsFilter(data))

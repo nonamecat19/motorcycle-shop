@@ -6,10 +6,10 @@ import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
 import {redirect, useNavigate} from "react-router-dom";
 
 export interface ContentProps {
-    getFullPrice: Function
+
 }
 
-const Navbar: FC<ContentProps> = ({getFullPrice}) => {
+const Navbar: FC<ContentProps> = ({}) => {
     const navigate = useNavigate();
     const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
@@ -40,7 +40,7 @@ const Navbar: FC<ContentProps> = ({getFullPrice}) => {
                         <div tabIndex={0} className="mini-window">
                             <div className="card-body">
                                 <span className="font-bold text-lg">{cart.length} Покупок</span>
-                                <span className="text-info">Всього: {getFullPrice()}$</span>
+                                <span className="text-info">Всього: {fullPrice}$</span>
                                 <div className="card-actions">
                                     <label htmlFor="my-modal-cart" className="btn">Оформити замовлення</label>
                                 </div>

@@ -1,12 +1,12 @@
-import {Ref} from "react";
+import React from "react";
 
 export type MotorcycleElement = {
-    "id": number,
-    "img": string,
-    "brand": string,
-    "model":string,
-    "price": number,
-    "number": number,
+    "id": number
+    "img": string
+    "brand": string
+    "model": string
+    "price": number
+    "number": number
     "color": string
 }
 
@@ -19,7 +19,6 @@ export type Cache = {
 export type Notify = {
     "header": string
     "text": string
-    "ref": Ref<any>
 }
 
 export type Cart = number[]
@@ -33,3 +32,9 @@ export type OrderElement = {
 }
 
 export type Orders = OrderElement[]
+
+export interface ContextStoreType {
+    notifyRef?: React.RefObject<HTMLInputElement> | null
+    filterBrand?: React.RefObject<HTMLSelectElement> | null
+    filterModel?: React.RefObject<HTMLInputElement> | null
+}

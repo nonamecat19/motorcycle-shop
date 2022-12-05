@@ -12,6 +12,15 @@ const getInitialCart = () => {
     return Stored ? JSON.parse(Stored) : []
 }
 
+const getInitialFullPrice = () => {
+    let cartData = getInitialCart()
+    let motorcyclesData = getInitialMotorcycles()
+    let sum: number = 0
+    for (let product of cartData)
+        sum += motorcyclesData[product].price
+    return sum.toString()
+}
+
 interface State {
     motorcycles: Motorcycles
     filtered: Motorcycles
@@ -20,10 +29,11 @@ interface State {
 }
 
 const initialState: State = {
+    //TODO optimize this
     motorcycles: getInitialMotorcycles(),
     filtered: getInitialMotorcycles(),
     cart: getInitialCart(),
-    fullPrice: "0"
+    fullPrice: getInitialFullPrice()
 }
 
 export const motorcyclesSlicer = createSlice({
@@ -46,11 +56,9 @@ export const motorcyclesSlicer = createSlice({
             state.cart = action.payload
             localStorage.setItem('cart', JSON.stringify(action.payload))
 
-
             let sum: number = 0
             for (let product of state.cart)
                 sum += state.motorcycles[product].price
-
             state.fullPrice = sum.toString()
         }
     }

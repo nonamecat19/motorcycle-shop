@@ -11,39 +11,18 @@ import {Cache, Cart, Motorcycles, Notify, Orders} from "../../Types";
 import {useSelector} from "react-redux";
 
 export interface ContentProps {
-    notifyRef: Ref<any>
-    filterBrand: Ref<any>
-    filterModel: Ref<any>
 }
 
-export const Content: FC<ContentProps> = ({notifyRef, filterBrand, filterModel}) => {
-    let {motorcycles, filtered, cart} = useSelector((state: any) => state.motorcycles)
-    const getFullPrice = () => {
-        let sum: number = 0
-        for (let product of cart)
-            sum += motorcycles[product].price
-        return sum.toString()
-    }
-
+export const Content: FC<ContentProps> = ({}) => {
     return (
         <div className="Content">
-            <Navbar
-                getFullPrice={getFullPrice}
-            />
+            <Navbar/>
             <div className='content'>
-                <ShoppingCart
-                    getFullPrice={getFullPrice}
-                    notifyRef={notifyRef}
-                />
+                <ShoppingCart/>
                 <Products/>
-                <Sidebar
-                    filterBrand={filterBrand}
-                    filterModel={filterModel}
-                />
+                <Sidebar/>
                 <AdminPanel/>
-                <Notification
-                    notifyRef={notifyRef}
-                />
+                <Notification/>
                 <OrderList/>
             </div>
         </div>

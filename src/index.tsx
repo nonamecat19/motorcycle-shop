@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev";
 import {BrowserRouter} from "react-router-dom";
+import {ContextStore} from "./components/ContextStore/ContextStore";
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Provider store={store}>
             <BrowserRouter>
                 <DevSupport ComponentPreviews={ComponentPreviews} useInitialHook={useInitial}>
-                    <App/>
+                    <ContextStore>
+                        <App/>
+                    </ContextStore>
                 </DevSupport>
             </BrowserRouter>
         </Provider>

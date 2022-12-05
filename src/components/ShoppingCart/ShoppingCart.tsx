@@ -1,19 +1,21 @@
-import {FC, Fragment} from "react";
+import {FC, Fragment, useContext} from "react";
 import './ShopingCart.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {setCache} from './../../redux/slices/cacheSlicer'
 import {setNotification} from "../../redux/slices/notificationSlicer";
 import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
-import {OrderElement} from "../../Types";
+import {ContextStoreType, OrderElement} from "../../Types";
+import { MyContext } from "../ContextStore/ContextStore";
 
 interface ShoppingCartProps {
-    getFullPrice: Function
-    notifyRef: any
+
 }
 
-export const ShoppingCart: FC<ShoppingCartProps> = ({getFullPrice, notifyRef}) => {
-    const {motorcycles, filtered, cart} = useSelector((state: any) => state.motorcycles)
+export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
+    const context = useContext(MyContext) as ContextStoreType
+    const {notifyRef} = context
+    const {motorcycles, filtered, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
     const {cache} = useSelector((state: any) => state.cache)
     const {notification} = useSelector((state: any) => state.notification)
     const {order} = useSelector((state: any) => state.order)
@@ -41,6 +43,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({getFullPrice, notifyRef}) =
         dispatch(setMotorcycles(tempMotorcycles))
         dispatch(setCart([]))
         dispatch(setNotification(notificationValue))
+        // @ts-ignore
         notifyRef.current.checked = true
     }
 
@@ -71,7 +74,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({getFullPrice, notifyRef}) =
                     <div className="windowCart">{elements}</div>
                     <hr/>
                     <h1>Всього:</h1>
-                    <b className="text-3xl">{getFullPrice()}$</b>
+                    <b className="text-3xl">{fullPrice}$</b>
                     <label
                         htmlFor="my-modal-cart"
                         className="btn btn-m absolute right-5 bottom-5 text-1xl"

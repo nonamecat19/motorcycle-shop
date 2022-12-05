@@ -1,13 +1,17 @@
-import React, {FC, Ref, useRef} from 'react'
+import React, {FC, Ref, useContext, useRef} from 'react'
 import './Notification.scss'
 import {useSelector} from "react-redux";
+import {ContextStoreType} from "../../Types";
+import {MyContext} from '../ContextStore/ContextStore';
 
 interface NotificationProps {
-    notifyRef: Ref<any>
+
 }
 
-export const Notification: FC<NotificationProps> = ({notifyRef}) => {
-    const {header, text, ref} = useSelector((state: any) => state.notification)
+export const Notification: FC<NotificationProps> = ({}) => {
+    const context = useContext(MyContext) as ContextStoreType
+    const {notifyRef} = context
+    const {header, text} = useSelector((state: any) => state.notification)
     const refMy = useRef()
     return (
         <>

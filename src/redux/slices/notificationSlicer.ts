@@ -3,8 +3,7 @@ import {Notify} from "../../Types";
 
 const initialState: Notify = {
     header: '',
-    text: '',
-    ref: null
+    text: ''
 }
 
 export const notificationSlicer = createSlice({
