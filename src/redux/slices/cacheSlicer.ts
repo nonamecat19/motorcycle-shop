@@ -5,6 +5,7 @@ const getInitialState = () => {
     const cache: Cache = {};
     const importAll = (r: any): void => r.keys().forEach((key: string) => (cache[key] = r(key)));
     importAll(require.context('../../assets/motorcycle/', true, /\.(png|ico|svg|jpg|gif)$/))
+    importAll(require.context('../../assets/icons/', true, /\.(png|ico|svg|jpg|gif)$/))
     return cache
 }
 

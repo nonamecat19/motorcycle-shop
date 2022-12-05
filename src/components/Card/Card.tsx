@@ -12,6 +12,7 @@ export interface CardProps {
     price: number
     id: number
     number: number
+    cartIcon: string
 }
 
 export const Card: FC<CardProps> = (
@@ -22,7 +23,8 @@ export const Card: FC<CardProps> = (
         model,
         price,
         id,
-        number
+        number,
+        cartIcon
     }) => {
     let {motorcycles, cart} = useSelector((state: any) => state.motorcycles)
     const dispatch = useDispatch()
@@ -45,17 +47,32 @@ export const Card: FC<CardProps> = (
                 >
                 </div>
                 <div className="card-body">
-                    <Link to={`products/motorcycles/${id}`}>
+                    <div className="flex justify-between">
                         <h2 className="card-title">{brand}</h2>
-                    </Link>
-                    <h4>{model}</h4>
+                        <div className="toCartWrapper relative">
+                            {/*<img src={cartIcon}/>*/}
+                            <button
+                                className="toCart"
+                                disabled={number === 0}
+                                onClick={addToCart}
+                                style={{backgroundImage: `url("${cartIcon}")`}}
+                            ></button>
+                        </div>
+                    </div>
+                    <div className="flex justify-between">
+                        <h4>{model}</h4>
+                        <h4>{price}$</h4>
+                    </div>
+
                     <div className="card-actions justify-end">
-                        <button
-                            onClick={addToCart}
-                            disabled={number === 0}
-                        >
-                            В кошик - {price}$
-                        </button>
+                        <Link to={`products/motorcycles/${id}`}>
+                            <button
+                                className="toProduct"
+                                disabled={number === 0}
+                            >
+                                Перейти до товару
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
