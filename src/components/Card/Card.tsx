@@ -50,7 +50,6 @@ export const Card: FC<CardProps> = (
                     <div className="flex justify-between">
                         <h2 className="card-title">{brand}</h2>
                         <div className="toCartWrapper relative">
-                            {/*<img src={cartIcon}/>*/}
                             <button
                                 className="toCart"
                                 disabled={id in cart}

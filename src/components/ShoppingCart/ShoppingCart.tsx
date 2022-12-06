@@ -6,6 +6,7 @@ import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
 import {ContextStoreType, OrderElement} from "../../Types";
 import {MyContext} from "../ContextStore/ContextStore";
+import {MyInputNumber} from "../MyInputNumber/MyInputNumber";
 
 interface ShoppingCartProps {
 
@@ -60,6 +61,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                 <div className="align-item-end text-2xl mr-4">
                     {motorcycles[item].price}$
                 </div>
+                <MyInputNumber/>
             </div>
         </Fragment>
     ));

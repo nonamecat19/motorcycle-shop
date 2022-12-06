@@ -1,0 +1,22 @@
+.MyInputNumber{
+  .val::-webkit-outer-spin-button,
+  .val::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .val, .val:hover, .val:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+
+  .val{
+
+    @apply w-6 h-6 text-center
+  }
+
+  .control{
+
+    @apply w-6 h-6 bg-second text-center text-main rounded-lg
+  }
+
+  @apply flex
+}

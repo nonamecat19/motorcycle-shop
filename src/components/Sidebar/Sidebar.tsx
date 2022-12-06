@@ -1,9 +1,12 @@
 import './Sidebar.scss'
-import {FC, useContext} from "react";
+import {FC, useContext, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
 import {MyContext} from '../ContextStore/ContextStore';
 import {ContextStoreType} from "../../Types";
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
+import React from 'react';
 
 export interface SidebarProps {
 
@@ -13,6 +16,7 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
     const dispatch = useDispatch()
     const context = useContext(MyContext) as ContextStoreType
     const {filterBrand, filterModel} = context
+
     const filterHandler = () => {
         // TODO fix TS
         const data = {
@@ -23,6 +27,7 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
         }
         dispatch(cardsFilter(data))
     }
+    // @ts-ignore
     return (
         <div className='Sidebar'>
             <label htmlFor="brandFilter">Марка</label>
@@ -49,6 +54,25 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
                 ref={filterModel}
                 onInput={filterHandler}
             />
+            <Range/>
         </div>
     )
+}
+
+
+
+class Range extends React.Component{
+    state = {
+        value: {min: 0, max: 4000},
+    };
+    render() {
+        return (
+            <InputRange
+                maxValue={4000}
+                minValue={0}
+                value={this.state.value}
+                onChange={(value: any) => this.setState({value})}
+            />
+        )
+    }
 }
