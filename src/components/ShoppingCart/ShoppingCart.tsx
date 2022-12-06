@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setNotification} from "../../redux/slices/notificationSlicer";
 import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
-import {ContextStoreType, OrderElement} from "../../Types";
+import {Cart, CartElement, ContextStoreType, OrderElement} from "../../Types";
 import {MyContext} from "../ContextStore/ContextStore";
 import {MyInputNumber} from "../MyInputNumber/MyInputNumber";
 
@@ -48,18 +48,18 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
         notifyRef.current.checked = true
     }
 
-    const elements: Array<JSX.Element> = cart.map((item: number) => (
-        <Fragment key={item}>
+    const elements: Array<JSX.Element> = cart.map(([idItem, numberItem]: CartElement) => (
+        <Fragment key={idItem}>
             <div className="h-32 image-full flex justify-around items-center">
                 <div className="w-60">
-                    <img className="h-32 m-auto" src={cache["./" + item + ".png"]} alt="Shoes"/>
+                    <img className="h-32 m-auto" src={cache["./" + idItem + ".png"]} alt="Shoes"/>
                 </div>
                 <div className="float-left w-32">
-                    <h2 className="card-title">{motorcycles[item].brand}</h2>
-                    <p>{motorcycles[item].model}</p>
+                    <h2 className="card-title">{motorcycles[idItem].brand}</h2>
+                    <p>{motorcycles[idItem].model}</p>
                 </div>
                 <div className="align-item-end text-2xl mr-4">
-                    {motorcycles[item].price}$
+                    {motorcycles[idItem].price}$
                 </div>
                 <MyInputNumber/>
             </div>

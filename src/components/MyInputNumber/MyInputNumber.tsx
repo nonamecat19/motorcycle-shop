@@ -29,6 +29,8 @@ export const MyInputNumber: FC<MyInputNumberProps> = ({}) => {
             <input
                 className="val"
                 type="number"
+                readOnly={true}
+                disabled={true}
                 value={value}
             />
             <div

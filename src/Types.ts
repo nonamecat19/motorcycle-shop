@@ -21,7 +21,9 @@ export type Notify = {
     "text": string
 }
 
-export type Cart = number[]
+export type Cart = CartElement[]
+
+export type CartElement = [number, number]
 
 export type OrderElement = {
     "number": number

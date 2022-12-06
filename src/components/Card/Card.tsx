@@ -30,12 +30,19 @@ export const Card: FC<CardProps> = (
     const dispatch = useDispatch()
 
     const addToCart = (e: any) => {
-        dispatch(setCart([...cart, id]))
+        dispatch(setCart([...cart, [id, 1]]))
         e.target.disabled = true
         let changedData = motorcycles
         // changedData[id].number = 1
         dispatch(setMotorcycles(changedData))
         localStorage.setItem('motorcycles', JSON.stringify(changedData))
+    }
+
+    const inCart = () => {
+        for (let [productId, number] of cart)
+            if (productId === id)
+                return true
+        return false
     }
 
     return (
@@ -52,7 +59,7 @@ export const Card: FC<CardProps> = (
                         <div className="toCartWrapper relative">
                             <button
                                 className="toCart"
-                                disabled={id in cart}
+                                disabled={inCart()}
                                 onClick={addToCart}
                                 style={{backgroundImage: `url("${cartIcon}")`}}
                             ></button>

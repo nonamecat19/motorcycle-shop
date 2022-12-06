@@ -16,8 +16,8 @@ const getInitialFullPrice = () => {
     let cartData = getInitialCart()
     let motorcyclesData = getInitialMotorcycles()
     let sum: number = 0
-    for (let product of cartData)
-        sum += motorcyclesData[product].price
+    for (let [id, number] of cartData)
+        sum += motorcyclesData[id].price * number
     return sum.toString()
 }
 
@@ -58,7 +58,7 @@ export const motorcyclesSlicer = createSlice({
 
             let sum: number = 0
             for (let product of state.cart)
-                sum += state.motorcycles[product].price
+                sum += state.motorcycles[product[0]].price * product[1]
             state.fullPrice = sum.toString()
         }
     }
