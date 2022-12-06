@@ -61,7 +61,10 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                 <div className="align-item-end text-2xl mr-4">
                     {motorcycles[idItem].price}$
                 </div>
-                <MyInputNumber/>
+                <MyInputNumber
+                    id={idItem}
+                    number={numberItem}
+                />
             </div>
         </Fragment>
     ));

@@ -1,21 +1,35 @@
 import React, {FC, useState} from 'react'
 import './MyInputNumber.scss'
+import {useDispatch, useSelector} from "react-redux";
+import {setCart} from "../../redux/slices/motorcyclesSlicer";
+import {Cart} from "../../Types";
 
 export interface MyInputNumberProps {
-
+    id: number
+    number: number
 }
 
 
-export const MyInputNumber: FC<MyInputNumberProps> = ({}) => {
-
+export const MyInputNumber: FC<MyInputNumberProps> = ({id, number}) => {
+    const cart = useSelector((state: any) => state.motorcycles.cart)
+    const dispatch = useDispatch()
     const [value, setValue] = useState<number>(1)
     const addHandler = () => {
-        setValue(value + 1)
+        changeHandler(value + 1)
     }
 
     const removeHandler = () => {
         if (value > 1)
-            setValue(value - 1)
+            changeHandler(value - 1)
+    }
+
+    const changeHandler = (result: number) => {
+        let tempCart: Cart = []
+        for (let [Id, Num] of cart) {
+            tempCart.push([Id, (Id === id ? result : Num)])
+        }
+        dispatch(setCart(tempCart))
+        setValue(result)
     }
 
     return(
