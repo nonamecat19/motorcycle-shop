@@ -27,11 +27,15 @@ export type CartElement = [number, number]
 
 export type OrderElement = {
     "number": number
-    "products": Motorcycles
+    "products": MotorcyclesWithNumber
     "totalPrice": number
     "rating": number
     "comment": string
 }
+
+export type MotorcyclesWithNumber = MotoWithNumber[]
+
+export type MotoWithNumber = [MotorcycleElement, number]
 
 export type Orders = OrderElement[]
 

@@ -1,6 +1,6 @@
 import {FC, useState} from 'react'
 import './OrderList.scss'
-import {MotorcycleElement, Motorcycles, OrderElement} from "../../Types";
+import {MotorcycleElement, Motorcycles, MotorcyclesWithNumber, MotoWithNumber, OrderElement} from "../../Types";
 import {useSelector} from "react-redux";
 
 interface OrderListProps {
@@ -20,15 +20,15 @@ export const OrderList: FC<OrderListProps> = ({}) => {
         setComments(temp)
     }
 
-    let orderProducts = (motorcycles: Motorcycles) => {
+    let orderProducts = (motorcycles: MotorcyclesWithNumber) => {
         return (
-            motorcycles.map((item: MotorcycleElement) => (
+            motorcycles.map(([motorcycle, number]: MotoWithNumber) => (
                 <div
                     className="orderProducts flex justify-between"
-                    key={item.id}
+                    key={motorcycle.id}
                 >
-                    <div>{item.brand} {item.model}</div>
-                    <div className="text-1xl">{item.price}</div>
+                    <div>{motorcycle.brand} {motorcycle.model}</div>
+                    <div className="text-1xl">{motorcycle.price}</div>
                 </div>
             ))
         )
@@ -38,24 +38,24 @@ export const OrderList: FC<OrderListProps> = ({}) => {
         localStorage.setItem('comments', JSON.stringify(comments))
     }
 
-    let orderList = order.map((item: OrderElement) => {
+    let orderList = order.map(({number, products, totalPrice, rating, comment}: OrderElement) => {
         return (
-            <div key={item.number} className="flex">
+            <div key={number} className="flex">
                 <div className="collapse collapse-arrow w-full rounded m-1 orderCollapse">
                     <input type="checkbox" className="peer"/>
                     <div className="collapse-title bg-primary text-primary-content flex justify-between">
-                        <div>Замовлення №{item.number}</div>
-                        <div>{item.totalPrice}$</div>
+                        <div>Замовлення №{number}</div>
+                        <div>{totalPrice}$</div>
                     </div>
                     <div className="collapse-content bg-primary text-primary-content">
                         <div className="border-4 rounded-xl p-2 mb-2">
-                            {orderProducts(item.products)}
+                            {orderProducts(products)}
                         </div>
                         <textarea
                             className="textarea textarea-bordered w-full rounded-xl text-black"
                             placeholder="Ваш коментар"
-                            name={item.number.toString()}
-                            defaultValue={comments[item.number]}
+                            name={number.toString()}
+                            defaultValue={comments[number]}
                             onChange={commentsHandler}
                         >
                         </textarea>

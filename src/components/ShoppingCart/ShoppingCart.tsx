@@ -30,10 +30,10 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             "comment": ""
         }
         let tempMotorcycles = motorcycles
-        for (let i of cart) {
-            tempOrder.products.push(motorcycles[i])
-            tempOrder.totalPrice += motorcycles[i].price
-            // tempMotorcycles[i].number -= 1
+        for (let [id, number] of cart) {
+            tempOrder.products.push([motorcycles[id], number])
+            tempOrder.totalPrice += motorcycles[id].price * number
+            // tempMotorcycles[id].number -= number
         }
         const notificationValue = {
             header: "Успіх!",
