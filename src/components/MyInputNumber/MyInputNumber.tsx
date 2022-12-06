@@ -12,10 +12,12 @@ export interface MyInputNumberProps {
 
 export const MyInputNumber: FC<MyInputNumberProps> = ({id, number}) => {
     const cart = useSelector((state: any) => state.motorcycles.cart)
+    const motorcycles = useSelector((state: any) => state.motorcycles.motorcycles)
     const dispatch = useDispatch()
     const [value, setValue] = useState<number>(1)
     const addHandler = () => {
-        changeHandler(value + 1)
+        if (value < motorcycles[id].number)
+            changeHandler(value + 1)
     }
 
     const removeHandler = () => {

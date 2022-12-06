@@ -20,6 +20,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
     const {notification} = useSelector((state: any) => state.notification)
     const {order} = useSelector((state: any) => state.order)
 
+
     const dispatch = useDispatch()
     const buyProducts = () => {
         let tempOrder: OrderElement = {
@@ -29,11 +30,12 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             "rating": 0,
             "comment": ""
         }
-        let tempMotorcycles = motorcycles
+
+        let tempMotorcycles = JSON.parse(JSON.stringify(motorcycles))
         for (let [id, number] of cart) {
             tempOrder.products.push([motorcycles[id], number])
             tempOrder.totalPrice += motorcycles[id].price * number
-            // tempMotorcycles[id].number -= number
+            tempMotorcycles[id].number -= number
         }
         const notificationValue = {
             header: "Успіх!",

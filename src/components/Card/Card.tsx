@@ -38,7 +38,9 @@ export const Card: FC<CardProps> = (
         localStorage.setItem('motorcycles', JSON.stringify(changedData))
     }
 
-    const inCart = () => {
+    const isDisabled = (): boolean => {
+        if (motorcycles[id].number === 0)
+            return true
         for (let [productId, number] of cart)
             if (productId === id)
                 return true
@@ -59,7 +61,7 @@ export const Card: FC<CardProps> = (
                         <div className="toCartWrapper relative">
                             <button
                                 className="toCart"
-                                disabled={inCart()}
+                                disabled={isDisabled()}
                                 onClick={addToCart}
                                 style={{backgroundImage: `url("${cartIcon}")`}}
                             ></button>
@@ -74,7 +76,6 @@ export const Card: FC<CardProps> = (
                         <Link to={`products/motorcycles/${id}`}>
                             <button
                                 className="toProduct"
-                                disabled={number === 0}
                             >
                                 Перейти до товару
                             </button>
