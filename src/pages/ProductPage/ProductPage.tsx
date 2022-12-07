@@ -1,4 +1,4 @@
-import React, {FC, Fragment, useId, useRef, useState} from 'react'
+import React, {FC, useRef} from 'react'
 import './ProductPage.scss'
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
@@ -117,7 +117,6 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
                 })
                 :
                 <h1 className='text-second'>Коментарів немає. Можливо ваш стане першим?</h1>
-
         )
     }
 
@@ -184,7 +183,6 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
             <ShoppingCart/>
             <Notification/>
             <AdminPanel/>
-
         </div>
     )
 }
