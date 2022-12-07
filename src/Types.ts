@@ -45,10 +45,15 @@ export interface ContextStoreType {
     filterModel?: React.RefObject<HTMLInputElement> | null
 }
 
-export type Comments =  CommentElement[]
+export type Comments =  CommentsMoto[]
+
+export type CommentsMoto = {
+    productId: number
+    data: CommentElement[]
+
+}
 
 export type CommentElement = {
-    productId: number
     userId: number
     comment: string
 }
