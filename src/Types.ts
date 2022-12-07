@@ -44,3 +44,11 @@ export interface ContextStoreType {
     filterBrand?: React.RefObject<HTMLSelectElement> | null
     filterModel?: React.RefObject<HTMLInputElement> | null
 }
+
+export type Comments =  CommentElement[]
+
+export type CommentElement = {
+    productId: number
+    userId: number
+    comment: string
+}
