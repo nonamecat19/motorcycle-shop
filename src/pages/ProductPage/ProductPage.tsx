@@ -49,8 +49,7 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
 
     const {motorcycles, cart} = useSelector((state: any) => state.motorcycles)
     const {cache} = useSelector((state: any) => state.cache)
-    const btnRef = useRef<HTMLButtonElement>(null)
-    const {brand, model, color, number, price} = motorcycles[id]
+    const {brand, model, color, price} = motorcycles[id]
 
     return (
         <div className="ProductPage">
@@ -114,6 +113,7 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
             <ShoppingCart/>
             <Notification/>
             <AdminPanel/>
+
         </div>
     )
 }

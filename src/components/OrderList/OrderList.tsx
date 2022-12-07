@@ -8,17 +8,7 @@ interface OrderListProps {
 }
 
 export const OrderList: FC<OrderListProps> = ({}) => {
-
     let {order} = useSelector((state: any) => state.order)
-    let localComments = localStorage.getItem('comments')
-    let defaultComments: string[] = localComments ? JSON.parse(localComments) : new Array(order.length).fill("");
-    const [comments, setComments] = useState(defaultComments)
-
-    const commentsHandler = (event: any) => {
-        let temp = comments
-        temp[parseInt(event.target.name)] = event.target.value
-        setComments(temp)
-    }
 
     let orderProducts = (motorcycles: MotorcyclesWithNumber) => {
         return (
@@ -34,10 +24,6 @@ export const OrderList: FC<OrderListProps> = ({}) => {
         )
     }
 
-    const saveComments = () => {
-        localStorage.setItem('comments', JSON.stringify(comments))
-    }
-
     let orderList = order.map(({number, products, totalPrice, rating, comment}: OrderElement) => {
         return (
             <div key={number} className="flex">
@@ -51,14 +37,6 @@ export const OrderList: FC<OrderListProps> = ({}) => {
                         <div className="border-4 rounded-xl p-2 mb-2">
                             {orderProducts(products)}
                         </div>
-                        <textarea
-                            className="textarea textarea-bordered w-full rounded-xl text-black"
-                            placeholder="Ваш коментар"
-                            name={number.toString()}
-                            defaultValue={comments[number]}
-                            onChange={commentsHandler}
-                        >
-                        </textarea>
                     </div>
                 </div>
             </div>
@@ -71,7 +49,6 @@ export const OrderList: FC<OrderListProps> = ({}) => {
                 type="checkbox"
                 id="my-modal-order"
                 className="modal-toggle"
-                onClick={saveComments}
             />
             <div className="modal">
                 <div className="modal-box relative">
