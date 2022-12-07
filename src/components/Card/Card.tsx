@@ -29,13 +29,9 @@ export const Card: FC<CardProps> = (
     let {motorcycles, cart} = useSelector((state: any) => state.motorcycles)
     const dispatch = useDispatch()
 
-    const addToCart = (e: any) => {
+    const addToCart = (e: any): void => {
         dispatch(setCart([...cart, [id, 1]]))
         e.target.disabled = true
-        let changedData = motorcycles
-        // changedData[id].number = 1
-        dispatch(setMotorcycles(changedData))
-        localStorage.setItem('motorcycles', JSON.stringify(changedData))
     }
 
     const isDisabled = (): boolean => {
@@ -64,7 +60,9 @@ export const Card: FC<CardProps> = (
                                 disabled={isDisabled()}
                                 onClick={addToCart}
                                 style={{backgroundImage: `url("${cartIcon}")`}}
-                            ></button>
+                            >
+
+                            </button>
                         </div>
                     </div>
                     <div className="flex justify-between">

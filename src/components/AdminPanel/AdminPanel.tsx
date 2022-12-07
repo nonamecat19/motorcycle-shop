@@ -19,7 +19,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({}) => {
         return res
     }
     const [brandData, setBrandData] = useState(defaultBrand())
-    const brandHandler = (e: any) => {
+    const brandHandler = (e: any): void => {
         const id: number = e.target.name
         const value: string = e.target.value
         let res: string[] = brandData
@@ -34,7 +34,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({}) => {
         return res
     }
     const [modelData, setModelData] = useState(defaultModel())
-    const modelHandler = (e: any) => {
+    const modelHandler = (e: any): void => {
         const id: number = e.target.name
         const value: string = e.target.value
         let res: string[] = modelData
@@ -49,7 +49,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({}) => {
         return res
     }
     const [priceData, setPriceData] = useState(defaultPrice())
-    const priceHandler = (e: any) => {
+    const priceHandler = (e: any): void => {
         const id: number = e.target.name
         const value: number = parseInt(e.target.value)
         let res: number[] = priceData
@@ -64,7 +64,7 @@ export const AdminPanel: FC<AdminPanelProps> = ({}) => {
         return res
     }
     const [imgData, setImgData] = useState(defaultImg())
-    const imgHandler = (e: any) => {
+    const imgHandler = (e: any): void => {
         const id: number = e.target.name
         const value: string = e.target.value
         let res: string[] = imgData

@@ -41,7 +41,7 @@ const Navbar: FC<ContentProps> = ({}) => {
                     <div className="card-actions">
                         <label
                             htmlFor="my-modal-cart"
-                            className="btn"
+                            className="btn text-white"
                         >
                             Оформити замовлення
                         </label>

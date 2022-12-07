@@ -1,0 +1,7 @@
+.WhiteContent{
+  h3{
+    @apply text-2xl font-bold
+  }
+
+  @apply p-[10px] rounded-[10px] w-[220px] h-[100px] bg-white m-2
+}

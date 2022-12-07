@@ -22,7 +22,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
 
 
     const dispatch = useDispatch()
-    const buyProducts = () => {
+    const buyProducts = (): void => {
         let tempOrder: OrderElement = {
             "number": order.length,
             "products": [],
