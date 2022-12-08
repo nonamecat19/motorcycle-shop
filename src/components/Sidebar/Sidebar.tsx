@@ -5,7 +5,6 @@ import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
 import {MyContext} from '../ContextStore/ContextStore';
 import {ContextStoreType} from "../../Types";
 import InputRange from 'react-input-range';
-import 'react-input-range/lib/css/index.css';
 import React from 'react';
 
 export interface SidebarProps {
@@ -67,12 +66,15 @@ class Range extends React.Component{
     };
     render() {
         return (
-            <InputRange
-                maxValue={4000}
-                minValue={0}
-                value={this.state.value}
-                onChange={(value: any) => this.setState({value})}
-            />
+            <div className="InputRange">
+                <InputRange
+                    maxValue={4000}
+                    minValue={0}
+                    step={100}
+                    value={this.state.value}
+                    onChange={(value: any) => this.setState({value})}
+                />
+            </div>
         )
     }
 }
