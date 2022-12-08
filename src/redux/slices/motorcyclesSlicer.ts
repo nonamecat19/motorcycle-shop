@@ -24,6 +24,10 @@ const getInitialFullPrice = () => {
 interface State {
     motorcycles: Motorcycles
     filtered: Motorcycles
+    min: number
+    max: number
+    model: string
+    brand: string
     cart: Cart
     fullPrice: string
 }
@@ -32,8 +36,17 @@ const initialState: State = {
     //TODO optimize this
     motorcycles: getInitialMotorcycles(),
     filtered: getInitialMotorcycles(),
+    min: 1,
+    max: 1000000,
+    model: '',
+    brand: 'All',
     cart: getInitialCart(),
     fullPrice: getInitialFullPrice()
+}
+
+const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycles, model: string, min: number, max: number) => {
+    let data = brand === 'All' ? motorcycles : motorcycles.filter((item: any) => item.brand.includes(brand))
+    return data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()) && item.price >= min && item.price <= max)
 }
 
 export const motorcyclesSlicer = createSlice({
@@ -49,8 +62,16 @@ export const motorcyclesSlicer = createSlice({
         },
         cardsFilter: (state, action) => {
             let {model, brand} = action.payload
-            let data = brand === 'All' ? state.motorcycles : state.motorcycles.filter((item: any) => item.brand.includes(brand))
-            state.filtered = data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()))
+            state.model = model
+            state.brand = brand
+            state.filtered = filterFunc(brand, state.motorcycles, state.filtered, model, state.min, state.max)
+
+        },
+        setMinMax: (state, action) => {
+            let {min, max} = action.payload
+            state.min = min
+            state.max = max
+            state.filtered = filterFunc(state.brand, state.motorcycles, state.filtered, state.model, min, max)
         },
         setCart: (state, action) => {
             state.cart = action.payload
@@ -64,7 +85,7 @@ export const motorcyclesSlicer = createSlice({
     }
 })
 
-export const {setMotorcycles, setFiltered, cardsFilter, setCart} = motorcyclesSlicer.actions
+export const {setMotorcycles, setFiltered, cardsFilter, setMinMax, setCart} = motorcyclesSlicer.actions
 
 
 export default motorcyclesSlicer.reducer

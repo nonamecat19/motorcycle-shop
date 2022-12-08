@@ -1,7 +1,7 @@
 import './Sidebar.scss'
 import {FC, useContext, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {cardsFilter} from '../../redux/slices/motorcyclesSlicer';
+import {cardsFilter, setMinMax} from '../../redux/slices/motorcyclesSlicer';
 import {MyContext} from '../ContextStore/ContextStore';
 import {ContextStoreType} from "../../Types";
 import InputRange from 'react-input-range';
@@ -59,22 +59,50 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
 }
 
 
-
-class Range extends React.Component{
-    state = {
-        value: {min: 0, max: 4000},
-    };
-    render() {
-        return (
-            <div className="InputRange">
-                <InputRange
-                    maxValue={4000}
-                    minValue={0}
-                    step={100}
-                    value={this.state.value}
-                    onChange={(value: any) => this.setState({value})}
-                />
-            </div>
-        )
+const Range = () => {
+    type RangeType = {min: number, max: number}
+    const [value, setValue] = useState<RangeType>({min: 100, max: 3900});
+    const dispatch = useDispatch()
+    const onChangeHandler = (value: any) => {
+        if (value.min >= 0 && value.max <= 4000) {
+            setValue(value)
+            dispatch(setMinMax(value))
+        }
     }
+
+    return (
+        <div className="InputRange">
+            <InputRange
+                maxValue={4000}
+                minValue={0}
+                step={100}
+                value={value}
+                onChange={onChangeHandler}
+            />
+        </div>
+    )
 }
+
+
+// class Range extends React.Component{
+//     state = {
+//         value: {min: 0, max: 4000},
+//     }
+//     onChangeHandler(value: any) {
+//         this.setState({value})
+//
+//     }
+//     render() {
+//         return (
+//             <div className="InputRange">
+//                 <InputRange
+//                     maxValue={4000}
+//                     minValue={0}
+//                     step={100}
+//                     value={this.state.value}
+//                     onChange={this.onChangeHandler}
+//                 />
+//             </div>
+//         )
+//     }
+// }
