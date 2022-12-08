@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.9.0",
+    "@types/react-transition-group": "^4.4.5",
     "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -70,6 +71,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.10",
     "generate-react-cli": "^8.0.1",
+    "react-transition-group": "^4.4.5",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }
