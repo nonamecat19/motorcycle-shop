@@ -4,8 +4,17 @@ import {AuthPage} from "../../pages/AuthPage/AuthPage";
 import {ContentPage} from "../../pages/ContentPage/ContentPage";
 import {ProductPage} from "../../pages/ProductPage/ProductPage";
 import PaymentForm from '../PaymentForm/App';
+import {useEffect} from "react";
+import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
+import { useDispatch } from 'react-redux';
 
 export const App = () => {
+    const dispath = useDispatch()
+    useEffect(() => {
+        // @ts-ignore
+        dispath(getMotorcyclesAsync())
+    },[])
+
     return (
         <div className="App">
             <Routes>

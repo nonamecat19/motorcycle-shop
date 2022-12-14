@@ -1,6 +1,7 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {Cart, Motorcycles} from "../../Types";
 import JSONData from "../../data.json";
+import {getMotorcycles} from "../../db";
 
 const getInitialMotorcycles = () => {
     let localData = localStorage.getItem('motorcycles')
@@ -45,10 +46,24 @@ const initialState: State = {
 }
 
 const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycles, model: string, min: number, max: number) => {
-    let data = brand === 'All' ? motorcycles : motorcycles.filter((item: any) => item.brand.includes(brand))
+    let data =
+        brand === 'All'
+            ?
+            motorcycles
+            :
+            motorcycles.filter((item: any) => item.brand.includes(brand))
     return data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()) && item.price >= min && item.price <= max)
 }
 
+export const getMotorcyclesAsync = createAsyncThunk(
+    'motorcycles/getMotorcyclesAsync',
+    async function (){
+        return await getMotorcycles()
+    }
+)
+
+
+// @ts-ignore
 export const motorcyclesSlicer = createSlice({
     name: 'motorcycles',
     initialState,
@@ -65,7 +80,6 @@ export const motorcyclesSlicer = createSlice({
             state.model = model
             state.brand = brand
             state.filtered = filterFunc(brand, state.motorcycles, state.filtered, model, state.min, state.max)
-
         },
         setMinMax: (state, action) => {
             let {min, max} = action.payload
@@ -82,6 +96,20 @@ export const motorcyclesSlicer = createSlice({
                 sum += state.motorcycles[product[0]].price * product[1]
             state.fullPrice = sum.toString()
         }
+    },
+    extraReducers: {
+        // @ts-ignore
+        [getMotorcyclesAsync.pending]: (state: any, action: any) => {
+            console.log('pending')
+        },
+        // @ts-ignore
+        [getMotorcyclesAsync.fulfilled]: (state: any, action: any) => {
+            console.log('fulfilled')
+        },
+        // @ts-ignore
+        [getMotorcyclesAsync.rejected]: (state: any, action: any) => {
+            console.log('rejected')
+        },
     }
 })
 
