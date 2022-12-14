@@ -82,27 +82,3 @@ const Range = () => {
         </div>
     )
 }
-
-
-// class Range extends React.Component{
-//     state = {
-//         value: {min: 0, max: 4000},
-//     }
-//     onChangeHandler(value: any) {
-//         this.setState({value})
-//
-//     }
-//     render() {
-//         return (
-//             <div className="InputRange">
-//                 <InputRange
-//                     maxValue={4000}
-//                     minValue={0}
-//                     step={100}
-//                     value={this.state.value}
-//                     onChange={this.onChangeHandler}
-//                 />
-//             </div>
-//         )
-//     }
-// }

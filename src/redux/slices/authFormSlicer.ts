@@ -20,3 +20,13 @@ export const authFormSlicer = createSlice({
 export const {setAuthForm, toggleAuthForm} = authFormSlicer.actions
 
 export default authFormSlicer.reducer
+
+
+
+
+
+
+
+
+
+

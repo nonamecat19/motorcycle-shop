@@ -43,14 +43,23 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
         dispatch(toggleAuthForm())
     }
 
+    const RememberMe = () => {
+        return(
+            <div className="h-10">
+                <input type="checkbox"
+
+                />
+                <label htmlFor="rememberMe"> Запам'ятати мене</label>
+            </div>
+        )
+    }
+
     return (
         <div className="AuthorizationFormLogin">
-            <div className="min-h-screen py-6 flex flex-col justify-center py-12">
+            <div className="parent">
                 <div className="relative py-0">
-                    <div
-                        className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 shadow-lg transform skew-y-0 -rotate-6 rounded-3xl">
-                    </div>
-                    <div className="relative px-16 py-5 bg-white shadow-lg rounded-3xl">
+                    <div className="back"></div>
+                    <div className="front">
                         <div className="max-w-md mx-auto">
                             <div>
                                 <h1 className="text-3xl font-semibold text-center mb-6">
@@ -73,11 +82,12 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                         >Електронна пошта</label>
                                     </div>
                                     {passwordInput(false)}
-                                    {create ? passwordInput(true) : null}
+                                    {create ? passwordInput(true) : RememberMe()}
                                     <div className="relative">
                                         <GoogleLogin
+                                            className={"googleLogin"}
                                             clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                                            buttonText="Увійти за допомогою Gmail"
+                                            buttonText={create ? "Зареєструватися з Gmail" : "Увійти з Gmail"}
                                             onSuccess={responseGoogle}
                                             onFailure={responseGoogle}
                                         />

@@ -1,7 +1,6 @@
 import {FC} from 'react'
 import './ContentPage.scss'
 import {Content} from "../../components/Content/Content";
-import App from '../../components/PaymentForm/App';
 
 export interface ContentPageProps {
 

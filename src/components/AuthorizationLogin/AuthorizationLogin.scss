@@ -4,6 +4,21 @@
     @apply text-second
   }
 
+  .parent{
+    @apply min-h-screen py-6 flex flex-col justify-center py-12
+  }
+  .back{
+    @apply absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 shadow-lg
+    transform skew-y-0 -rotate-6 rounded-3xl
+  }
+  .front{
+    @apply relative px-16 py-5 bg-white shadow-lg rounded-3xl h-[430px] w-[400px]
+  }
+
+  .googleLogin{
+    @apply w-full
+  }
+
 }
 
 .auth-submit{
