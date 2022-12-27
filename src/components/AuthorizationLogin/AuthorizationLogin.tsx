@@ -1,9 +1,16 @@
 import React, {FC, useState} from 'react'
 import './AuthorizationLogin.scss'
-import GoogleLogin from 'react-google-login';
-import {useDispatch, useSelector} from "react-redux";
-import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
-import {redirect, useNavigate} from 'react-router-dom';
+import {GoogleOAuthProvider} from '@react-oauth/google'
+import {useDispatch, useSelector} from "react-redux"
+import {toggleAuthForm} from "../../redux/slices/authFormSlicer"
+import {redirect, useNavigate} from 'react-router-dom'
+import {GoogleLogin} from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import axios, {AxiosResponse} from "axios";
+import {Motorcycles, User, UsersResponse} from "../../Types";
+import {setUser} from "../../redux/slices/currentUserSlicer";
+import {log} from "util";
+import {promises} from "dns";
 
 export interface AuthorizationLogin {
 
@@ -11,10 +18,12 @@ export interface AuthorizationLogin {
 
 export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
     const navigate = useNavigate();
-    const [create, setCreate] = useState(false)
+    const [create, setCreate] = useState<boolean>(false)
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [remember, setRemember] = useState<boolean>(false)
 
     const dispatch = useDispatch()
-
     const passwordInput = (repeat: boolean) => {
         return (
             <div className="relative">
@@ -24,6 +33,8 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     type="password"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="*"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <label
                     htmlFor="password"
@@ -34,20 +45,94 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
         )
     }
 
-    const responseGoogle = (response: any) => {
-        console.log(response);
+    const responseGoogle = async (response: any) => {
+        let dataObj: any = await jwt_decode(response.credential)
+        let surname: string = await dataObj.family_name ? dataObj.family_name : ''
+        console.log(dataObj)
+        await axios({
+            method: 'GET',
+            url: 'http://localhost:8888/api/users/register/',
+            params: {
+                'login': dataObj.email,
+                'first_name': dataObj.given_name,
+                'second_name': surname,
+                'password': dataObj.sub,
+            }
+        })
+            .then((response: AxiosResponse<any>) => {
+                    let id = 0
+                    let first_name = dataObj.given_name
+                    let last_name = surname
+                    let role = 'user'
+                console.log( {id, first_name, last_name, role})
+                    dispatch(setUser({id, first_name, last_name, role}))
+                    navigate("/")
+                    dispatch(toggleAuthForm())
+                }
+            )
+    }
+    const errorGoogle = () => {
+        console.log('error');
     }
 
-    const AuthSubmitHandler = () => {
-        navigate("/")
-        dispatch(toggleAuthForm())
+
+    const AuthSubmitHandler = async () => {
+        let fail = false
+        console.log(email, password)
+        await axios({
+            method: 'GET',
+            url: 'http://localhost:8888/api/users/auth/',
+            params: {
+                'login': email,
+                'password': password
+            }
+        })
+            .then((response: AxiosResponse<UsersResponse>) => {
+                    if (typeof response.data == 'boolean') {
+                        console.log('Помилка авторизації');
+                        fail = true
+                        return
+                    }
+                    const {id, first_name, last_name, role}: User = response.data;
+                    dispatch(setUser({id, first_name, last_name, role}))
+                }
+            )
+        if (!fail){
+            await navigate("/")
+        }
+        await dispatch(toggleAuthForm())
+    }
+
+
+    const RegisterSubmitHandler = async () => {
+        await axios({
+            method: 'GET',
+            url: 'http://localhost:8888/api/users/register/',
+            params: {
+                'login': email,
+                'first_name': 'a',
+                'second_name': 'a',
+                'password': password
+            }
+        })
+            .then((response: AxiosResponse<any>) => {
+                    if (response.data) {
+                        dispatch(setUser({id: 0, first_name: 'Петро', second_name: 'Мельник', role: 'user'}))
+                        navigate("/")
+                        dispatch(toggleAuthForm())
+                    } else {
+                        console.log('Помилка реєстрації');
+                    }
+                }
+            )
     }
 
     const RememberMe = () => {
-        return(
+        return (
             <div className="h-10">
                 <input type="checkbox"
-
+                       checked={remember}
+                       onChange={(e) => setRemember(!remember)}
                 />
                 <label htmlFor="rememberMe"> Запам'ятати мене</label>
             </div>
@@ -75,6 +160,8 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                             type="text"
                                             className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                                             placeholder="*"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                         />
                                         <label
                                             htmlFor="email"
@@ -85,11 +172,8 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                     {create ? passwordInput(true) : RememberMe()}
                                     <div className="relative">
                                         <GoogleLogin
-                                            className={"googleLogin"}
-                                            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                                            buttonText={create ? "Зареєструватися з Gmail" : "Увійти з Gmail"}
                                             onSuccess={responseGoogle}
-                                            onFailure={responseGoogle}
+                                            onError={errorGoogle}
                                         />
                                     </div>
                                     <div className="relative">
@@ -103,7 +187,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                     <div className="relative">
                                         <button
                                             className="auth-submit text-white rounded-md px-4 py-1"
-                                            onClick={AuthSubmitHandler}
+                                            onClick={create ? RegisterSubmitHandler : AuthSubmitHandler}
                                         >
                                             {create ? "Зареєструватися" : "Ввійти"}
                                         </button>

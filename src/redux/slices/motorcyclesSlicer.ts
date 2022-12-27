@@ -97,20 +97,20 @@ export const motorcyclesSlicer = createSlice({
             state.fullPrice = sum.toString()
         }
     },
-    extraReducers: {
-        // @ts-ignore
-        [getMotorcyclesAsync.pending]: (state: any, action: any) => {
-            console.log('pending')
-        },
-        // @ts-ignore
-        [getMotorcyclesAsync.fulfilled]: (state: any, action: any) => {
-            console.log('fulfilled')
-        },
-        // @ts-ignore
-        [getMotorcyclesAsync.rejected]: (state: any, action: any) => {
-            console.log('rejected')
-        },
-    }
+    // extraReducers: {
+    //     // @ts-ignore
+    //     [getMotorcyclesAsync.pending]: (state: any, action: any) => {
+    //         // console.log('pending')
+    //     },
+    //     // @ts-ignore
+    //     [getMotorcyclesAsync.fulfilled]: (state: any, action: any) => {
+    //         // console.log('fulfilled')
+    //     },
+    //     // @ts-ignore
+    //     [getMotorcyclesAsync.rejected]: (state: any, action: any) => {
+    //         console.log('rejected')
+    //     },
+    // }
 })
 
 export const {setMotorcycles, setFiltered, cardsFilter, setMinMax, setCart} = motorcyclesSlicer.actions

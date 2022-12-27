@@ -3,6 +3,7 @@ import './Navbar.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
 import {Link, useNavigate} from "react-router-dom";
+import {logout} from '../../redux/slices/currentUserSlicer';
 
 export interface ContentProps {
 
@@ -13,7 +14,13 @@ const Navbar: FC<ContentProps> = ({}) => {
     const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
     const {motorcycles, filtered, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
+    const {role} = useSelector((state: any) => state.currentUser)
     const loginHandler = () => {
+        navigate('/auth')
+        dispatch(toggleAuthForm())
+    }
+    const logoutHandler = () => {
+        dispatch(logout())
         navigate('/auth')
         dispatch(toggleAuthForm())
     }
@@ -63,23 +70,26 @@ const Navbar: FC<ContentProps> = ({}) => {
                 <li>
                     <a
                         className="justify-between"
-                        onClick={loginHandler}
+                        onClick={role == '' ? loginHandler : logoutHandler}
                     >
-                        Профіль
+                        {role == '' ? 'Вхід' : 'Вихід'}
                     </a>
                 </li>
-                <li>
-                    <label htmlFor="my-modal-6">Адмінпанель</label>
-                </li>
-                <li>
-                    <label htmlFor="my-modal-order">Мої замовлення</label>
-                </li>
-                <li>
-                    <a className="justify-between">
-                        Вихід
-                        <span className="badge">Не робить</span>
-                    </a>
-                </li>
+                {
+                    role === 'admin'
+                        ? <li><label htmlFor="my-modal-6">Адмінпанель</label></li>
+                        : null
+                }
+                {
+                    role === ''
+                        ? null
+                        : <li><label htmlFor="my-modal-order">Мої замовлення</label></li>
+                }
+                {
+                    role === ''
+                        ? null
+                        : <li><a className="justify-between" onClick={() => navigate('/profile')}>Профіль</a></li>
+                }
             </ul>
         </div>
     )

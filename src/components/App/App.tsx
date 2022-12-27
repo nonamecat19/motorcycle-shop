@@ -7,12 +7,13 @@ import PaymentForm from '../PaymentForm/App';
 import {useEffect} from "react";
 import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
 import { useDispatch } from 'react-redux';
+import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
 
 export const App = () => {
     const dispath = useDispatch()
     useEffect(() => {
         // @ts-ignore
-        dispath(getMotorcyclesAsync())
+        // dispath(getMotorcyclesAsync())
     },[])
 
     return (
@@ -23,6 +24,7 @@ export const App = () => {
                 <Route path='products/:category/:id' element={<ProductPage/>}/>
 
                 <Route path='card' element={<PaymentForm/>}/>
+                <Route path='profile' element={<ProfilePage/>}/>
             </Routes>
         </div>
     )

@@ -8,29 +8,29 @@ import {Sidebar} from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
 
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {useDispatch, useSelector} from 'react-redux';
+import {setMotorcycles} from "../../redux/slices/motorcyclesSlicer";
+import {Motorcycles} from "../../Types";
 
 export interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({}) => {
     const [inputs, setInputs] = useState({})
+    const dispatch = useDispatch()
     const handleClick = () => {
-        console.log('click')
-        // axios.post('http://localhost:8888/api/user/save', inputs).then(function (response) {
-        //     console.log(response.data)
-        // })
-        axios.get('http://localhost:8888/api/user/get').then(function (response) {
+        axios.get('http://localhost:8888/api/motorcycles/get').then(function (response: AxiosResponse<Motorcycles>) {
             console.log(response.data)
+            // dispatch(setMotorcycles(response.data))
         })
     }
-
     return (
         <div className="Content">
             <button
                 onClick={handleClick}
             >
-                asdflkjasdfklskladjf
+
             </button>
             <Navbar/>
             <div className='content'>

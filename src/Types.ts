@@ -57,3 +57,12 @@ export type CommentElement = {
     userId: number
     comment: string
 }
+
+export type User = {
+    id: number
+    first_name: string
+    last_name: string
+    role: 'admin' | 'user' | ''
+}
+
+export type UsersResponse = User | boolean

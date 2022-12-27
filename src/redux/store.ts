@@ -5,6 +5,7 @@ import notification from "./slices/notificationSlicer";
 import motorcycles from "./slices/motorcyclesSlicer";
 import order from "./slices/orderSlicer";
 import comments from "./slices/commentsSlicer";
+import currentUser from "./slices/currentUserSlicer";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         notification: notification,
         motorcycles: motorcycles,
         order: order,
-        comments: comments
+        comments: comments,
+        currentUser: currentUser
     }
 })

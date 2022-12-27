@@ -9,7 +9,10 @@ import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev";
 import {BrowserRouter} from "react-router-dom";
 import {ContextStore} from "./components/ContextStore/ContextStore";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 
+
+const ClientId = "1006000475336-gfsn0elvjquo919ufdeea4v5he3mm5q0.apps.googleusercontent.com"
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -17,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <BrowserRouter>
                 <DevSupport ComponentPreviews={ComponentPreviews} useInitialHook={useInitial}>
                     <ContextStore>
-                        <App/>
+                        <GoogleOAuthProvider clientId={ClientId}>
+                            <App/>
+                        </GoogleOAuthProvider>
                     </ContextStore>
                 </DevSupport>
             </BrowserRouter>
