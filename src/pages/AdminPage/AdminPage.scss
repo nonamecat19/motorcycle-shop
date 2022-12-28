@@ -1,0 +1,8 @@
+.AdminPage{
+  @apply bg-[#f8f8f8] min-h-screen w-full;
+}
+
+
+.AdminContent{
+  @apply w-[calc(100vw-230px)] h-full flex justify-center mt-10 float-left;
+}

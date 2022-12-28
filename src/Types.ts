@@ -66,3 +66,7 @@ export type User = {
 }
 
 export type UsersResponse = User | boolean
+
+export type DashboardData = {
+    [key: string]: string
+}

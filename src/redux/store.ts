@@ -15,6 +15,6 @@ export const store = configureStore({
         motorcycles: motorcycles,
         order: order,
         comments: comments,
-        currentUser: currentUser
+        currentUser: currentUser,
     }
 })

@@ -1,0 +1,9 @@
+.AdminSidebar{
+  display: flex;
+  flex-direction: column;
+  width: 205px;
+  height: 100vh;
+  float: left;
+  border-right: 1px solid #efefef;
+  @apply ml-2 pt-40;
+}

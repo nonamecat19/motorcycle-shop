@@ -8,6 +8,8 @@ import {useEffect} from "react";
 import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
 import { useDispatch } from 'react-redux';
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
+import {AdminPage} from "../../pages/AdminPage/AdminPage";
+
 
 export const App = () => {
     const dispath = useDispatch()
@@ -22,6 +24,8 @@ export const App = () => {
                 <Route path='/' element={<ContentPage/>}/>
                 <Route path='auth' element={<AuthPage/>}/>
                 <Route path='products/:category/:id' element={<ProductPage/>}/>
+
+                <Route path='admin/:category' element={<AdminPage/>}/>
 
                 <Route path='card' element={<PaymentForm/>}/>
                 <Route path='profile' element={<ProfilePage/>}/>

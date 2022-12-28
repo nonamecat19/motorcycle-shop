@@ -1,0 +1,27 @@
+$active: #e8ebee;
+$hover: #f0f2f4;
+$default: #f9fafb;
+$color: #565656;
+
+.AdminSidebarItem{
+  transition: all 0.3s ease;
+
+  &:hover{
+    background-color: $hover;
+  }
+
+  &.active{
+    background-color: $active;
+  }
+
+  background: $default;
+  color: $color;
+  @apply w-[200px] rounded-md p-2 font-bold text-sm;
+}
+
+.AdminItemActive{
+  background-color: $active;
+  &:hover{
+    background-color: $active;
+  }
+}
