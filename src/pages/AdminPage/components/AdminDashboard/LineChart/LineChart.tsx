@@ -8,7 +8,7 @@ export const LineChart = ({ data}: any) => (
             '2',
             '3',
             '4',
-            'number',
+            'Кількість',
         ]}
         indexBy="country"
         margin={{ top: 10, right: 30, bottom: 40, left: 30 }}

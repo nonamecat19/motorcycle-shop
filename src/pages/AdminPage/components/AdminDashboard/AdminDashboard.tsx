@@ -14,34 +14,24 @@ export interface AdminDashboardProps {
 const data1 =
     [
         {
-            "id": "lisp",
-            "label": "lisp",
+            "id": "Україна",
             "value": 132,
-            "color": "hsl(147, 70%, 50%)"
         },
         {
-            "id": "go",
-            "label": "go",
+            "id": "Німеччина",
             "value": 180,
-            "color": "hsl(343, 70%, 50%)"
         },
         {
-            "id": "java",
-            "label": "java",
+            "id": "Польща",
             "value": 568,
-            "color": "hsl(319, 70%, 50%)"
         },
         {
-            "id": "erlang",
-            "label": "erlang",
+            "id": "Франція",
             "value": 112,
-            "color": "hsl(200, 70%, 50%)"
         },
         {
-            "id": "sass",
-            "label": "sass",
+            "id": "Інші",
             "value": 498,
-            "color": "hsl(332, 70%, 50%)"
         }
     ]
 
@@ -49,15 +39,15 @@ const data1 =
 const data2 = [
     {
         "country": "Чоловіки",
-        "number": 58,
+        "Кількість": 58,
     },
     {
         "country": "Жінки",
-        "number": 40,
+        "Кількість": 40,
     },
     {
         "country": "Не зазначено",
-        "number": 15,
+        "Кількість": 15,
     }
 ]
 
