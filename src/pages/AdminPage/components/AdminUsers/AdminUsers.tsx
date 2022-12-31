@@ -13,14 +13,14 @@ export const AdminUsers: FC<AdminUsersProps> = ({}) => {
 
                     <thead>
                     <tr>
-                        <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                        </th>
-                        <th>Name</th>
-                        <th>Job</th>
-                        <th>Favorite Color</th>
+                        <th></th>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Логін</th>
+                        <th>Ім'я</th>
+                        <th>Прізвище</th>
+                        <th>Роль</th>
+                        <th>Дата народження</th>
                         <th></th>
                     </tr>
                     </thead>

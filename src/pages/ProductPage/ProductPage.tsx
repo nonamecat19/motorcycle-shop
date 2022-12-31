@@ -3,7 +3,7 @@ import './ProductPage.scss'
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import Navbar from '../../components/Navbar/Navbar';
-import {AdminPanel} from '../../components/AdminPanel/AdminPanel';
+// import {AdminPanel} from '../../components/AdminPanel/AdminPanel';
 import {Notification} from '../../components/Notification/Notification';
 import {WhiteContent} from '../../components/WhiteContent/WhiteContent';
 import {setCart} from "../../redux/slices/motorcyclesSlicer";
@@ -182,7 +182,7 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
             </div>
             <ShoppingCart/>
             <Notification/>
-            <AdminPanel/>
+            {/*<AdminPanel/>*/}
         </div>
     )
 }

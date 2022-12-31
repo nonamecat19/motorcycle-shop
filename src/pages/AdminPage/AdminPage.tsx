@@ -1,11 +1,12 @@
 import React, {FC} from 'react'
 import './AdminPage.scss'
-import {AdminSidebar} from "./components/AdminSidebar/AdminSidebar";
-import {useParams} from "react-router-dom";
-import {Helmet} from "react-helmet-async";
+import {AdminSidebar} from "./components/AdminSidebar/AdminSidebar"
+import {useParams} from "react-router-dom"
+import {Helmet} from "react-helmet-async"
 import {getDashboardData} from '../../dashboardData'
-import {AdminUsers} from "./components/AdminUsers/AdminUsers";
-import {AdminDashboard} from "./components/AdminDashboard/AdminDashboard";
+import {AdminUsers} from "./components/AdminUsers/AdminUsers"
+import {AdminDashboard} from "./components/AdminDashboard/AdminDashboard"
+import {AdminProducts} from "./components/AdminProducts/AdminProducts"
 
 export interface AdminPageProps {
 
@@ -19,7 +20,7 @@ const AdminContent = ({page}: { page: pageType }): JSX.Element => {
             case 'app':
                 return <AdminDashboard/>
             case 'products':
-                return <div>pro2ducts</div>
+                return <AdminProducts/>
             case 'users':
                 return <AdminUsers/>
             default:

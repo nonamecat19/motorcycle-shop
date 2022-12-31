@@ -1,13 +1,26 @@
-import React from "react";
+import React from "react"
 
 export type MotorcycleElement = {
-    "id": number
-    "img": string
-    "brand": string
-    "model": string
-    "price": number
-    "number": number
-    "color": string
+    id: number
+    model: string
+    brand: string
+    price: number
+    engineCapacity: number
+    enginePower: number
+    fuelConsumption: number
+    fuelCapacity: number
+    gears: number
+    mass: number
+    variations: Variation[] | null
+}
+
+export type Variation = {
+    id: number
+    colorName: string
+    colorHex: string
+    colorHex2: string
+    available: number
+    photo: string
 }
 
 export type Motorcycles = MotorcycleElement[]
@@ -17,8 +30,8 @@ export type Cache = {
 }
 
 export type Notify = {
-    "header": string
-    "text": string
+    header: string
+    text: string
 }
 
 export type Cart = CartElement[]
@@ -26,11 +39,11 @@ export type Cart = CartElement[]
 export type CartElement = [number, number]
 
 export type OrderElement = {
-    "number": number
-    "products": MotorcyclesWithNumber
-    "totalPrice": number
-    "rating": number
-    "comment": string
+    number: number
+    products: MotorcyclesWithNumber
+    totalPrice: number
+    rating: number
+    comment: string
 }
 
 export type MotorcyclesWithNumber = MotoWithNumber[]

@@ -1,6 +1,6 @@
 import {FC, useState} from 'react'
 import './Content.scss'
-import {AdminPanel} from "../AdminPanel/AdminPanel";
+// import {AdminPanel} from "../AdminPanel/AdminPanel";
 import {Notification} from "../Notification/Notification";
 import {OrderList} from "../OrderList/OrderList";
 import {Products} from "../Products/Products";
@@ -37,7 +37,7 @@ export const Content: FC<ContentProps> = ({}) => {
                 <ShoppingCart/>
                 <Products/>
                 <Sidebar/>
-                <AdminPanel/>
+                {/*<AdminPanel/>*/}
                 <Notification/>
                 <OrderList/>
             </div>

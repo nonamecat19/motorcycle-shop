@@ -1,14 +1,14 @@
-import './App.scss';
-import {Route, Routes} from "react-router-dom";
-import {AuthPage} from "../../pages/AuthPage/AuthPage";
-import {ContentPage} from "../../pages/ContentPage/ContentPage";
-import {ProductPage} from "../../pages/ProductPage/ProductPage";
-import PaymentForm from '../PaymentForm/App';
-import {useEffect} from "react";
-import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
-import { useDispatch } from 'react-redux';
-import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
-import {AdminPage} from "../../pages/AdminPage/AdminPage";
+import './App.scss'
+import {Route, Routes} from "react-router-dom"
+import {AuthPage} from "../../pages/AuthPage/AuthPage"
+import {ContentPage} from "../../pages/ContentPage/ContentPage"
+import {ProductPage} from "../../pages/ProductPage/ProductPage"
+import PaymentForm from '../PaymentForm/App'
+import {useEffect} from "react"
+import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
+import {useDispatch} from 'react-redux'
+import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
+import {AdminPage} from "../../pages/AdminPage/AdminPage"
 
 
 export const App = () => {
@@ -16,7 +16,7 @@ export const App = () => {
     useEffect(() => {
         // @ts-ignore
         // dispath(getMotorcyclesAsync())
-    },[])
+    }, [])
 
     return (
         <div className="App">
