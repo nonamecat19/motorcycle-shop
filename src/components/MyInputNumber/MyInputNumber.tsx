@@ -1,8 +1,8 @@
 import React, {FC, useState} from 'react'
 import './MyInputNumber.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {setCart} from "../../redux/slices/motorcyclesSlicer";
-import {Cart} from "../../Types";
+import {setCart} from "@slices/motorcyclesSlicer";
+import {Cart} from "@types";
 
 export interface MyInputNumberProps {
     id: number

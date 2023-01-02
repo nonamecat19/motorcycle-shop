@@ -1,21 +1,21 @@
 import './App.scss'
 import {Route, Routes} from "react-router-dom"
-import {AuthPage} from "../../pages/AuthPage/AuthPage"
-import {ContentPage} from "../../pages/ContentPage/ContentPage"
-import {ProductPage} from "../../pages/ProductPage/ProductPage"
+import {AuthPage} from "@p/AuthPage/AuthPage"
+import {ContentPage} from "@p/ContentPage/ContentPage"
+import {ProductPage} from "@p/ProductPage/ProductPage"
 import PaymentForm from '../PaymentForm/App'
 import {useEffect} from "react"
-import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
+import {getMotorcyclesAsync} from "@slices/motorcyclesSlicer"
 import {useDispatch} from 'react-redux'
-import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
-import {AdminPage} from "../../pages/AdminPage/AdminPage"
+import {ProfilePage} from "@p/ProfilePage/ProfilePage"
+import {AdminPage} from "@p/AdminPage/AdminPage"
 
 
 export const App = () => {
     const dispath = useDispatch()
     useEffect(() => {
         // @ts-ignore
-        // dispath(getMotorcyclesAsync())
+        dispath(getMotorcyclesAsync())
     }, [])
 
     return (

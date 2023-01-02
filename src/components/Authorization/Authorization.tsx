@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
 import './Authorization.scss'
 import Spline from "@splinetool/react-spline";
-import {AuthorizationLogin} from "../AuthorizationLogin/AuthorizationLogin";
+import {AuthorizationLogin} from "@c/AuthorizationLogin/AuthorizationLogin";
 
 export interface AuthorizationProps {
 

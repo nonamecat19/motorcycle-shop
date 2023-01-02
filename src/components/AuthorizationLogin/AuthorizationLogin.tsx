@@ -1,16 +1,14 @@
-import React, {FC, useState} from 'react'
+import React, {ChangeEvent, FC, useState} from 'react'
 import './AuthorizationLogin.scss'
 import {GoogleOAuthProvider} from '@react-oauth/google'
 import {useDispatch, useSelector} from "react-redux"
-import {toggleAuthForm} from "../../redux/slices/authFormSlicer"
+import {toggleAuthForm} from "@slices/authFormSlicer"
 import {redirect, useNavigate} from 'react-router-dom'
 import {GoogleLogin} from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import axios, {AxiosResponse} from "axios";
-import {Motorcycles, User, UsersResponse} from "../../Types";
-import {setUser} from "../../redux/slices/currentUserSlicer";
-import {log} from "util";
-import {promises} from "dns";
+import {Motorcycles, User, UsersResponse} from "@types";
+import {setUser} from "@slices/currentUserSlicer";
 
 export interface AuthorizationLogin {
 
@@ -34,7 +32,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="*"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
                 <label
                     htmlFor="password"

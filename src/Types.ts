@@ -11,7 +11,7 @@ export type MotorcycleElement = {
     fuelCapacity: number
     gears: number
     mass: number
-    variations: Variation[] | null
+    variations: Variation[]
 }
 
 export type Variation = {

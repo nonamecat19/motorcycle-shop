@@ -1,7 +1,7 @@
-import {Card} from "../Card/Card";
+import {Card} from "@c/Card/Card";
 import {FC} from "react";
 import './Products.scss'
-import {MotorcycleElement} from '../../Types'
+import {MotorcycleElement} from '@types'
 import {useSelector} from "react-redux";
 
 export interface ProductsProps {

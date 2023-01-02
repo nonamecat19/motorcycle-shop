@@ -1,17 +1,15 @@
 import {FC, useState} from 'react'
 import './Content.scss'
-// import {AdminPanel} from "../AdminPanel/AdminPanel";
-import {Notification} from "../Notification/Notification";
-import {OrderList} from "../OrderList/OrderList";
-import {Products} from "../Products/Products";
-import {Sidebar} from "../Sidebar/Sidebar";
-import Navbar from "../Navbar/Navbar";
-import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
-
+import {Notification} from "@c/Notification/Notification";
+import {OrderList} from "@c/OrderList/OrderList";
+import {Products} from "@c/Products/Products";
+import {Sidebar} from "@c/Sidebar/Sidebar";
+import Navbar from "@c/Navbar/Navbar";
+import {ShoppingCart} from "@c/ShoppingCart/ShoppingCart";
 import axios, {AxiosResponse} from "axios";
 import {useDispatch, useSelector} from 'react-redux';
-import {setMotorcycles} from "../../redux/slices/motorcyclesSlicer";
-import {Motorcycles} from "../../Types";
+import {setMotorcycles} from "@slices/motorcyclesSlicer";
+import {Motorcycles} from "@types";
 
 export interface ContentProps {
 }
@@ -30,7 +28,7 @@ export const Content: FC<ContentProps> = ({}) => {
             <button
                 onClick={handleClick}
             >
-
+                asdfsadfasdf
             </button>
             <Navbar/>
             <div className='content'>

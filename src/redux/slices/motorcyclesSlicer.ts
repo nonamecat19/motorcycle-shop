@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Cart, Motorcycles} from "../../Types";
+import {Cart, Motorcycles} from "@types";
 import JSONData from "../../data.json";
-import {getMotorcycles} from "../../db";
+import {getMotorcycles} from "@src/db";
 
 const getInitialMotorcycles = () => {
     let localData = localStorage.getItem('motorcycles')
@@ -13,7 +13,7 @@ const getInitialCart = () => {
     return Stored ? JSON.parse(Stored) : []
 }
 
-const getInitialFullPrice = () => {
+const getFullPrice = () => {
     let cartData = getInitialCart()
     let motorcyclesData = getInitialMotorcycles()
     let sum: number = 0
@@ -34,15 +34,14 @@ interface State {
 }
 
 const initialState: State = {
-    //TODO optimize this
-    motorcycles: getInitialMotorcycles(),
-    filtered: getInitialMotorcycles(),
+    motorcycles: [],
+    filtered: [],
     min: 1,
     max: 1000000,
     model: '',
     brand: 'All',
     cart: getInitialCart(),
-    fullPrice: getInitialFullPrice()
+    fullPrice: getFullPrice()
 }
 
 const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycles, model: string, min: number, max: number) => {
@@ -57,13 +56,10 @@ const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycl
 
 export const getMotorcyclesAsync = createAsyncThunk(
     'motorcycles/getMotorcyclesAsync',
-    async function (){
-        return await getMotorcycles()
-    }
+    async () => getMotorcycles()
 )
 
 
-// @ts-ignore
 export const motorcyclesSlicer = createSlice({
     name: 'motorcycles',
     initialState,
@@ -97,23 +93,22 @@ export const motorcyclesSlicer = createSlice({
             state.fullPrice = sum.toString()
         }
     },
-    // extraReducers: {
-    //     // @ts-ignore
-    //     [getMotorcyclesAsync.pending]: (state: any, action: any) => {
-    //         // console.log('pending')
-    //     },
-    //     // @ts-ignore
-    //     [getMotorcyclesAsync.fulfilled]: (state: any, action: any) => {
-    //         // console.log('fulfilled')
-    //     },
-    //     // @ts-ignore
-    //     [getMotorcyclesAsync.rejected]: (state: any, action: any) => {
-    //         console.log('rejected')
-    //     },
-    // }
+    extraReducers: (builder) => {
+        builder.addCase(getMotorcyclesAsync.pending, (state, action) => {
+
+        })
+        builder.addCase(getMotorcyclesAsync.fulfilled, (state, action) => {
+            // @ts-ignore
+            state.motorcycles = action.payload
+            // @ts-ignore
+            state.filtered = action.payload
+            console.log('fulfilled')
+        })
+        builder.addCase(getMotorcyclesAsync.rejected, (state, action) => {
+            console.log('rejected')
+        })
+    }
 })
 
 export const {setMotorcycles, setFiltered, cardsFilter, setMinMax, setCart} = motorcyclesSlicer.actions
-
-
 export default motorcyclesSlicer.reducer

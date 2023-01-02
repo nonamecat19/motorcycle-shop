@@ -2,7 +2,7 @@ import {FC} from 'react'
 import './Card.scss'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux"
-import {setMotorcycles, setCart} from '../../redux/slices/motorcyclesSlicer'
+import {setMotorcycles, setCart} from '@slices/motorcyclesSlicer'
 
 export interface CardProps {
     brand: string
@@ -51,7 +51,7 @@ export const Card: FC<CardProps> = (
                         <div className="toCartWrapper relative">
                             <button
                                 className="toCart"
-                                disabled={isDisabled()}
+                                // disabled={isDisabled()}
                                 onClick={addToCart}
                                 style={{backgroundImage: `url("${cartIcon}")`}}
                             >

@@ -1,5 +1,5 @@
 import {createContext, FC, ReactNode, useRef} from 'react'
-import {ContextStoreType} from '../../Types';
+import {ContextStoreType} from '@types';
 import './ContextStore.scss'
 
 export interface ContextStoreProps {

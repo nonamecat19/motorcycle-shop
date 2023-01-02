@@ -1,8 +1,8 @@
 import {FC, useContext} from 'react'
 import './Notification.scss'
 import {useSelector} from "react-redux";
-import {ContextStoreType} from "../../Types";
-import {MyContext} from '../ContextStore/ContextStore';
+import {ContextStoreType} from "@types";
+import {MyContext} from '@c/ContextStore/ContextStore';
 
 interface NotificationProps {
 

@@ -1,12 +1,12 @@
 import React, {FC} from 'react'
 import './AdminPage.scss'
-import {AdminSidebar} from "./components/AdminSidebar/AdminSidebar"
+import {AdminSidebar} from "./AdminSidebar/AdminSidebar"
 import {useParams} from "react-router-dom"
 import {Helmet} from "react-helmet-async"
-import {getDashboardData} from '../../dashboardData'
-import {AdminUsers} from "./components/AdminUsers/AdminUsers"
-import {AdminDashboard} from "./components/AdminDashboard/AdminDashboard"
-import {AdminProducts} from "./components/AdminProducts/AdminProducts"
+import {getDashboardData} from '@src/dashboardData'
+import {AdminUsers} from "./AdminUsers/AdminUsers"
+import {AdminDashboard} from "./AdminDashboard/AdminDashboard"
+import {AdminProducts} from "./AdminProducts/AdminProducts"
 
 export interface AdminPageProps {
 

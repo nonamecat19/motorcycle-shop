@@ -1,12 +1,12 @@
 import {FC, Fragment, useContext} from "react";
 import './ShopingCart.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {setNotification} from "../../redux/slices/notificationSlicer";
-import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
-import {setOrder} from "../../redux/slices/orderSlicer";
-import {Cart, CartElement, ContextStoreType, OrderElement} from "../../Types";
-import {MyContext} from "../ContextStore/ContextStore";
-import {MyInputNumber} from "../MyInputNumber/MyInputNumber";
+import {setNotification} from "@slices/notificationSlicer";
+import {setMotorcycles, setCart} from "@slices/motorcyclesSlicer";
+import {setOrder} from "@slices/orderSlicer";
+import {Cart, CartElement, ContextStoreType, OrderElement} from "@types";
+import {MyContext} from "@c/ContextStore/ContextStore";
+import {MyInputNumber} from "@c/MyInputNumber/MyInputNumber";
 
 interface ShoppingCartProps {
 
