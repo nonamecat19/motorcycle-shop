@@ -1,0 +1,10 @@
+.EditMotoDialog{
+
+}
+
+.motoInput{
+
+  @apply input input-bordered border-bg border w-full
+  w-48 text-bg focus:outline-none focus-visible:ring-2
+  focus-visible:ring-bg duration-500 px-5 h-7 ml-5
+}

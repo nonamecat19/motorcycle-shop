@@ -1,4 +1,4 @@
-import {DashboardData} from '@types';
+import {DashboardData} from './Types'
 const data: DashboardData = {
     'app': 'Головна',
     'products': 'Продукти',

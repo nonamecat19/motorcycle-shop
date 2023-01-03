@@ -12,6 +12,7 @@
     "@fullcalendar/list": "^5.11.3",
     "@fullcalendar/react": "^5.11.2",
     "@fullcalendar/timegrid": "^5.11.3",
+    "@headlessui/react": "^1.7.7",
     "@iconify/react": "^4.0.1",
     "@mui/icons-material": "^5.10.3",
     "@mui/lab": "^5.0.0-alpha.114",
@@ -96,7 +97,9 @@
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.9.0",
+    "@types/react-slick": "^0.23.10",
     "@types/react-transition-group": "^4.4.5",
+    "@types/uuid": "^9.0.0",
     "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "axios": "^1.2.1",
@@ -112,7 +115,10 @@
     "jwt-decode": "^3.1.2",
     "react-gapi": "^1.0.2",
     "react-icons": "^4.7.1",
+    "react-slick": "^0.29.0",
     "react-transition-group": "^4.4.5",
-    "typescript-plugin-css-modules": "^3.4.0"
+    "tsconfig-paths": "^4.1.2",
+    "typescript-plugin-css-modules": "^3.4.0",
+    "uuid": "^9.0.0"
   }
 }

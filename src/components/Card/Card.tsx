@@ -2,7 +2,7 @@ import {FC} from 'react'
 import './Card.scss'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux"
-import {setMotorcycles, setCart} from '@slices/motorcyclesSlicer'
+import {setMotorcycles, setCart} from '../../redux/slices/motorcyclesSlicer'
 
 export interface CardProps {
     brand: string

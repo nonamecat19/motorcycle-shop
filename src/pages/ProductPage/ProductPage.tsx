@@ -1,15 +1,15 @@
 import React, {FC, useRef} from 'react'
 import './ProductPage.scss'
-import {Link, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux';
-import Navbar from '@c/Navbar/Navbar';
-import {Notification} from '@c/Notification/Notification';
-import {WhiteContent} from '@c/WhiteContent/WhiteContent';
-import {setCart} from "@slices/motorcyclesSlicer";
-import {ShoppingCart} from '@c/ShoppingCart/ShoppingCart';
-import {CommentElement, Comments, CommentsMoto} from "@types";
-import {setComments} from '@slices/commentsSlicer';
-import {nanoid} from "@reduxjs/toolkit";
+import {Link, useParams} from "react-router-dom"
+import {useDispatch, useSelector} from 'react-redux'
+import Navbar from '../../components/Navbar/Navbar'
+import {Notification} from '../../components/Notification/Notification'
+import {WhiteContent} from '../../components/WhiteContent/WhiteContent'
+import {setCart} from "../../redux/slices/motorcyclesSlicer"
+import {ShoppingCart} from '../../components/ShoppingCart/ShoppingCart'
+import {CommentElement, Comments, CommentsMoto} from '../../Types'
+import {setComments} from '../../redux/slices/commentsSlicer'
+import {nanoid} from "@reduxjs/toolkit"
 
 export interface ProductPageProps {
 

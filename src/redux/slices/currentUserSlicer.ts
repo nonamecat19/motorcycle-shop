@@ -1,7 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {User} from "../../Types";
-import JSONData from "../../data.json";
-
 
 const noUser = () => ({id: 0, name: '', email: '', password: '', role: ''})
 const getInitialState = () => {

@@ -1,6 +1,13 @@
 @import "../../scss/variables";
 
 .App{
+    ::-moz-selection{
+        @apply bg-bg text-white
+    }
+    ::selection{
+        @apply bg-bg text-white
+    }
+
     @apply min-h-screen
 }
 

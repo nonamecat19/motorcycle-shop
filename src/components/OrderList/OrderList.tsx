@@ -1,6 +1,6 @@
 import {FC, useState} from 'react'
 import './OrderList.scss'
-import {MotorcycleElement, Motorcycles, MotorcyclesWithNumber, MotoWithNumber, OrderElement} from "@types";
+import {MotorcyclesWithNumber, MotoWithNumber, OrderElement} from "../../Types";
 import {useSelector} from "react-redux";
 
 interface OrderListProps {

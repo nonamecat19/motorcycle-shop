@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import './AdminSidebarItem.scss'
 import {Link, useParams} from "react-router-dom"
 import {useDispatch} from "react-redux"
-import {getDashboardData} from '@src/dashboardData'
+import {getDashboardData} from '../../../../dashboardData'
 import {Dispatch} from "redux"
 
 export interface AdminSidebarItemProps {

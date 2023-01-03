@@ -1,9 +1,9 @@
 import {FC} from 'react'
 import './Navbar.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {toggleAuthForm} from "@slices/authFormSlicer";
+import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
 import {Link, useNavigate} from "react-router-dom";
-import {logout} from '@slices/currentUserSlicer';
+import {logout} from '../../redux/slices/currentUserSlicer';
 
 export interface ContentProps {
 

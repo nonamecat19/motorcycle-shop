@@ -3,7 +3,7 @@ import './AdminPage.scss'
 import {AdminSidebar} from "./AdminSidebar/AdminSidebar"
 import {useParams} from "react-router-dom"
 import {Helmet} from "react-helmet-async"
-import {getDashboardData} from '@src/dashboardData'
+import {getDashboardData} from '../../dashboardData'
 import {AdminUsers} from "./AdminUsers/AdminUsers"
 import {AdminDashboard} from "./AdminDashboard/AdminDashboard"
 import {AdminProducts} from "./AdminProducts/AdminProducts"

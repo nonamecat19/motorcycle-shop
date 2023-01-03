@@ -1,9 +1,9 @@
 import './Sidebar.scss'
 import {FC, useContext, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {cardsFilter, setMinMax} from '@slices/motorcyclesSlicer';
-import {MyContext} from '@c/ContextStore/ContextStore';
-import {ContextStoreType} from "@types";
+import {cardsFilter, setMinMax} from '../../redux/slices/motorcyclesSlicer';
+import {MyContext} from '../ContextStore/ContextStore';
+import {ContextStoreType} from "../../Types";
 import InputRange from 'react-input-range';
 import React from 'react';
 

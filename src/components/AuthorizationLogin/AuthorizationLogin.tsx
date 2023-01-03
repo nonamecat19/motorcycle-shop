@@ -1,14 +1,13 @@
 import React, {ChangeEvent, FC, useState} from 'react'
 import './AuthorizationLogin.scss'
-import {GoogleOAuthProvider} from '@react-oauth/google'
-import {useDispatch, useSelector} from "react-redux"
-import {toggleAuthForm} from "@slices/authFormSlicer"
-import {redirect, useNavigate} from 'react-router-dom'
+import {useDispatch} from "react-redux"
+import {toggleAuthForm} from "../../redux/slices/authFormSlicer"
+import {useNavigate} from 'react-router-dom'
 import {GoogleLogin} from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import axios, {AxiosResponse} from "axios";
-import {Motorcycles, User, UsersResponse} from "@types";
-import {setUser} from "@slices/currentUserSlicer";
+import {User, UsersResponse} from "../../Types";
+import {setUser} from "../../redux/slices/currentUserSlicer";
 
 export interface AuthorizationLogin {
 

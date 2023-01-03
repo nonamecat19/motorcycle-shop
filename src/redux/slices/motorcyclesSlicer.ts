@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Cart, Motorcycles} from "@types";
+import {Cart, Motorcycles} from "../../Types";
 import JSONData from "../../data.json";
-import {getMotorcycles} from "@src/db";
+import {getMotorcycles} from "../../db";
 
 const getInitialMotorcycles = () => {
     let localData = localStorage.getItem('motorcycles')
@@ -102,7 +102,6 @@ export const motorcyclesSlicer = createSlice({
             state.motorcycles = action.payload
             // @ts-ignore
             state.filtered = action.payload
-            console.log('fulfilled')
         })
         builder.addCase(getMotorcyclesAsync.rejected, (state, action) => {
             console.log('rejected')

@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import './AuthPage.scss'
-import {Authorization} from "@c/Authorization/Authorization";
+import {Authorization} from "../../components/Authorization/Authorization";
 
 export interface AuthPageProps {
 

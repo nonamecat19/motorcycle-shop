@@ -1,5 +1,5 @@
-import axios, {AxiosResponse} from "axios";
-import {Motorcycles} from "@types";
+import axios, {AxiosResponse} from "axios"
+import {Motorcycles} from './Types'
 
 export const getMotorcycles = async () => {
     let data;

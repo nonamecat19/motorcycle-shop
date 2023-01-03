@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import './ProfilePage.scss'
 import {useSelector} from "react-redux";
-import Navbar from '@c/Navbar/Navbar';
+import Navbar from "../../components/Navbar/Navbar";
+
 
 export interface ProfilePageProps {
 
