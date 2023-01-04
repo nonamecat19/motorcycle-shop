@@ -3,7 +3,6 @@ import './Slider.scss'
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 import {Variation} from "../../Types";
-import {dividerClasses} from "@mui/material";
 
 export interface SliderProps {
     variations: Variation[]

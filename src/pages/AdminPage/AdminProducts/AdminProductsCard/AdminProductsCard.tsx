@@ -46,11 +46,13 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
                     variations={variations}
                 />
                 <ConfirmDialog
-                    buttonColorClass="bg-red-600 hover:bg-red-700"
+                    buttonColorClass="btn w-32 rounded-lg bg-red-600 hover:bg-red-700"
                     callback={() => alert('delete')}
                     title="Видалити продукт?"
                     text={`Мотоцикл ${brand} ${model}`}
-                />
+                >
+                    Видалити
+                </ConfirmDialog>
             </div>
         </div>
     )

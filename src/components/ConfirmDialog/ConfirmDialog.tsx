@@ -5,11 +5,12 @@ import {Dialog, Transition} from "@headlessui/react";
 export interface ConfirmDialogProps {
     buttonColorClass: string
     callback: () => void
+    children?: any
     title: string
     text?: string
 }
 
-export const ConfirmDialog: FC<ConfirmDialogProps> = ({buttonColorClass, callback, title, text}) => {
+export const ConfirmDialog: FC<ConfirmDialogProps> = ({buttonColorClass, callback, children, title, text}) => {
     let [isOpen, setIsOpen] = useState(false)
     const closeModal = () => setIsOpen(false)
     const openModal = () => setIsOpen(true)
@@ -18,8 +19,7 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({buttonColorClass, callbac
         closeModal()
     }
 
-    let buttonStyle = `btn w-32 rounded-lg ${buttonColorClass}`
-    let buttonStyle2 = `${buttonColorClass} inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-bg focus-visible:ring-offset-2 duration-500`
+    let buttonStyle2 = `${buttonColorClass ? buttonColorClass : 'btn w-32 rounded-lg bg-bg hover:bg-orange-700'} inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-bg focus-visible:ring-offset-2 duration-500`
 
     return (
         <>
@@ -27,9 +27,9 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({buttonColorClass, callbac
                 <button
                     type="button"
                     onClick={openModal}
-                    className={buttonStyle}
+                    className={buttonColorClass}
                 >
-                    Видалити
+                    {children}
                 </button>
             </div>
 
