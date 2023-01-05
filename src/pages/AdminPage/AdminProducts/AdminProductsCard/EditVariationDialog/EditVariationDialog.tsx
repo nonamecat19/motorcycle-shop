@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, Fragment, useState} from 'react'
 import {Dialog, Transition} from "@headlessui/react";
 import './EditVariationDialog.scss'
-import {MotorcycleElement, Variation} from "../../../../../Types";
+import {Variation} from "../../../../../Types";
 
 export interface EditVariationDialogProps extends Variation {
     callback: () => void
@@ -161,7 +161,7 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
                                                 <td>Фото</td>
                                                 <td>
                                                     <div className='text-bg ml-4 w-48 break-all'>
-                                                        {state.photo ? state.photo : 'Немає'}
+                                                        {state.photo || 'Немає'}
                                                     </div>
 
                                                 </td>

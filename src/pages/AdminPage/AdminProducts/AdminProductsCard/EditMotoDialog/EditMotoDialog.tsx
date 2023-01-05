@@ -243,13 +243,22 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                         <div className="divider divider-horizontal"/>
                                         <div
                                             className="grid h-full flex-grow card rounded-box place-items-center">
-                                            <div className="flex flex-col w-full">
+                                            <div className="flex flex-col w-full h-56 overflow-y-auto">
                                                 {
-                                                    state.variations.map(({id, colorName, colorHex, colorHex2, available, photo}: Variation, index) => {
+                                                    state.variations.map((
+                                                        {
+                                                            id,
+                                                            colorName,
+                                                            colorHex,
+                                                            colorHex2,
+                                                            available,
+                                                            photo
+                                                        }: Variation, index) => {
                                                         return (
                                                             <Fragment key={id}>
                                                                 {index === 0 ? null : <div className="divider"></div>}
-                                                                <div className="flex h-16 card rounded-box flex-nowrap flex-row items-center justify-around">
+                                                                <div
+                                                                    className="flex h-16 card rounded-box flex-nowrap flex-row items-center justify-around">
 
                                                                     <VariationColor
                                                                         color1={colorHex}
@@ -278,8 +287,11 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                                     </EditVariationDialog>
 
 
-                                                                    <ConfirmDialog buttonColorClass={''} callback={() => alert()} title={''} text={''}>
-                                                                        <MyButton myStyle="MyButtonDanger MyButtonHyper">
+                                                                    <ConfirmDialog buttonColorClass={''}
+                                                                                   callback={() => alert()} title={''}
+                                                                                   text={''}>
+                                                                        <MyButton
+                                                                            myStyle="MyButtonDanger MyButtonHyper">
                                                                             <MdDelete
                                                                                 color="#fff"
                                                                                 style={{margin: "0 -7px"}}
@@ -295,13 +307,23 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                             </div>
 
                                             <div className="mt-4">
-                                                <MyButton onClick={closeModal}>
-                                                    <MdOutlineAddToPhotos
-                                                        color="#fff"
-                                                        style={{margin: "0 7px 0 -7px"}}
-                                                    />
-                                                    Додати нову варіацію
-                                                </MyButton>
+                                                <EditVariationDialog
+                                                    callback={() => alert('variation')}
+                                                    id={-1}
+                                                    colorName={''}
+                                                    colorHex={'#'}
+                                                    colorHex2={'#'}
+                                                    available={0}
+                                                    photo={''}
+                                                >
+                                                    <MyButton>
+                                                        <MdOutlineAddToPhotos
+                                                            color="#fff"
+                                                            style={{margin: "0 7px 0 -7px"}}
+                                                        />
+                                                        Додати нову варіацію
+                                                    </MyButton>
+                                                </EditVariationDialog>
                                             </div>
 
                                         </div>

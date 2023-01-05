@@ -59,7 +59,7 @@ export const Slider: FC<SliderProps> = ({variations}) => {
                         className='cursor-pointer text-3xl'
                     >
                         <RxDotFilled
-                            color={slideIndex === currentIndex ? '#000' : ''}
+                            className={'duration-500 ' + (currentIndex === slideIndex ? 'scale-150' : '')}
                         />
                     </div>
                 ))}
