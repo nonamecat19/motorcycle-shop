@@ -1,7 +1,5 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] != 'POST') die;
-include '../../../Core/Core.php';
-
+include '../../Core/Core.php';
 use core\Core;
 
 $params = [
@@ -11,7 +9,7 @@ $params = [
     'engineCapacity' => $_POST['engineCapacity'],
     'enginePower' => $_POST['enginePower'],
     'fuelConsumption' => $_POST['fuelConsumption'],
-    'fuelCapacity' => $_POST['fuelCapacity'],
+        'fuelCapacity' => $_POST['fuelCapacity'],
     'gears' => $_POST['gears'],
     'mass' => $_POST['mass'],
 ];

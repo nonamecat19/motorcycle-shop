@@ -9,14 +9,34 @@ import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
 import {useDispatch} from 'react-redux'
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
+import axios, {AxiosResponse} from "axios";
+import {Motorcycles} from "../../Types";
 
 
 export const App = () => {
-    const dispath = useDispatch()
+    const dispatch = useDispatch()
     useEffect(() => {
+        const options = {
+            url: 'http://localhost:8888/api/moto/',
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        };
+
+
+        axios(options)
+            .then((response: AxiosResponse<Motorcycles>) => console.log(response.data))
+
         // @ts-ignore
-        dispath(getMotorcyclesAsync())
+        dispatch(getMotorcyclesAsync())
+
+
     }, [])
+
+
+
 
     return (
         <div className="App">

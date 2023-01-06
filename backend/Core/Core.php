@@ -1,5 +1,6 @@
 <?php
 namespace core;
+
 include 'DB.php';
 include 'headers.php';
 
