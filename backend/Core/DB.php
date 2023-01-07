@@ -57,7 +57,6 @@ class DB
 
         $valuesListString = implode(separator: ', ', array: $paramsArray);
         $res = $this->pdo->prepare(query: "INSERT INTO {$tableName} ({$fieldsListString}) VALUES($valuesListString)");
-        echo $res->queryString;
         $res->execute($newRowArray);
     }
     public function delete($tableName, $conditionArray): void

@@ -11,24 +11,12 @@ import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
 import axios, {AxiosResponse} from "axios";
 import {Motorcycles} from "../../Types";
+import {addMotorcycle} from "../../db";
 
 
 export const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        const options = {
-            url: 'http://localhost:8888/api/moto/',
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
-        };
-
-
-        axios(options)
-            .then((response: AxiosResponse<Motorcycles>) => console.log(response.data))
-
         // @ts-ignore
         dispatch(getMotorcyclesAsync())
 

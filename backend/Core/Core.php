@@ -20,7 +20,7 @@ class Core
     public static function getDB(): DB
     {
 //        session_start();
-        include 'config.php';
+        require 'config/config.php';
         return new DB(
             hostname: DATABASE_HOST,
             login:    DATABASE_LOGIN,

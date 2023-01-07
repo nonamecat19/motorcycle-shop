@@ -9,18 +9,14 @@ import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
 import axios, {AxiosResponse} from "axios";
 import {useDispatch} from 'react-redux';
 import {Motorcycles} from "../../Types";
+import {addMotorcycle} from "../../db";
 
 export interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({}) => {
-    const [inputs, setInputs] = useState({})
-    const dispatch = useDispatch()
     const handleClick = () => {
-        axios.get('http://localhost:8888/api/motorcycles/get').then(function (response: AxiosResponse<Motorcycles>) {
-            console.log(response.data)
-            // dispatch(setMotorcycles(response.data))
-        })
+        addMotorcycle()
     }
     return (
         <div className="Content">
