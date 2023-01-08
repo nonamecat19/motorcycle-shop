@@ -9,10 +9,6 @@ import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
 import {useDispatch} from 'react-redux'
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
-import axios, {AxiosResponse} from "axios";
-import {Motorcycles} from "../../Types";
-import {addMotorcycle} from "../../actions/motorcycle"
-
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -22,9 +18,6 @@ export const App = () => {
 
 
     }, [])
-
-
-
 
     return (
         <div className="App">

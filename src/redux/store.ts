@@ -6,6 +6,7 @@ import motorcycles from "./slices/motorcyclesSlicer";
 import order from "./slices/orderSlicer";
 import comments from "./slices/commentsSlicer";
 import currentUser from "./slices/currentUserSlicer";
+import users from "./slices/usersSlicer";
 
 export const store = configureStore({
     reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
         order: order,
         comments: comments,
         currentUser: currentUser,
+        users: users,
     }
 })

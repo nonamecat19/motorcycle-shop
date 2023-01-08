@@ -9,8 +9,10 @@ const getInitialState = () => {
 
 const initialState: User = {
     id: getInitialState().id,
-    first_name: getInitialState().first_name,
-    last_name: getInitialState().last_name,
+    login: '',
+    dateOfBirth: '',
+    firstName: getInitialState().firstName,
+    lastName: getInitialState().lastName,
     role: getInitialState().role
 }
 
@@ -19,17 +21,17 @@ export const currentUserSlicer = createSlice({
     initialState,
     reducers: {
         setUser: (state, action) => {
-            const {id, first_name, last_name, role} = action.payload
+            const {id, firstName, lastName, role} = action.payload
             state.id = id
-            state.first_name = first_name
-            state.last_name = last_name
+            state.firstName = firstName
+            state.lastName = lastName
             state.role = role
             localStorage.setItem('user', JSON.stringify(state))
         },
         logout: (state) => {
             state.id = 0
-            state.first_name = ''
-            state.last_name = ''
+            state.firstName = ''
+            state.lastName = ''
             state.role = ''
             localStorage.setItem('user', JSON.stringify(state))
         }

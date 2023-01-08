@@ -90,8 +90,8 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                         fail = true
                         return
                     }
-                    const {id, first_name, last_name, role}: User = response.data;
-                    dispatch(setUser({id, first_name, last_name, role}))
+                    const {id, firstName, lastName, role}: User = response.data;
+                    dispatch(setUser({id, firstName, lastName, role}))
                 }
             )
         if (!fail){

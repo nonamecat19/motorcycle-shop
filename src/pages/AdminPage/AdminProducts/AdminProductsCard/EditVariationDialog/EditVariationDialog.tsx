@@ -40,8 +40,7 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
             [evt.target.name]: evt.target.value
         });
     }
-
-
+    
     let [state, setState] = useState<Variation>({
         id: id,
         colorName: colorName,

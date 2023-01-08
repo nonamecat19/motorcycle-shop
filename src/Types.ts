@@ -85,14 +85,18 @@ export type CommentElement = {
 
 export type User = {
     id: number
-    first_name: string
-    last_name: string
+    login: string
+    firstName: string
+    lastName: string
+    dateOfBirth: string
     role: 'admin' | 'user' | ''
 }
 
 export type PostUser = {
-    first_name: string
-    last_name: string
+    login: string
+    firstName: string
+    lastName: string
+    dateOfBirth: string
     role?: 'admin' | 'user' | ''
 }
 
