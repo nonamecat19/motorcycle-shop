@@ -2,6 +2,8 @@
 
 use core\Core;
 
+$tableName = 'variation';
+
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         $data = [
@@ -13,15 +15,26 @@ switch ($_SERVER['REQUEST_METHOD']) {
             'photo' => $_GET['photo']
         ];
 
-        Core::getInstance()::$db->insert(tableName: 'variation', newRowArray: $data);
+        Core::getInstance()::$db->insert(tableName: $tableName, newRowArray: $data);
         break;
 
-    case 'UPDATE':
-
+    case 'PUT':
+        $id = [
+            'id' => $_GET['id']
+        ];
+        $data = [
+            'idMotorcycle' => $_GET['idMotorcycle'],
+            'colorName' => $_GET['colorName'],
+            'colorHex' => $_GET['colorHex'],
+            'colorHex2' => $_GET['colorHex2'],
+            'available' => $_GET['available'],
+            'photo' => $_GET['photo']
+        ];
+        Core::getInstance()::$db->update(tableName: $tableName, newValuesArray: $data, conditionArray: $id);
         break;
 
     case 'DELETE':
         $data = ['id' => $_GET['id']];
-        Core::getInstance()::$db->delete(tableName: 'variation', conditionArray: $data);
+        Core::getInstance()::$db->delete(tableName: $tableName, conditionArray: $data);
         break;
 }

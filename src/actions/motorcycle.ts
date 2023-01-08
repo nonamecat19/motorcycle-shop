@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios"
-import {Motorcycles, PostMotorcycle, PostUser} from '../Types'
+import {MotorcycleElement, Motorcycles, PostMotorcycle, PostUser} from '../Types'
 import {parametrizedAxios} from "./db";
 import {request} from "../enums/request";
 
@@ -13,7 +13,7 @@ export const getMotorcycles = async (params?: PostMotorcycle) => {
     return await data
 }
 
-export const addMotorcycle = async (params: PostMotorcycle) => {
+export const addMotorcycle = async (params: MotorcycleElement) => {
     let path = parametrizedAxios(params)
     await axios
         .post(`${process.env.REACT_APP_HOST}${category}?${path}`)

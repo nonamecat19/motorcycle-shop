@@ -23,7 +23,7 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
         mass,
         variation
     } = motorcycle
-    console.log(motorcycle)
+
     return (
         <div className="AdminProductsCard">
             <Slider variation={variation}/>

@@ -1,5 +1,8 @@
 .AdminProducts{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  @apply flex
+}
+
+.productsList{
+
+  @apply overflow-y-auto shadow-2xl w-[94%] h-[80vh] ml-[3%] rounded-2xl flex-wrap justify-center flex
 }

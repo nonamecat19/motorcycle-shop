@@ -7,9 +7,20 @@ import {MyButton} from "../../../../../components/MyButton/MyButton";
 import {VariationColor} from "../../../../../components/VariationColor/VariationColor";
 import {ConfirmDialog} from "../../../../../components/ConfirmDialog/ConfirmDialog";
 import {EditVariationDialog} from "../EditVariationDialog/EditVariationDialog";
+import {addMotorcycle} from "../../../../../actions/motorcycle";
 
-export interface EditMotoDialogProps extends MotorcycleElement {
-
+export interface EditMotoDialogProps {
+    id: number
+    model?: string
+    brand?: string
+    price?: number
+    engineCapacity?: number
+    enginePower?: number
+    fuelConsumption?: number
+    fuelCapacity?: number
+    gears?: number
+    mass?: number
+    variation?: Variation[]
 }
 
 type ParamElement = {
@@ -50,22 +61,29 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
     let [isOpen, setIsOpen] = useState<boolean>(false)
     const closeModal = (): void => setIsOpen(false)
 
-    const deleteVariation = (id: number): void => {
-
+    const confirmAddMotoHandler = (): void => {
+        if (state.id === -1) {
+            addMotorcycle(state)
+                .then(() => console.log('moto added successfully'))
+                .catch((err) => console.error('problem with adding moto: ', err))
+        }else {
+            // editMotoHandler()
+        }
     }
+
     const openModal = (): void => setIsOpen(true)
     let [state, setState] = useState<MotorcycleElement>({
         id: id,
-        model: model,
-        brand: brand,
-        price: price,
-        engineCapacity: engineCapacity,
-        enginePower: enginePower,
-        fuelConsumption: fuelConsumption,
-        fuelCapacity: fuelCapacity,
-        gears: gears,
-        mass: mass,
-        variation: variation
+        model: model ?? '',
+        brand: brand ?? '',
+        price: price ?? 0,
+        engineCapacity: engineCapacity ?? 0,
+        enginePower: enginePower ?? 0,
+        fuelConsumption: fuelConsumption ?? 0,
+        fuelCapacity: fuelCapacity ?? 0,
+        gears: gears ?? 0,
+        mass: mass ?? 0,
+        variation: variation ?? []
     })
 
     return (
@@ -234,9 +252,9 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                 <button
                                                     type="button"
                                                     className="inline-flex justify-center rounded-md border border-transparent bg-bg px-4 py-2 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-bg focus-visible:ring-offset-2 duration-500"
-                                                    onClick={closeModal}
+                                                    onClick={confirmAddMotoHandler}
                                                 >
-                                                    Got it, thanks!
+                                                    Підтвердити
                                                 </button>
                                             </div>
                                         </div>
