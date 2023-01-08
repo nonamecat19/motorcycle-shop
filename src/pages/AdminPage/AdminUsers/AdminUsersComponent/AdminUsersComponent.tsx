@@ -21,24 +21,9 @@ export const AdminUsersComponent: FC<AdminUsersComponentProps> = (
 ) => {
     const roleVariant = (): JSX.Element => {
         switch (role) {
-            case 'admin':
-                return <>
-                    <RiVipCrown2Fill/>
-                    Адміністратор
-                </>
-                break;
-            case 'moderator':
-                return <>
-                    <RiVipCrown2Line/>
-                    Модератор
-                </>
-                break;
-            case 'user':
-                return <>
-                    <RiUser3Line/>
-                    Користувач
-                </>
-                break;
+            case 'admin': return <><RiVipCrown2Fill/>Адміністратор</>
+            case 'moderator': return <><RiVipCrown2Line/>Модератор</>
+            case 'user': return <><RiUser3Line/>Користувач</>
         }
     }
 
