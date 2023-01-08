@@ -32,7 +32,7 @@ export const currentUserSlicer = createSlice({
             state.id = 0
             state.firstName = ''
             state.lastName = ''
-            state.role = ''
+            state.role = 'user'
             localStorage.setItem('user', JSON.stringify(state))
         }
     }

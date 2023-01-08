@@ -22,7 +22,7 @@ export const AdminUsersDropdown: FC<AdminUsersDropdownProps> = ({id}) => {
     }
 
     return (
-        <div className=" top-16 w-56 text-right">
+        <div className=" top-16 w-30 text-right">
             <Menu as="div" className="relative inline-block text-left">
                 <div>
                     <Menu.Button

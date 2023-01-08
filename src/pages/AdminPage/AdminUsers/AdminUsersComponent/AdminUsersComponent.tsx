@@ -2,6 +2,8 @@ import React, {FC} from 'react'
 import {User} from '../../../../Types'
 import './AdminUsersComponent.scss'
 import {AdminUsersDropdown} from "./AdminUsersDropdown/AdminUsersDropdown";
+import {RiUser3Line, RiVipCrown2Fill, RiVipCrown2Line} from "react-icons/ri";
+import {MdEdit} from "react-icons/md";
 
 export interface AdminUsersComponentProps extends User {
 
@@ -17,6 +19,29 @@ export const AdminUsersComponent: FC<AdminUsersComponentProps> = (
         dateOfBirth
     }
 ) => {
+    const roleVariant = (): JSX.Element => {
+        switch (role) {
+            case 'admin':
+                return <>
+                    <RiVipCrown2Fill/>
+                    Адміністратор
+                </>
+                break;
+            case 'moderator':
+                return <>
+                    <RiVipCrown2Line/>
+                    Модератор
+                </>
+                break;
+            case 'user':
+                return <>
+                    <RiUser3Line/>
+                    Користувач
+                </>
+                break;
+        }
+    }
+
     return (
 
         <tr className="AdminUsersComponent">
@@ -28,16 +53,26 @@ export const AdminUsersComponent: FC<AdminUsersComponentProps> = (
                 </div>
             </td>
             <td>
-                <div className="font-bold">Hart Hagerty</div>
-                <div className="text-sm opacity-50">United States</div>
+                <div className="font-bold">{id}</div>
             </td>
             <td>
-                <span className="badge badge-ghost badge-sm">{role}</span>
+                <div className="font-bold">{login}</div>
             </td>
             <td>
-                <span>{dateOfBirth}</span>
+                <div className="font-bold">{firstName}</div>
             </td>
-            <th>
+            <td>
+                <div className="font-bold">{lastName}</div>
+            </td>
+            <td>
+                <div>
+                    {roleVariant()}
+                </div>
+            </td>
+            <td>
+                <div>{dateOfBirth}</div>
+            </td>
+            <td>
                 <AdminUsersDropdown
                     id={id}
                     login={login}
@@ -46,8 +81,7 @@ export const AdminUsersComponent: FC<AdminUsersComponentProps> = (
                     role={role}
                     dateOfBirth={dateOfBirth}
                 />
-            </th>
+            </td>
         </tr>
     )
 }
-

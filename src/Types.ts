@@ -89,7 +89,7 @@ export type User = {
     firstName: string
     lastName: string
     dateOfBirth: string
-    role: 'admin' | 'user' | ''
+    role: 'admin' | 'user' | 'moderator'
 }
 
 export type PostUser = {
