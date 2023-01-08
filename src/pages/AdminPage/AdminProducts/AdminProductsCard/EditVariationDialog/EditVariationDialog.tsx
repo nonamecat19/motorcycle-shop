@@ -27,13 +27,6 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
         callback()
         closeModal()
     }
-
-    let handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        setState({
-            ...state,
-            [evt.target.name]: evt.target.value
-        });
-    }
     let handleChangeNum = (evt: ChangeEvent<HTMLInputElement>) => {
         let value: string = evt.target.value
         setState({
@@ -41,7 +34,12 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
             [evt.target.name]: parseInt(value) < 0 ? "0" : value
         });
     }
-
+    let handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        setState({
+            ...state,
+            [evt.target.name]: evt.target.value
+        });
+    }
 
 
     let [state, setState] = useState<Variation>({
@@ -52,8 +50,6 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
         available: available,
         photo: photo
     })
-
-
 
     return (
         <>

@@ -14,7 +14,7 @@ export const AdminProducts: FC<AdminProductsProps> = ({}) => {
     return (
         <div className="AdminProducts">
             <div className="productsButtons">
-                <EditMotoDialog id={-1}/>
+                <EditMotoDialog id={-1} buttonName='Додати продукт'/>
             </div>
             <div className="productsList">
                 {

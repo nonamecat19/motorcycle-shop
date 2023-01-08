@@ -21,6 +21,7 @@ export interface EditMotoDialogProps {
     gears?: number
     mass?: number
     variation?: Variation[]
+    buttonName?: string
 }
 
 type ParamElement = {
@@ -41,7 +42,8 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
         fuelCapacity,
         gears,
         mass,
-        variation
+        variation,
+        buttonName
     }) => {
 
     let handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +96,7 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                     onClick={openModal}
                     className="btn bg-bg hover:bg-orange-600 w-32 rounded-lg"
                 >
-                    Редагувати
+                    {buttonName ?? 'Редагувати'}
                 </button>
             </div>
 
@@ -308,8 +310,7 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                                     <ConfirmDialog buttonColorClass={''}
                                                                                    callback={() => alert()} title={''}
                                                                                    text={''}>
-                                                                        <MyButton
-                                                                            myStyle="MyButtonDanger MyButtonHyper">
+                                                                        <MyButton myStyle="MyButtonDanger MyButtonHyper">
                                                                             <MdDelete
                                                                                 color="#fff"
                                                                                 style={{margin: "0 -7px"}}
