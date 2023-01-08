@@ -9,22 +9,22 @@ import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
 import axios, {AxiosResponse} from "axios";
 import {useDispatch} from 'react-redux';
 import {Motorcycles} from "../../Types";
-import {addMotorcycle} from "../../db";
+import {addMotorcycle} from "../../actions/motorcycle"
 
 export interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({}) => {
-    const handleClick = () => {
-        addMotorcycle()
-    }
+    // const handleClick = () => {
+    //     addMotorcycle()
+    // }
     return (
         <div className="Content">
-            <button
-                onClick={handleClick}
-            >
-                asdfsadfasdf
-            </button>
+            {/*<button*/}
+            {/*    onClick={handleClick}*/}
+            {/*>*/}
+            {/*    asdfsadfasdf*/}
+            {/*</button>*/}
             <Navbar/>
             <div className='content'>
                 <ShoppingCart/>

@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {Cart, Motorcycles} from "../../Types";
 import JSONData from "../../data.json";
-import {getMotorcycles} from "../../db";
+import {getMotorcycles} from "../../actions/motorcycle";
 
 const getInitialMotorcycles = () => {
     let localData = localStorage.getItem('motorcycles')
@@ -13,14 +13,15 @@ const getInitialCart = () => {
     return Stored ? JSON.parse(Stored) : []
 }
 
-const getFullPrice = () => {
-    let cartData = getInitialCart()
-    let motorcyclesData = getInitialMotorcycles()
-    let sum: number = 0
-    for (let [id, number] of cartData)
-        sum += motorcyclesData[id].price * number
-    return sum.toString()
-}
+// const getFullPrice = () => {
+//     let cartData = getInitialCart()
+//     // let motorcyclesData = getInitialMotorcycles()
+//     let motorcyclesData = [];
+//     let sum: number = 0
+//     for (let [id, number] of cartData)
+//         sum += motorcyclesData[id].price * number
+//     return sum.toString()
+// }
 
 interface State {
     motorcycles: Motorcycles
@@ -41,7 +42,8 @@ const initialState: State = {
     model: '',
     brand: 'All',
     cart: getInitialCart(),
-    fullPrice: getFullPrice()
+    // fullPrice: getFullPrice()
+    fullPrice: '0'
 }
 
 const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycles, model: string, min: number, max: number) => {

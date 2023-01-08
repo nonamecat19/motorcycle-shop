@@ -11,7 +11,7 @@ import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
 import axios, {AxiosResponse} from "axios";
 import {Motorcycles} from "../../Types";
-import {addMotorcycle} from "../../db";
+import {addMotorcycle} from "../../actions/motorcycle"
 
 
 export const App = () => {

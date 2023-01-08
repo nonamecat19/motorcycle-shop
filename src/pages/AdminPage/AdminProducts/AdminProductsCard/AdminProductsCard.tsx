@@ -21,12 +21,12 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
         fuelCapacity,
         gears,
         mass,
-        variations
+        variation
     } = motorcycle
-
+    console.log(motorcycle)
     return (
         <div className="AdminProductsCard">
-            <Slider variations={variations}/>
+            <Slider variation={variation}/>
             <h1 className="ml-4 text-3xl font-bold">{brand}</h1>
             <h1 className="ml-4">{model}</h1>
             <div
@@ -43,7 +43,7 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
                     fuelCapacity={fuelCapacity}
                     gears={gears}
                     mass={mass}
-                    variations={variations}
+                    variation={variation}
                 />
                 <ConfirmDialog
                     buttonColorClass="btn w-32 rounded-lg bg-red-600 hover:bg-red-700"

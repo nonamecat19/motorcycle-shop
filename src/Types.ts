@@ -11,7 +11,19 @@ export type MotorcycleElement = {
     fuelCapacity: number
     gears: number
     mass: number
-    variations: Variation[]
+    variation: Variation[]
+}
+
+export type PostMotorcycle = {
+    brand: string
+    model: string
+    price: number
+    engineCapacity: number
+    enginePower: number
+    fuelConsumption: number
+    fuelCapacity: number
+    gears: number
+    mass: number
 }
 
 export type Variation = {
@@ -76,6 +88,12 @@ export type User = {
     first_name: string
     last_name: string
     role: 'admin' | 'user' | ''
+}
+
+export type PostUser = {
+    first_name: string
+    last_name: string
+    role?: 'admin' | 'user' | ''
 }
 
 export type UsersResponse = User | boolean

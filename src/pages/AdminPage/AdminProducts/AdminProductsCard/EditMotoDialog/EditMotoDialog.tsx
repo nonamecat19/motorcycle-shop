@@ -30,7 +30,7 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
         fuelCapacity,
         gears,
         mass,
-        variations
+        variation
     }) => {
 
     let handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +65,7 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
         fuelCapacity: fuelCapacity,
         gears: gears,
         mass: mass,
-        variations: variations
+        variation: variation
     })
 
     return (
@@ -245,7 +245,7 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                             className="grid h-full flex-grow card rounded-box place-items-center">
                                             <div className="flex flex-col w-full h-56 overflow-y-auto">
                                                 {
-                                                    state.variations.map((
+                                                    state.variation.map((
                                                         {
                                                             id,
                                                             colorName,

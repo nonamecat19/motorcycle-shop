@@ -13,9 +13,9 @@ export const AdminProducts: FC<AdminProductsProps> = ({}) => {
     return (
         <div className="AdminProducts">
             {
-                motorcycles.map((motorcycle: MotorcycleElement) => (
+                motorcycles.length > 0 ? motorcycles.map((motorcycle: MotorcycleElement) => (
                     <AdminProductsCard key={motorcycle.id} motorcycle={motorcycle}/>
-                ))
+                )) : null
             }
         </div>
     )
