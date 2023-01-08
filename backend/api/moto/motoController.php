@@ -49,4 +49,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         Core::getInstance()::$db->insert(tableName: 'motorcycles', newRowArray: $params);
         break;
+
+    case 'DELETE':
+        $data = ['id' => $_GET['id']];
+        Core::getInstance()::$db->delete(tableName: 'motorcycles', conditionArray: $data);
+        break;
 }
