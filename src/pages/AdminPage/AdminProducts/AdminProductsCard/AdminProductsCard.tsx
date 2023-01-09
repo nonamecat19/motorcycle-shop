@@ -26,7 +26,10 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
 
     return (
         <div className="AdminProductsCard">
-            <Slider variation={variation}/>
+            <Slider
+                variation={variation}
+                color={'#ff7100'}
+            />
             <h1 className="ml-4 text-3xl font-bold">{brand}</h1>
             <h1 className="ml-4">{model}</h1>
             <div

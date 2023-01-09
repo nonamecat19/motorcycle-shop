@@ -1,0 +1,7 @@
+@import "../../../scss/variables";
+
+.Products {
+  @include radius;
+  @apply flex justify-center flex-wrap duration-1000
+  bg-main min-h-[400px] my-[80px] mx-[20px] w-[calc(100%-320px)]
+}

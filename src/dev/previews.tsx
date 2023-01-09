@@ -1,6 +1,8 @@
 import React from 'react';
-import {Previews} from '@react-buddy/ide-toolbox';
+import {ComponentPreview, Previews} from '@react-buddy/ide-toolbox';
 import {PaletteTree} from './palette';
+import {AuthorizationLogin} from "../pages/AuthPage/Authorization/AuthorizationLogin/AuthorizationLogin";
+import {Slider} from "../components/Slider/Slider";
 
 const ComponentPreviews = () => {
     return (

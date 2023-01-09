@@ -1,20 +1,22 @@
 import React, {FC, useState} from 'react'
 import './Slider.scss'
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { RxDotFilled } from 'react-icons/rx';
+import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
+import {RxDotFilled} from 'react-icons/rx';
 import {Variation} from "../../Types";
 
 export interface SliderProps {
     variation: Variation[]
+    color: string
+    sliderStyle?: string
 }
 
-export const Slider: FC<SliderProps> = ({variation}) => {
+export const Slider: FC<SliderProps> = ({variation, color, sliderStyle}) => {
     if (variation.length === 0) {
         return (
             <div
-                style={{ backgroundImage: `url(http://localhost:8888/data/no-photo.png)` }}
-                className='w-full h-[225px] bg-center bg-cover duration-500'
-            ></div>
+                style={{backgroundImage: `url(http://localhost:8888/data/no-photo.png)`}}
+                className='w-full h-[195px] bg-center bg-cover duration-500'
+            />
         )
     }
 
@@ -34,24 +36,32 @@ export const Slider: FC<SliderProps> = ({variation}) => {
 
     return (
 
-        <div className='h-[225px] w-full relative group'>
+        <div className={`h-[195px] w-full relative group ${sliderStyle ?? ''}`}>
             <div
-                style={{ backgroundImage: `url(http://localhost:8888/data/${variation[currentIndex].photo})` }}
+                style={{
+                    backgroundImage: `url(http://localhost:8888/data/${variation[currentIndex].photo})`,
+                    backgroundSize: '95%',
+                    backgroundRepeat: 'no-repeat',
+                }}
                 className='w-full h-full bg-center bg-cover duration-500'
-            ></div>
-            <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-0 cursor-pointer'>
+            />
+            <div
+                className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-3 cursor-pointer'>
                 <BsChevronCompactLeft
                     onClick={prevSlide}
-                    size={90}
+                    size={70}
+                    color={color}
                 />
             </div>
-            <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-0 cursor-pointer'>
+            <div
+                className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-3 cursor-pointer'>
                 <BsChevronCompactRight
                     onClick={nextSlide}
-                    size={90}
+                    size={70}
+                    color={color}
                 />
             </div>
-            <div className='flex justify-center -my-10'>
+            <div className='flex justify-center -my-16'>
                 {variation.map((slide, slideIndex) => (
                     <div
                         key={slideIndex}
@@ -60,6 +70,7 @@ export const Slider: FC<SliderProps> = ({variation}) => {
                     >
                         <RxDotFilled
                             className={'duration-500 ' + (currentIndex === slideIndex ? 'scale-150' : '')}
+                            color={color}
                         />
                     </div>
                 ))}

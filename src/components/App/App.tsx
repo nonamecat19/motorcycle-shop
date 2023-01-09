@@ -22,14 +22,35 @@ export const App = () => {
     return (
         <div className="App">
             <Routes>
-                <Route path='/' element={<ContentPage/>}/>
-                <Route path='auth' element={<AuthPage/>}/>
-                <Route path='products/:category/:id' element={<ProductPage/>}/>
+                <Route
+                    path='/'
+                    element={<ContentPage/>}
+                />
 
-                <Route path='admin/:category' element={<AdminPage/>}/>
+                <Route
+                    path='auth'
+                    element={<AuthPage/>}
+                />
 
-                <Route path='card' element={<PaymentForm/>}/>
-                <Route path='profile' element={<ProfilePage/>}/>
+                <Route
+                    path='products/:category/:id'
+                    element={<ProductPage/>}
+                />
+
+                <Route
+                    path='admin/:category'
+                    element={<AdminPage/>}
+                />
+
+                <Route
+                    path='card'
+                    element={<PaymentForm/>}
+                />
+
+                <Route
+                    path='profile'
+                    element={<ProfilePage/>}
+                />
             </Routes>
         </div>
     )

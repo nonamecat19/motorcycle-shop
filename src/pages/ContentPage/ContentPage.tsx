@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import './ContentPage.scss'
-import {Content} from "../../components/Content/Content";
+import {Content} from "./Content/Content";
 
 export interface ContentPageProps {
 

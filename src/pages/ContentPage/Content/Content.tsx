@@ -1,15 +1,11 @@
 import {FC, useState} from 'react'
 import './Content.scss'
-import {Notification} from "../Notification/Notification";
-import {OrderList} from "../OrderList/OrderList";
+import {Notification} from "../../../components/Notification/Notification";
+import {OrderList} from '../../../components/OrderList/OrderList'
 import {Products} from "../Products/Products";
 import {Sidebar} from "../Sidebar/Sidebar";
-import Navbar from "../Navbar/Navbar";
-import {ShoppingCart} from "../ShoppingCart/ShoppingCart";
-import axios, {AxiosResponse} from "axios";
-import {useDispatch} from 'react-redux';
-import {Motorcycles} from "../../Types";
-import {addMotorcycle} from "../../actions/motorcycle"
+import Navbar from "../../../components/Navbar/Navbar";
+import {ShoppingCart} from "../../../components/ShoppingCart/ShoppingCart";
 
 export interface ContentProps {
 }
