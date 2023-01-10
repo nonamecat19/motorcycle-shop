@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {Cart, User} from "../../Types";
 import JSONData from "../../data.json";
-import {getUsers} from "../../actions/user";
+import {UserActions} from "../../actions/user";
+import {MotorcycleActions} from "../../actions/motorcycle";
 
 
 
@@ -15,7 +16,10 @@ const initialState: State = {
 
 export const getUsersAsync = createAsyncThunk(
     'users/getUsersAsync',
-    async () => getUsers()
+    async () => {
+        let motoAction = await new UserActions()
+        return await motoAction.getUsers()
+    }
 )
 
 export const usersSlicer = createSlice({

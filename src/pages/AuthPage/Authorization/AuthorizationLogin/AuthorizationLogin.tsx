@@ -16,32 +16,14 @@ export interface AuthorizationLogin {
 export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
     const navigate = useNavigate();
     const [create, setCreate] = useState<boolean>(false)
-    const [email, setEmail] = useState<string>('')
+
+    const [login, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [remember, setRemember] = useState<boolean>(false)
+    const [firstName, setFirstName] = useState<string>('')
+    const [lastName, setLastName] = useState<string>('')
+    const [date, setDate] = useState<string>('')
 
     const dispatch = useDispatch()
-    const passwordInput = (repeat: boolean) => {
-        return (
-            <div className="relative">
-                <input
-                    id={repeat ? "repeatPassword" : "password"}
-                    name="password"
-                    type="password"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="*"
-                    value={password}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                />
-                <label
-                    htmlFor="password"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                >Пароль</label>
-            </div>
-
-        )
-    }
-
     const responseGoogle = async (response: any) => {
         let dataObj: any = await jwt_decode(response.credential)
         let surname: string = await dataObj.family_name ? dataObj.family_name : ''
@@ -50,7 +32,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
             method: 'GET',
             url: 'http://localhost:8888/api/users/register/',
             params: {
-                'login': dataObj.email,
+                'login': dataObj.login,
                 'first_name': dataObj.given_name,
                 'second_name': surname,
                 'password': dataObj.sub,
@@ -61,7 +43,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     let first_name = dataObj.given_name
                     let last_name = surname
                     let role = 'user'
-                console.log( {id, first_name, last_name, role})
+                    console.log({id, first_name, last_name, role})
                     dispatch(setUser({id, first_name, last_name, role}))
                     navigate("/")
                     dispatch(toggleAuthForm())
@@ -75,12 +57,12 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
 
     const AuthSubmitHandler = async () => {
         let fail = false
-        console.log(email, password)
+        console.log(login, password)
         await axios({
             method: 'GET',
             url: 'http://localhost:8888/api/users/auth/',
             params: {
-                'login': email,
+                'login': login,
                 'password': password
             }
         })
@@ -94,7 +76,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     dispatch(setUser({id, firstName, lastName, role}))
                 }
             )
-        if (!fail){
+        if (!fail) {
             await navigate("/")
         }
         await dispatch(toggleAuthForm())
@@ -104,9 +86,9 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
     const RegisterSubmitHandler = async () => {
         await axios({
             method: 'GET',
-            url: 'http://localhost:8888/api/users/register/',
+            url: 'http://localhost:8888/register/',
             params: {
-                'login': email,
+                'login': login,
                 'first_name': 'a',
                 'second_name': 'a',
                 'password': password
@@ -122,18 +104,6 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     }
                 }
             )
-    }
-
-    const RememberMe = () => {
-        return (
-            <div className="h-10">
-                <input type="checkbox"
-                       checked={remember}
-                       onChange={(e) => setRemember(!remember)}
-                />
-                <label htmlFor="rememberMe"> Запам'ятати мене</label>
-            </div>
-        )
     }
 
     return (
@@ -152,27 +122,87 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                 <div className="text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                     <div className="relative">
                                         <input
-                                            id="email"
-                                            name="email"
+                                            id="login"
+                                            name="login"
                                             type="text"
                                             className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                                            placeholder="*"
-                                            value={email}
+                                            placeholder=" "
+                                            value={login}
                                             onChange={(e) => setEmail(e.target.value)}
                                         />
                                         <label
-                                            htmlFor="email"
+                                            htmlFor="login"
                                             className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                                        >Електронна пошта</label>
+                                        >Логін</label>
                                     </div>
-                                    {passwordInput(false)}
-                                    {create ? passwordInput(true) : RememberMe()}
                                     <div className="relative">
-                                        <GoogleLogin
-                                            onSuccess={responseGoogle}
-                                            onError={errorGoogle}
+                                        <input
+                                            id={"password"}
+                                            name="password"
+                                            type="password"
+                                            className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                                            placeholder=" "
+                                            value={password}
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                                         />
+                                        <label
+                                            htmlFor="password"
+                                            className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                                        >Пароль</label>
                                     </div>
+                                    {
+                                        create
+                                            ?
+                                            <>
+                                                <div className="flex">
+                                                    <div className="relative mx-2">
+                                                        <input
+                                                            id="firstName"
+                                                            name="login"
+                                                            type="text"
+                                                            className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                                                            placeholder=" "
+                                                            value={firstName}
+                                                            onChange={(e) => setFirstName(e.target.value)}
+                                                        />
+                                                        <label
+                                                            htmlFor="firstName"
+                                                            className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                                                        >Ім'я</label>
+                                                    </div>
+                                                    <div className="relative mx-2">
+                                                        <input
+                                                            id="lastName"
+                                                            name="login"
+                                                            type="text"
+                                                            className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                                                            placeholder=" "
+                                                            value={lastName}
+                                                            onChange={(e) => setLastName(e.target.value)}
+                                                        />
+                                                        <label
+                                                            htmlFor="lastName"
+                                                            className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                                                        >Прізвище</label>
+                                                    </div>
+                                                </div>
+                                                <div className="relative flex justify-center select-none">
+                                                    <input
+                                                        type='date'
+                                                        value={date}
+                                                        className=''
+                                                        onChange={(e) => setDate(e.target.value)}
+                                                    />
+                                                </div>
+                                            </>
+                                            :
+                                            <div className="relative">
+                                                <GoogleLogin
+                                                    onSuccess={responseGoogle}
+                                                    onError={errorGoogle}
+                                                />
+                                            </div>
+                                    }
                                     <div className="relative">
                                         <button
                                             onClick={() => setCreate(!create)}

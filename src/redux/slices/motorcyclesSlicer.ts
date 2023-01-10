@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {Cart, Motorcycles} from "../../Types";
 import JSONData from "../../data.json";
-import {getMotorcycles} from "../../actions/motorcycle";
+import {MotorcycleActions} from "../../actions/motorcycle";
 
 const getInitialMotorcycles = () => {
     let localData = localStorage.getItem('motorcycles')
@@ -58,7 +58,10 @@ const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycl
 
 export const getMotorcyclesAsync = createAsyncThunk(
     'motorcycles/getMotorcyclesAsync',
-    async () => getMotorcycles()
+    async () => {
+        let motoAction = await new MotorcycleActions()
+        return await motoAction.getMotorcycles()
+    }
 )
 
 

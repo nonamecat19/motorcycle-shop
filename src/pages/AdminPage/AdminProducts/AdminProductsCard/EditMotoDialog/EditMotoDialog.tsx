@@ -7,7 +7,7 @@ import {MyButton} from "../../../../../components/MyButton/MyButton";
 import {VariationColor} from "../../../../../components/VariationColor/VariationColor";
 import {ConfirmDialog} from "../../../../../components/ConfirmDialog/ConfirmDialog";
 import {EditVariationDialog} from "../EditVariationDialog/EditVariationDialog";
-import {addMotorcycle} from "../../../../../actions/motorcycle";
+import {MotorcycleActions} from "../../../../../actions/motorcycle";
 
 export interface EditMotoDialogProps {
     id: number
@@ -65,7 +65,8 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
 
     const confirmAddMotoHandler = (): void => {
         if (state.id === -1) {
-            addMotorcycle(state)
+            let moto = new MotorcycleActions()
+            moto.addMotorcycle(state)
                 .then(() => console.log('moto added successfully'))
                 .catch((err) => console.error('problem with adding moto: ', err))
         }else {
