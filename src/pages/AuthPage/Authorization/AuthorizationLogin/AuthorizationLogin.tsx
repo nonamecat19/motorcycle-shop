@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import axios, {AxiosResponse} from "axios";
 import {User, UsersResponse} from "../../../../Types";
 import {setUser} from "../../../../redux/slices/currentUserSlicer";
+import {UserActions} from "../../../../actions/user";
 
 export interface AuthorizationLogin {
 
@@ -55,55 +56,72 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
     }
 
 
-    const AuthSubmitHandler = async () => {
-        let fail = false
-        console.log(login, password)
-        await axios({
-            method: 'GET',
-            url: 'http://localhost:8888/api/users/auth/',
-            params: {
-                'login': login,
-                'password': password
-            }
-        })
-            .then((response: AxiosResponse<UsersResponse>) => {
-                    if (typeof response.data == 'boolean') {
-                        console.log('Помилка авторизації');
-                        fail = true
-                        return
-                    }
-                    const {id, firstName, lastName, role}: User = response.data;
-                    dispatch(setUser({id, firstName, lastName, role}))
-                }
-            )
-        if (!fail) {
-            await navigate("/")
+    const AuthSubmitHandler = async (login: string, password: string) => {
+
+        let data = {
+            login: login,
+            password: password
         }
-        await dispatch(toggleAuthForm())
+        let userAction = await new UserActions()
+        await userAction.loginUser(data)
+            .then((response: UsersResponse) => {
+                userAction.setCookie("jwt", response.jwt, 1);
+            })
+            .catch((error: any) => {
+                console.log(error)
+            })
+        await userAction.validateUser()
+            .then((response: User) => {
+                if (response.id === -1) {
+                    return
+                }
+                if (response.role == 'admin' || response.role == 'moderator') {
+                    navigate("/admin/app")
+                } else {
+                    navigate("/")
+                }
+            })
+
+
+
+        // let fail = false
+        // console.log(login, password)
+        // await axios({
+        //     method: 'GET',
+        //     url: 'http://localhost:8888/api/users/auth/',
+        //     params: {
+        //         'login': login,
+        //         'password': password
+        //     }
+        // })
+        //     .then((response: AxiosResponse<UsersResponse>) => {
+        //             if (typeof response.data == 'boolean') {
+        //                 console.log('Помилка авторизації');
+        //                 fail = true
+        //                 return
+        //             }
+        //             const {id, firstName, lastName, role}: User = response.data;
+        //             dispatch(setUser({id, firstName, lastName, role}))
+        //         }
+        //     )
+        // if (!fail) {
+        //     await navigate("/")
+        // }
+        // await dispatch(toggleAuthForm())
     }
 
 
-    const RegisterSubmitHandler = async () => {
-        await axios({
-            method: 'GET',
-            url: 'http://localhost:8888/register/',
-            params: {
-                'login': login,
-                'first_name': 'a',
-                'second_name': 'a',
-                'password': password
-            }
-        })
-            .then((response: AxiosResponse<any>) => {
-                    if (response.data) {
-                        dispatch(setUser({id: 0, first_name: 'Петро', second_name: 'Мельник', role: 'user'}))
-                        navigate("/")
-                        dispatch(toggleAuthForm())
-                    } else {
-                        console.log('Помилка реєстрації');
-                    }
-                }
-            )
+    const RegisterSubmitHandler = async (login: string, password: string, firstName: string, lastName: string, date: string) => {
+        let data = {
+            login: login,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            dateOfBirth: date
+        }
+        let userAction = await new UserActions()
+        await userAction.registerUser(data)
+
     }
 
     return (
@@ -214,7 +232,13 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                                     <div className="relative">
                                         <button
                                             className="auth-submit text-white rounded-md px-4 py-1"
-                                            onClick={create ? RegisterSubmitHandler : AuthSubmitHandler}
+                                            onClick={
+                                                create
+                                                    ?
+                                                    () => RegisterSubmitHandler(login, password, firstName, lastName, date)
+                                                    :
+                                                    () => AuthSubmitHandler(login, password)
+                                            }
                                         >
                                             {create ? "Зареєструватися" : "Ввійти"}
                                         </button>

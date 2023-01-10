@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {toggleAuthForm} from "../../redux/slices/authFormSlicer";
 import {Link, useNavigate} from "react-router-dom";
 import {logout} from '../../redux/slices/currentUserSlicer';
+import {UserActions} from "../../actions/user";
 
 export interface ContentProps {
 
@@ -14,15 +15,23 @@ const Navbar: FC<ContentProps> = ({}) => {
     const authForm = useSelector((state: any) => state.authForm.auth)
     const dispatch = useDispatch()
     const {motorcycles, filtered, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
-    const {role} = useSelector((state: any) => state.currentUser)
+    const {role, id} = useSelector((state: any) => state.currentUser)
     const loginHandler = () => {
         navigate('/auth')
         dispatch(toggleAuthForm())
     }
     const logoutHandler = () => {
         dispatch(logout())
+        let userAction = new UserActions()
+        userAction.setCookie("jwt", "", 1);
         navigate('/auth')
         dispatch(toggleAuthForm())
+    }
+    const profileHandler = () => {
+        navigate('/profile')
+    }
+    const adminHandler = () => {
+        navigate('/admin/app')
     }
 
     const dropDownCart = (
@@ -57,7 +66,6 @@ const Navbar: FC<ContentProps> = ({}) => {
             </div>
         </div>
     )
-
     const dropDownMenu = (
         <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -72,12 +80,12 @@ const Navbar: FC<ContentProps> = ({}) => {
                         className="justify-between"
                         onClick={role == '' ? loginHandler : logoutHandler}
                     >
-                        {role == '' ? 'Вхід' : 'Вихід'}
+                        {id === -1 ? 'Вхід' : 'Вихід'}
                     </a>
                 </li>
                 {
                     role === 'admin'
-                        ? <li><label htmlFor="my-modal-6">Адмінпанель</label></li>
+                        ? <li><label onClick={adminHandler}>Адмінпанель</label></li>
                         : null
                 }
                 {
@@ -88,7 +96,7 @@ const Navbar: FC<ContentProps> = ({}) => {
                 {
                     role === ''
                         ? null
-                        : <li><a className="justify-between" onClick={() => navigate('/profile')}>Профіль</a></li>
+                        : <li><a className="justify-between" onClick={profileHandler}>Профіль</a></li>
                 }
             </ul>
         </div>

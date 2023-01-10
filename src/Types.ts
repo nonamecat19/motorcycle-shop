@@ -100,7 +100,10 @@ export type PostUser = {
     role?: 'admin' | 'user' | ''
 }
 
-export type UsersResponse = User | boolean
+export type UsersResponse = {
+    message: string
+    jwt: string
+}
 
 export type DashboardData = {
     [key: string]: string

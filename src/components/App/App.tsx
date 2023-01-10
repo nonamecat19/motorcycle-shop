@@ -10,12 +10,16 @@ import {useDispatch} from 'react-redux'
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
 import {NotFoundPage} from "../../pages/NotFoundPage/NotFoundPage";
+import {getCurrentUserAsync} from "../../redux/slices/currentUserSlicer";
 
 export const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         // @ts-ignore
         dispatch(getMotorcyclesAsync())
+        // @ts-ignore
+        dispatch(getCurrentUserAsync())
+
 
 
     }, [])

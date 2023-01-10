@@ -1,20 +1,24 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {User} from "../../Types";
+import {UserActions} from "../../actions/user";
 
-const noUser = () => ({id: 0, name: '', email: '', password: '', role: ''})
-const getInitialState = () => {
-    let localData = localStorage.getItem('user')
-    return localData ? JSON.parse(localData) : noUser;
-}
 
 const initialState: User = {
-    id: getInitialState().id,
+    id: -1,
     login: '',
     dateOfBirth: '',
-    firstName: getInitialState().firstName,
-    lastName: getInitialState().lastName,
-    role: getInitialState().role
+    firstName: '',
+    lastName: '',
+    role: 'user'
 }
+
+export const getCurrentUserAsync = createAsyncThunk(
+    'currentUser/currentUserAsync',
+    async () => {
+        let currentUserAction = await new UserActions()
+        return await currentUserAction.validateUser()
+    }
+)
 
 export const currentUserSlicer = createSlice({
     name: 'currentUser',
@@ -26,15 +30,31 @@ export const currentUserSlicer = createSlice({
             state.firstName = firstName
             state.lastName = lastName
             state.role = role
-            localStorage.setItem('user', JSON.stringify(state))
         },
         logout: (state) => {
-            state.id = 0
+            state.id = -1
             state.firstName = ''
             state.lastName = ''
             state.role = 'user'
-            localStorage.setItem('user', JSON.stringify(state))
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getCurrentUserAsync.pending, (state, action) => {
+
+        })
+        builder.addCase(getCurrentUserAsync.fulfilled, (state, action) => {
+            // @ts-ignore
+            const {id, firstName, lastName, role, dateOfBirth, login} = action.payload
+            state.id = id
+            state.login = login
+            state.firstName = firstName
+            state.lastName = lastName
+            state.role = role
+            state.dateOfBirth = dateOfBirth
+        })
+        builder.addCase(getCurrentUserAsync.rejected, (state, action) => {
+            console.log('rejected')
+        })
     }
 })
 
