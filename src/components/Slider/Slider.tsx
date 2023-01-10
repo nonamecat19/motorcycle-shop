@@ -35,7 +35,6 @@ export const Slider: FC<SliderProps> = ({variation, color, sliderStyle}) => {
     }
 
     return (
-
         <div className={`h-[195px] w-full relative group ${sliderStyle ?? ''}`}>
             <div
                 style={{

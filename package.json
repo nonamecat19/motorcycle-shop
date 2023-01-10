@@ -69,7 +69,8 @@
     "typescript": "*",
     "web-vitals": "^2.1.4",
     "webpack-dev-middleware": "^5.3.3",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@react-buddy/palette-mui": "^5.0.1"
   },
   "scripts": {
     "lint": "eslint --ext .ts, .tsx src --fix",
