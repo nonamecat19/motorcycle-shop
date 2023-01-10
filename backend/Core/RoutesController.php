@@ -16,27 +16,6 @@ class RoutesController
         $categoryClean = explode('?', $category)[0];
         $method = $_SERVER['REQUEST_METHOD'];
         require "api/${categoryClean}/${categoryClean}Controller.php";
-
-
-//        $params = [
-//            'model' => $_POST['model'],
-//            'brand' => $_POST['brand'],
-//            'price' => $_POST['price'],
-//            'engineCapacity' => $_POST['engineCapacity'],
-//            'enginePower' => $_POST['enginePower'],
-//            'fuelConsumption' => $_POST['fuelConsumption'],
-//            'fuelCapacity' => $_POST['fuelCapacity'],
-//            'gears' => $_POST['gears'],
-//            'mass' => $_POST['mass'],
-//        ];
-//
-//        Core::getInstance()::$db->insert(tableName: 'motorcycles', newRowArray: $params);
-
-
-
-
-
-
     }
 }
 
