@@ -9,6 +9,7 @@ import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
 import {useDispatch} from 'react-redux'
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
+import {NotFoundPage} from "../../pages/NotFoundPage/NotFoundPage";
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -50,6 +51,11 @@ export const App = () => {
                 <Route
                     path='profile'
                     element={<ProfilePage/>}
+                />
+
+                <Route
+                    path='*'
+                    element={<NotFoundPage/>}
                 />
             </Routes>
         </div>
