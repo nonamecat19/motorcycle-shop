@@ -19,9 +19,6 @@ export const App = () => {
         dispatch(getMotorcyclesAsync())
         // @ts-ignore
         dispatch(getCurrentUserAsync())
-
-
-
     }, [])
 
     return (

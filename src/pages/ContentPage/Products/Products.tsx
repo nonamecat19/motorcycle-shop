@@ -10,16 +10,18 @@ export interface ProductsProps {
 
 export const Products: FC<ProductsProps> = ({}) => {
     const {cache} = useSelector((state: any) => state.cache)
-    const {motorcycles, filtered} = useSelector((state: any) => state.motorcycles)
+    const {filtered} = useSelector((state: any) => state.motorcycles)
     return (
         <div className='Products'>
-            {motorcycles.map((moto: MotorcycleElement) => (
-                <Card
-                    key={moto.id}
-                    {...moto}
-                    cartIcon={cache['./cart.png']}
-                />
-            ))}
+            {
+                filtered.map((moto: MotorcycleElement) => (
+                    <Card
+                        key={moto.id}
+                        {...moto}
+                        cartIcon={cache['./cart.png']}
+                    />
+                ))
+            }
         </div>
     )
 }

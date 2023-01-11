@@ -61,10 +61,12 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
 
 const Range = () => {
     type RangeType = {min: number, max: number}
-    const [value, setValue] = useState<RangeType>({min: 100, max: 3900});
+    const minValue = 0
+    const maxValue = 4_000_000
+    const [value, setValue] = useState<RangeType>({min: minValue, max: maxValue})
     const dispatch = useDispatch()
     const onChangeHandler = (value: any) => {
-        if (value.min >= 0 && value.max <= 4000) {
+        if (value.min >= minValue && value.max <= maxValue) {
             setValue(value)
             dispatch(setMinMax(value))
         }
@@ -73,9 +75,9 @@ const Range = () => {
     return (
         <div className="InputRange">
             <InputRange
-                maxValue={4000}
-                minValue={0}
-                step={100}
+                maxValue={maxValue}
+                minValue={minValue}
+                step={10000}
                 value={value}
                 onChange={onChangeHandler}
             />
