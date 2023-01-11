@@ -2,12 +2,12 @@ import {FC, Fragment, useContext} from "react";
 import './ShopingCart.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {setNotification} from "../../redux/slices/notificationSlicer";
-import {setMotorcycles, setCart} from "../../redux/slices/motorcyclesSlicer";
+import {setMotorcycles, setCart, getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
 import {setOrder} from "../../redux/slices/orderSlicer";
-import {Cart, CartElement, ContextStoreType, OrderElement} from "../../Types";
+import {Cart, CartElement, ContextStoreType, MotorcycleElement, OrderElement} from "../../Types";
 import {MyContext} from "../ContextStore/ContextStore";
 import {MyInputNumber} from "./MyInputNumber/MyInputNumber";
-import {v4 } from 'uuid'
+import {PurchaseActions} from "../../actions/purchase";
 
 interface ShoppingCartProps {
 
@@ -16,37 +16,54 @@ interface ShoppingCartProps {
 export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
     const context = useContext(MyContext) as ContextStoreType
     const {notifyRef} = context
-    const {motorcycles, filtered, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
+    const {motorcycles, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
     const {cache} = useSelector((state: any) => state.cache)
     const {notification} = useSelector((state: any) => state.notification)
     const {order} = useSelector((state: any) => state.order)
 
     const dispatch = useDispatch()
     const buyProducts = (): void => {
-        let tempOrder: OrderElement = {
-            "number": order.length,
-            "products": [],
-            "totalPrice": 0,
-            "rating": 0,
-            "comment": ""
+        // let tempOrder: OrderElement = {
+        //     "number": order.length,
+        //     "products": [],
+        //     "totalPrice": 0,
+        //     "rating": 0,
+        //     "comment": ""
+        // }
+        //
+        // let tempMotorcycles = JSON.parse(JSON.stringify(motorcycles))
+        // for (let [id, number] of cart) {
+        //     tempOrder.products.push([motorcycles[id], number])
+        //     tempOrder.totalPrice += motorcycles[id].price * number
+        //     tempMotorcycles[id].number -= number
+        // }
+        //
+        // // dispatch(setOrder([...order, tempOrder]))
+        // dispatch(setMotorcycles(tempMotorcycles))
+        // dispatch(setCart([]))
+        // const notificationValue = {
+        //     header: "Успіх!",
+        //     text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
+        // }
+        // dispatch(setNotification(notificationValue))
+        // if (notifyRef && notifyRef.current)
+        //     notifyRef.current.checked = true
+        let newCart = JSON.parse(JSON.stringify(cart))
+        for (let i = 0; i < newCart.length; i++) {
+            let currentMoto = motorcycles.find((moto: MotorcycleElement) => moto.id === newCart[i][0])
+            let currentVariation = currentMoto?.variation[newCart[i][1]]
+            newCart[i][1] = currentVariation?.id
         }
 
-        let tempMotorcycles = JSON.parse(JSON.stringify(motorcycles))
-        for (let [id, number] of cart) {
-            tempOrder.products.push([motorcycles[id], number])
-            tempOrder.totalPrice += motorcycles[id].price * number
-            tempMotorcycles[id].number -= number
-        }
-        const notificationValue = {
-            header: "Успіх!",
-            text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
-        }
-        dispatch(setOrder([...order, tempOrder]))
-        dispatch(setMotorcycles(tempMotorcycles))
-        dispatch(setCart([]))
-        dispatch(setNotification(notificationValue))
-        // @ts-ignore
-        notifyRef.current.checked = true
+        let purchase = new PurchaseActions()
+        purchase.buy(JSON.stringify(newCart))
+            .then(() => {
+                dispatch(setCart([]))
+                // @ts-ignore
+                dispatch(getMotorcyclesAsync())
+                alert("Успіх!")
+            })
+            .catch(() => alert('Недостатня к-сть товару на складі'))
     }
 
     return (
@@ -81,6 +98,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                                             </div>
                                             <MyInputNumber
                                                 id={idItem}
+                                                variation={variation}
                                                 number={numberItem}
                                             />
                                         </div>

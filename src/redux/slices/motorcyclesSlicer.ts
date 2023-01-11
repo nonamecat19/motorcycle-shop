@@ -4,7 +4,6 @@ import {MotorcycleActions} from "../../actions/motorcycle";
 
 const getInitialCart = () => {
     let Stored = localStorage.getItem('cart')
-    console.log(Stored)
     return Stored ? JSON.parse(Stored) : []
 }
 
@@ -88,11 +87,7 @@ export const motorcyclesSlicer = createSlice({
         setCart: (state, action) => {
             state.cart = action.payload
             localStorage.setItem('cart', JSON.stringify(action.payload))
-
-            let sum: number = 0
-            for (let product of state.cart)
-                sum += state.motorcycles[product[0]].price * product[1]
-            state.fullPrice = sum.toString()
+            state.fullPrice = getFullPrice()
         },
         updateFullPrice: (state) => {
             state.fullPrice = getFullPrice()
