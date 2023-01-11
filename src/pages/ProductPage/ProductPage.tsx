@@ -50,6 +50,11 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
     }
 
     const addToCart = (numVar: number): void => {
+        if (variation[numVar].available < 1) {
+            alert('Вибачте, але цього товару немає в наявності')
+            return
+        }
+
         let tempCart = JSON.parse(JSON.stringify(cart))
         tempCart.push([motoId, numVar, 1])
         dispatch(setCart(tempCart))
