@@ -1,13 +1,7 @@
 @import "../../scss/variables";
 
 .App{
-    ::-moz-selection{
-        @apply bg-bg text-white
-    }
-    ::selection{
-        @apply bg-bg text-white
-    }
-
+    overflow-x: hidden;
     @apply min-h-screen
 }
 
