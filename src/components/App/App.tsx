@@ -3,7 +3,6 @@ import {Route, Routes} from "react-router-dom"
 import {AuthPage} from "../../pages/AuthPage/AuthPage"
 import {ContentPage} from "../../pages/ContentPage/ContentPage"
 import {ProductPage} from "../../pages/ProductPage/ProductPage"
-import PaymentForm from '../PaymentForm/App'
 import {useEffect} from "react"
 import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
 import {useDispatch} from 'react-redux'
@@ -42,11 +41,6 @@ export const App = () => {
                 <Route
                     path='admin/:category'
                     element={<AdminPage/>}
-                />
-
-                <Route
-                    path='card'
-                    element={<PaymentForm/>}
                 />
 
                 <Route
