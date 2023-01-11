@@ -15,7 +15,7 @@ export const Slider: FC<SliderProps> = ({variation, color, sliderStyle}) => {
         return (
             <div
                 style={{backgroundImage: `url(http://localhost:8888/data/no-photo.png)`}}
-                className='w-full h-[195px] bg-center bg-cover duration-500'
+                className='w-full h-[165px] mb-[30px] bg-center bg-cover duration-500'
             />
         )
     }

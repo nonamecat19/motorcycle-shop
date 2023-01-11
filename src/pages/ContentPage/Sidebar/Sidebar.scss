@@ -3,7 +3,7 @@
 .Sidebar {
   @include radius;
   @include shadow;
-  @apply fixed p-8 w-[15rem] top-[60px] right-[15px] bg-main mt-[20px]
+  @apply fixed p-8 w-[15rem] top-[60px] right-[25px] bg-main mt-[20px]
 }
 
 .input-range {
