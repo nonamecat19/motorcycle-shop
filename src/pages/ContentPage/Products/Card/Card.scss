@@ -2,7 +2,7 @@
 
 .Card {
   .card {
-    @apply h-[330px] w-64 shadow-xl relative mt-1 bg-second text-white
+    @apply h-[290px] w-64 shadow-xl relative mt-1 bg-second text-white
   }
 
   .img {
@@ -15,10 +15,10 @@
 
   .toProduct {
     &:hover {
-      @apply bg-white border-white text-second
-    }
+      @apply  bg-transparent border-white text-white
 
-    @apply btn bg-transparent border-white rounded text-white border-2 duration-500
+    }
+    @apply btn bg-white border-white text-second border-2 duration-500 rounded
   }
 
   .toCart {

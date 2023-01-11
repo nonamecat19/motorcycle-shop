@@ -1,94 +1,133 @@
-import React, {FC, useRef} from 'react'
+import React, {FC, useEffect, useRef, useState} from 'react'
 import './ProductPage.scss'
 import {Link, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
 import Navbar from '../../components/Navbar/Navbar'
 import {Notification} from '../../components/Notification/Notification'
 import {WhiteContent} from '../../components/WhiteContent/WhiteContent'
-import {setCart} from "../../redux/slices/motorcyclesSlicer"
+import {setCart, updateFullPrice} from "../../redux/slices/motorcyclesSlicer"
 import {ShoppingCart} from '../../components/ShoppingCart/ShoppingCart'
-import {CommentElement, Comments, CommentsMoto} from '../../Types'
+import {CommentElement, Comments, CommentsMoto, MotorcycleElement, Variation} from '../../Types'
 import {setComments} from '../../redux/slices/commentsSlicer'
 import {nanoid} from "@reduxjs/toolkit"
+import {BsChevronCompactLeft, BsChevronCompactRight} from "react-icons/bs";
+import {RxDotFilled} from "react-icons/rx";
 
 export interface ProductPageProps {
 
 }
 
 export const ProductPage: FC<ProductPageProps> = ({}) => {
-    let id: number = -1
+    let motoId: number = -1
     const commentRef = useRef<HTMLTextAreaElement>(null)
     const pageId = useParams<{ id: string }>().id;
     if (typeof pageId !== 'undefined') {
-        id = parseInt(pageId)
+        motoId = parseInt(pageId)
     } else {
         console.error('Виникла помилка при отриманні id')
     }
+    const [varNum, setVarNum] = useState<number>(-1)
+    const {cache} = useSelector((state: any) => state.cache)
     const dispatch = useDispatch()
     const comment: Comments = useSelector((state: any) => state.comments.comments)
+    const [currentPhoto, setCurrentPhoto] = useState<string>('')
     let myComment = comment ? JSON.parse(JSON.stringify(comment)) : []
+
     let thisMotoComment = myComment.find(({productId, data}: CommentsMoto) => {
-        return productId === id
+        return productId === motoId
     })
-    const addToCart = (e: any): void => {
-        dispatch(setCart([...cart, [id, 1]]))
-        e.target.disabled = true
+
+    const prevSlide = (): void => {
+        setCurrentIndex(currentIndex === 0 ? variation.length - 1 : currentIndex - 1)
+    }
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const nextSlide = (): void => {
+        setCurrentIndex(currentIndex === variation.length - 1 ? 0 : currentIndex + 1)
     }
 
-    const getStatus = (): string => {
-        if (motorcycles[id].number === 0)
-            return 'Немає в наявності'
-        for (let [productId] of cart)
-            if (productId === id)
-                return 'Вже в кошику'
-        return 'Додати в кошик'
+    const goToSlide = (slideIndex: number): void => {
+        setCurrentIndex(slideIndex)
+    }
+
+    const addToCart = (numVar: number): void => {
+        let tempCart = JSON.parse(JSON.stringify(cart))
+        tempCart.push([motoId, numVar, 1])
+        dispatch(setCart(tempCart))
+        dispatch(updateFullPrice())
     }
 
     const getAviability = (): boolean => {
-        if (motorcycles[id].number === 0)
-            return true
-        for (let [productId] of cart)
-            if (productId === id)
-                return true
-        return false
+        let flag = false
+        cart.forEach(([productId, numVar, number]: any) => {
+            if (productId === id && numVar === currentIndex)
+                flag = true
+        })
+        return flag
     }
 
-    const CommentHandler = (e: any): void => {
-        e.preventDefault()
-
-        if (typeof thisMotoComment === 'undefined') {
-            myComment.push({
-                productId: id,
-                data: [
-                    {
-                        userId: 1,
-                        comment: commentRef.current?.value,
-                    }
-                ]
-            })
-        } else {
-            thisMotoComment.data.push({
-                userId: 1,
-                comment: commentRef.current?.value,
-            })
-        }
-        dispatch(setComments(myComment))
-    }
+    // const CommentHandler = (e: any): void => {
+    //     e.preventDefault()
+    //
+    //     if (typeof thisMotoComment === 'undefined') {
+    //         myComment.push({
+    //             // productId: id,
+    //             data: [
+    //                 {
+    //                     userId: 1,
+    //                     comment: commentRef.current?.value,
+    //                 }
+    //             ]
+    //         })
+    //     } else {
+    //         thisMotoComment.data.push({
+    //             userId: 1,
+    //             comment: commentRef.current?.value,
+    //         })
+    //     }
+    //     dispatch(setComments(myComment))
+    // }
 
     const {motorcycles, cart} = useSelector((state: any) => state.motorcycles)
-    const {cache} = useSelector((state: any) => state.cache)
-    const {brand, model, color, price} = motorcycles[id]
+    let currentMoto = motorcycles.find(({id}: MotorcycleElement) => id === motoId)
+    if (typeof currentMoto === 'undefined') {
+        currentMoto = {
+            id: -1,
+            model: '',
+            brand: '',
+            price: 0,
+            engineCapacity: 0,
+            enginePower: 0,
+            fuelCapacity: 0,
+            fuelConsumption: 0,
+            gears: 0,
+            mass: 0,
+            variation: [{id: -1}],
+        }
+    }
+    let {
+        id,
+        model,
+        brand,
+        price,
+        engineCapacity,
+        enginePower,
+        fuelCapacity,
+        fuelConsumption,
+        gears,
+        mass,
+        variation
+    } = currentMoto
+    useEffect(() => {
+        setVarNum(variation[0].id)
+    })
 
     const exampleDetails = [
-        ["Колір", color],
-        ['Макс. швидкість', '250 км/год'],
-        ['К-сть передач', '6'],
-        ['0-100 км/год', '3.5 сек'],
-        ['Масса', '200 кг'],
-        ['Об\'єм двигуна', '1000 см³'],
-        ['Потужність', '200 к.с.'],
-        ['Паливний бак', '20 л'],
-        ['Габарити', '2000x1000x1000 мм']
+        ['Об\'єм двигуна', engineCapacity + 'см³'],
+        ['Потужність', enginePower + 'л.с.'],
+        ['Витрати палива', fuelConsumption + 'л/100км'],
+        ['Паливний бак', fuelCapacity + 'л'],
+        ['К-сть передач', gears],
+        ['Масса', mass + 'кг'],
     ]
 
     const comments = () => {
@@ -101,7 +140,7 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
                             <div className="chat chat-start">
                                 <div className="chat-image avatar">
                                     <div className="w-10 rounded-full">
-                                        <img src="https://placeimg.com/192/192/people"/>
+                                        <img src="https://www.marketforce.com/hubfs/Icons/kf-user-round-orange.svg"/>
                                     </div>
                                 </div>
                                 <div className="chat-header">
@@ -129,33 +168,79 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
                     className="absolute top-20 left-8 h-16"
                 />
             </Link>
+
             <div className="h-10"></div>
 
             <div className="ProductContent">
-                <img src={cache[`./${id}.png`]} alt=""/>
                 <div className="ProductInfo">
-                    <h1>{brand}</h1>
-                    <h2>{model}</h2>
-                    <h2>{price}$</h2>
-
-                    <button
-                        className="Product-btn"
-                        onClick={addToCart}
-                        disabled={getAviability()}
-                    >
-                        {getStatus()}
-                    </button>
-                    <div className="ProductBoxes">
-                        {
-                            exampleDetails.map(([title, content]): JSX.Element => (
-                                <WhiteContent
-                                    key={title}
-                                    title={title}
-                                    content={content}
+                    <div className='flex'>
+                        <div className={`h-[35vw] w-[60vw] relative group`}>
+                            <div
+                                style={{
+                                    backgroundImage: `url(http://localhost:8888/data/${variation[currentIndex].photo})`,
+                                    backgroundSize: '95%',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
+                                className='w-full h-full bg-center bg-cover duration-500'
+                            />
+                            <div
+                                className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-3 cursor-pointer'>
+                                <BsChevronCompactLeft
+                                    onClick={prevSlide}
+                                    size={140}
+                                    color={'#fff'}
                                 />
-                            ))
-                        }
+                            </div>
+                            <div
+                                className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-3 cursor-pointer'>
+                                <BsChevronCompactRight
+                                    onClick={nextSlide}
+                                    size={140}
+                                    color={'#fff'}
+                                />
+                            </div>
+                            <div className='flex justify-center -my-16'>
+                                {variation.map((slide: any, slideIndex: any) => (
+                                    <div
+                                        key={slideIndex}
+                                        onClick={() => goToSlide(slideIndex)}
+                                        className='cursor-pointer text-3xl'
+                                    >
+                                        <RxDotFilled
+                                            className={'duration-500 ' + (currentIndex === slideIndex ? 'scale-150' : '')}
+                                            color={'#fff'}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className='w-[35vw] max-w-[500px]'>
+                            <h1>{brand}</h1>
+                            <h2>{model}</h2>
+                            <h2>{price}грн</h2>
+                            <button
+                                className="Product-btn"
+                                onClick={() => addToCart(currentIndex)}
+                                disabled={getAviability()}
+                            >
+                                {getAviability() ? 'В кошику' : 'Купити'}
+                            </button>
+                            <h2>{variation[currentIndex]?.colorName ?? ''}</h2>
+                            <div className="ProductBoxes">
+                                {
+                                    exampleDetails.map(([title, content]): JSX.Element => (
+                                        <WhiteContent
+                                            key={title}
+                                            title={title}
+                                            content={content}
+                                        />
+                                    ))
+                                }
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
             <div className="ProductComments">
@@ -172,7 +257,7 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
                     ></textarea>
                     <button
                         className="btn"
-                        onClick={CommentHandler}
+                        // onClick={CommentHandler}
                     >
                         Відправити
                     </button>
@@ -181,8 +266,6 @@ export const ProductPage: FC<ProductPageProps> = ({}) => {
             </div>
             <ShoppingCart/>
             <Notification/>
-            {/*<AdminPanel/>*/}
         </div>
     )
 }
-

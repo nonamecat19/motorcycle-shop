@@ -1,11 +1,10 @@
-import React, { FC } from 'react'
+import React, {FC} from 'react'
 import './MyProviders.scss'
 import {Provider} from "react-redux";
 import {store} from "../../redux/store";
 import {IconContext} from "react-icons/lib";
 import {BrowserRouter} from "react-router-dom";
 import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "../../dev";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import {ContextStore} from "../ContextStore/ContextStore"
 import {HelmetProvider} from 'react-helmet-async'
@@ -27,19 +26,17 @@ const iconsSettings = {
 }
 
 export const MyProviders: FC<MyProvidersProps> = ({children}) => {
-    return(
+    return (
         <Provider store={store}>
             <IconContext.Provider value={iconsSettings}>
                 <BrowserRouter>
-                    <DevSupport ComponentPreviews={ComponentPreviews} useInitialHook={useInitial}>
-                        <ContextStore>
-                            <GoogleOAuthProvider clientId={ClientId}>
-                                <HelmetProvider>
-                                    {children}
-                                </HelmetProvider>
-                            </GoogleOAuthProvider>
-                        </ContextStore>
-                    </DevSupport>
+                    <ContextStore>
+                        <GoogleOAuthProvider clientId={ClientId}>
+                            <HelmetProvider>
+                                {children}
+                            </HelmetProvider>
+                        </GoogleOAuthProvider>
+                    </ContextStore>
                 </BrowserRouter>
             </IconContext.Provider>
         </Provider>

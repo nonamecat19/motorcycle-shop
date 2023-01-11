@@ -48,7 +48,7 @@ export type Notify = {
 
 export type Cart = CartElement[]
 
-export type CartElement = [number, number]
+export type CartElement = [number, number, number]
 
 export type OrderElement = {
     number: number

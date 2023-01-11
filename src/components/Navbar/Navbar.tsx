@@ -52,7 +52,7 @@ const Navbar: FC<ContentProps> = ({}) => {
                                     {cart.length} Покупок
                                 </span>
                     <span className="text-info">
-                                    Всього: {fullPrice}$
+                                    Всього: {fullPrice}грн
                                 </span>
                     <div className="card-actions">
                         <label

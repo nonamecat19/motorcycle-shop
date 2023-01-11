@@ -1,27 +1,23 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {Cart, Motorcycles} from "../../Types";
-import JSONData from "../../data.json";
 import {MotorcycleActions} from "../../actions/motorcycle";
-
-const getInitialMotorcycles = () => {
-    let localData = localStorage.getItem('motorcycles')
-    return localData ? JSON.parse(localData) : JSONData.motorcycles;
-}
 
 const getInitialCart = () => {
     let Stored = localStorage.getItem('cart')
+    console.log(Stored)
     return Stored ? JSON.parse(Stored) : []
 }
 
-// const getFullPrice = () => {
-//     let cartData = getInitialCart()
-//     // let motorcyclesData = getInitialMotorcycles()
-//     let motorcyclesData = [];
-//     let sum: number = 0
-//     for (let [id, number] of cartData)
-//         sum += motorcyclesData[id].price * number
-//     return sum.toString()
-// }
+const getFullPrice = (): string => {
+    let motorcycles = JSON.parse(localStorage.getItem('motorcycles') || '[]')
+    let cartData = getInitialCart()
+    let sum: number = 0
+    for (let [id, variation, number] of cartData)
+        for (let item of motorcycles)
+            if (item.id === id)
+                sum += item.price * number
+    return sum.toString()
+}
 
 interface State {
     motorcycles: Motorcycles
@@ -38,12 +34,12 @@ const initialState: State = {
     motorcycles: [],
     filtered: [],
     min: 1,
-    max: 1000000,
+    max: 10_000_000,
     model: '',
     brand: 'All',
     cart: getInitialCart(),
-    // fullPrice: getFullPrice()
-    fullPrice: '0'
+    // @ts-ignore
+    fullPrice: getFullPrice()
 }
 
 const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycles, model: string, min: number, max: number) => {
@@ -72,6 +68,7 @@ export const motorcyclesSlicer = createSlice({
         setMotorcycles: (state, action) => {
             state.motorcycles = action.payload
             localStorage.setItem('motorcycles', JSON.stringify(action.payload))
+            state.fullPrice = getFullPrice()
         },
         setFiltered: (state, action) => {
             state.filtered = action.payload
@@ -96,6 +93,9 @@ export const motorcyclesSlicer = createSlice({
             for (let product of state.cart)
                 sum += state.motorcycles[product[0]].price * product[1]
             state.fullPrice = sum.toString()
+        },
+        updateFullPrice: (state) => {
+            state.fullPrice = getFullPrice()
         }
     },
     extraReducers: (builder) => {
@@ -114,5 +114,5 @@ export const motorcyclesSlicer = createSlice({
     }
 })
 
-export const {setMotorcycles, setFiltered, cardsFilter, setMinMax, setCart} = motorcyclesSlicer.actions
+export const {setMotorcycles, setFiltered, cardsFilter, setMinMax, setCart, updateFullPrice} = motorcyclesSlicer.actions
 export default motorcyclesSlicer.reducer

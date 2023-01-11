@@ -3,5 +3,5 @@
 .Products {
   @include radius;
   @apply flex justify-center flex-wrap duration-1000 items-start
-  bg-main min-h-[80vh] mt-[80px] mb-[20px] mx-[20px] w-[calc(100%-320px)]
+  bg-main min-h-[80vh] mt-[80px] mb-[20px] mx-[25px] w-[calc(100%-330px)]
 }

@@ -32,6 +32,14 @@
     @apply flex flex-row flex-wrap justify-center -ml-12 mt-5
   }
 
+  .ProductCircles{
+    .colorCircles{
+      @apply w-[50px]
+    }
+    @apply flex justify-start
+  }
+
+
   @apply mt-0 pt-16 flex
 }
 

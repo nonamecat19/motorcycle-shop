@@ -9,7 +9,7 @@ export interface WhiteContentProps {
 export const WhiteContent: FC<WhiteContentProps> = ({title, content}) => {
     return(
         <div className="WhiteContent">
-            <h3>{title}</h3>
+            <h3 className='text-second'>{title}</h3>
             <span>{content}</span>
         </div>
     )
