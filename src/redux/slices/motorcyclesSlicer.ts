@@ -41,13 +41,13 @@ const initialState: State = {
     fullPrice: getFullPrice()
 }
 
-const filterFunc = (brand: string, motorcycles: Motorcycles, filtered: Motorcycles, model: string, min: number, max: number) => {
+const filterFunc = (brand: string, motorcycles: Motorcycles, model: string, min: number, max: number) => {
     let data =
         brand === 'All'
             ?
             motorcycles
             :
-            motorcycles.filter((item: any) => item.brand.includes(brand))
+            motorcycles.filter((item: any) => item.brand.toLowerCase().includes(brand.toLowerCase()))
     return data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()) && item.price >= min && item.price <= max)
 }
 
@@ -76,13 +76,13 @@ export const motorcyclesSlicer = createSlice({
             let {model, brand} = action.payload
             state.model = model
             state.brand = brand
-            state.filtered = filterFunc(brand, state.motorcycles, state.filtered, model, state.min, state.max)
+            state.filtered = filterFunc(brand, state.motorcycles, model, state.min, state.max)
         },
         setMinMax: (state, action) => {
             let {min, max} = action.payload
             state.min = min
             state.max = max
-            state.filtered = filterFunc(state.brand, state.motorcycles, state.filtered, state.model, min, max)
+            state.filtered = filterFunc(state.brand, state.motorcycles, state.model, min, max)
         },
         setCart: (state, action) => {
             state.cart = action.payload

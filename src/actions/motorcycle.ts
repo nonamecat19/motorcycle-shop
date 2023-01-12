@@ -23,8 +23,10 @@ export class MotorcycleActions extends DatabaseActions{
         await axios
             .delete(`${process.env.REACT_APP_HOST}${this.category}?id=${id}`)
     }
-    public updateMotorcycle = async (): Promise<void>  => {
-
+    public updateMotorcycle = async (params: MotorcycleElement): Promise<void>  => {
+        let path = this.parametrizedAxios(params)
+        await axios
+            .put(`${process.env.REACT_APP_HOST}${this.category}?${path}`)
     }
 
 }

@@ -66,6 +66,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
         await userAction.loginUser(data)
             .then((response: UsersResponse) => {
                 userAction.setCookie("jwt", response.jwt, 1);
+
             })
             .catch((error: any) => {
                 console.log(error)

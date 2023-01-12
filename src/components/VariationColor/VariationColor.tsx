@@ -15,7 +15,7 @@ export const VariationColor: FC<VariationColorProps> = ({color1, color2, size = 
                 style={{
                     borderWidth: size + 'px',
                     borderStyle: 'solid',
-                    borderColor: `${color1} ${color2} ${color2} ${color1}`,
+                    borderColor: `#${color1} #${color2} #${color2} #${color1}`,
                 }}
             >
             </div>

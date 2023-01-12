@@ -2,7 +2,6 @@
   @apply bg-[#f8f8f8] min-h-screen w-full;
 }
 
-
 .AdminContent{
-  @apply max-w-[calc(100vw-230px)] h-full flex justify-center mt-10 float-left outline-8 outline-red-800;
+  @apply max-w-[calc(100vw-250px)] h-full flex justify-center mt-10 float-left;
 }

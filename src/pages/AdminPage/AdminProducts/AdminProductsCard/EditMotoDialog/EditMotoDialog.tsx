@@ -8,6 +8,7 @@ import {VariationColor} from "../../../../../components/VariationColor/Variation
 import {ConfirmDialog} from "../../../../../components/ConfirmDialog/ConfirmDialog";
 import {EditVariationDialog} from "../EditVariationDialog/EditVariationDialog";
 import {MotorcycleActions} from "../../../../../actions/motorcycle";
+import {VariationActions} from "../../../../../actions/variation";
 
 export interface EditMotoDialogProps {
     id: number
@@ -64,13 +65,18 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
     const closeModal = (): void => setIsOpen(false)
 
     const confirmAddMotoHandler = (): void => {
+        let moto = new MotorcycleActions()
         if (state.id === -1) {
-            let moto = new MotorcycleActions()
             moto.addMotorcycle(state)
-                .then(() => console.log('moto added successfully'))
-                .catch((err) => console.error('problem with adding moto: ', err))
-        }else {
+                // .then(() => alert('Мотоцикл успішно додано'))
+                .then(() => {location.reload()})
+                .catch((err) => alert('Сталася помилка: ' + err))
+        } else {
             // editMotoHandler()
+            moto.updateMotorcycle(state)
+                // .then(() => alert('Мотоцикл успішно змінено'))
+                .then(() => {location.reload()})
+                .catch((err) => alert('Сталася помилка: ' + err))
         }
     }
 
@@ -88,6 +94,13 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
         mass: mass ?? 0,
         variation: variation ?? []
     })
+
+    let deleteHandler = (id: number) => {
+        let variationAction = new VariationActions()
+        variationAction.deleteVariation(id)
+            .then(() => alert('Успіх!'))
+            .catch((res) => alert('Помилка! ' + res))
+    }
 
     return (
         <>
@@ -261,11 +274,12 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="divider divider-horizontal"/>
+                                        {id !== -1 && <div className="divider divider-horizontal"/>}
                                         <div
                                             className="grid h-full flex-grow card rounded-box place-items-center">
                                             <div className="flex flex-col w-full h-56 overflow-y-auto">
                                                 {
+                                                    id !== -1 &&
                                                     state.variation.map((
                                                         {
                                                             id,
@@ -291,8 +305,9 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                                         {colorName}
                                                                     </span>
                                                                     <EditVariationDialog
-                                                                        callback={() => alert('variation')}
+                                                                        callback={() => {}}
                                                                         id={id}
+                                                                        idMotorcycle={state.id}
                                                                         colorName={colorName}
                                                                         colorHex={colorHex}
                                                                         colorHex2={colorHex2}
@@ -309,9 +324,11 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
 
 
                                                                     <ConfirmDialog buttonColorClass={''}
-                                                                                   callback={() => alert()} title={''}
-                                                                                   text={''}>
-                                                                        <MyButton myStyle="MyButtonDanger MyButtonHyper">
+                                                                                   callback={() => deleteHandler(id)}
+                                                                                   title={'Підтвердити видалення?'}
+                                                                                   text={'Так'}>
+                                                                        <MyButton
+                                                                            myStyle="MyButtonDanger MyButtonHyper">
                                                                             <MdDelete
                                                                                 color="#fff"
                                                                                 style={{margin: "0 -7px"}}
@@ -326,25 +343,30 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                 }
                                             </div>
 
-                                            <div className="mt-4">
-                                                <EditVariationDialog
-                                                    callback={() => alert('variation')}
-                                                    id={-1}
-                                                    colorName={''}
-                                                    colorHex={'#'}
-                                                    colorHex2={'#'}
-                                                    available={0}
-                                                    photo={''}
-                                                >
-                                                    <MyButton>
-                                                        <MdOutlineAddToPhotos
-                                                            color="#fff"
-                                                            style={{margin: "0 7px 0 -7px"}}
-                                                        />
-                                                        Додати нову варіацію
-                                                    </MyButton>
-                                                </EditVariationDialog>
-                                            </div>
+                                            {
+                                                id !== -1 &&
+
+                                                <div className="mt-4">
+                                                    <EditVariationDialog
+                                                        callback={() => {}}
+                                                        id={-1}
+                                                        idMotorcycle={state.id}
+                                                        colorName={''}
+                                                        colorHex={'#'}
+                                                        colorHex2={'#'}
+                                                        available={0}
+                                                        photo={''}
+                                                    >
+                                                        <MyButton>
+                                                            <MdOutlineAddToPhotos
+                                                                color="#fff"
+                                                                style={{margin: "0 7px 0 -7px"}}
+                                                            />
+                                                            Додати нову варіацію
+                                                        </MyButton>
+                                                    </EditVariationDialog>
+                                                </div>
+                                            }
 
                                         </div>
                                     </div>

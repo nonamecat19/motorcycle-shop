@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import './MyButton.scss'
 
 export interface MyButtonProps {
-    onClick?: () => void
+    onClick?: () => any
     children: React.ReactNode
     myStyle?: string
 }

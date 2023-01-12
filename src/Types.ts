@@ -28,6 +28,7 @@ export type PostMotorcycle = {
 
 export type Variation = {
     id: number
+    idMotorcycle: number
     colorName: string
     colorHex: string
     colorHex2: string

@@ -4,6 +4,7 @@ import './AdminProductsCard.scss'
 import {Slider} from "../../../../components/Slider/Slider";
 import {EditMotoDialog} from "./EditMotoDialog/EditMotoDialog";
 import {ConfirmDialog} from "../../../../components/ConfirmDialog/ConfirmDialog";
+import {MotorcycleActions} from "../../../../actions/motorcycle";
 
 export interface AdminProductsCardProps {
     motorcycle: MotorcycleElement
@@ -23,6 +24,17 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
         mass,
         variation
     } = motorcycle
+
+    let deleteMoto = () => {
+        new MotorcycleActions().deleteMotorcycle(id)
+            .then(() => {
+                alert('Мотоцикл успішно видалено')
+            })
+            .catch(() => {
+                alert('Помилка при видаленні мотоцикла')
+            })
+        location.reload()
+    }
 
     return (
         <div className="AdminProductsCard">
@@ -50,7 +62,7 @@ export const AdminProductsCard: FC<AdminProductsCardProps> = ({motorcycle}) => {
                 />
                 <ConfirmDialog
                     buttonColorClass="btn w-32 rounded-lg bg-red-600 hover:bg-red-700"
-                    callback={() => alert('delete')}
+                    callback={() => deleteMoto()}
                     title="Видалити продукт?"
                     text={`Мотоцикл ${brand} ${model}`}
                 >

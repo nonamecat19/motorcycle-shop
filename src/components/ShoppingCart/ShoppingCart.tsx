@@ -81,7 +81,8 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                                 if (currentMotorcycle === undefined)
                                     return <Fragment key={key}></Fragment>
 
-                                let photo = `http://localhost:8888/data/${currentMotorcycle.variation[variation].photo}`
+
+                                let photo = `http://localhost:8888/data/${currentMotorcycle?.variation[variation]?.photo}`
 
                                 return (
                                     <Fragment key={key}>

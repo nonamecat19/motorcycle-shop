@@ -1,7 +1,7 @@
-import React, {FC, useEffect, useRef, useState} from 'react'
+import React, {FC} from 'react'
 import './ProductPage.scss'
-import {Link, useNavigate, useParams} from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
+import {useParams} from "react-router-dom"
+import {useSelector} from 'react-redux'
 import {MotorcycleElement} from "../../Types";
 import {NotFoundPage} from "../NotFoundPage/NotFoundPage";
 import {ProductContent} from "./ProductContent/ProductContent";

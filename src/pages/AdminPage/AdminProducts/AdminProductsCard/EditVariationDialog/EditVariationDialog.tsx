@@ -1,7 +1,10 @@
-import React, {ChangeEvent, FC, Fragment, useState} from 'react'
+import React, {ChangeEvent, FC, Fragment, useRef, useState} from 'react'
 import {Dialog, Transition} from "@headlessui/react";
 import './EditVariationDialog.scss'
 import {Variation} from "../../../../../Types";
+import {VariationActions} from "../../../../../actions/variation";
+import {useDispatch} from "react-redux";
+import {getMotorcyclesAsync} from "../../../../../redux/slices/motorcyclesSlicer";
 
 export interface EditVariationDialogProps extends Variation {
     callback: () => void
@@ -13,6 +16,7 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
         callback,
         children,
         id,
+        idMotorcycle,
         colorName,
         colorHex,
         colorHex2,
@@ -21,11 +25,37 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
     }) => {
 
     let [isOpen, setIsOpen] = useState(false)
+    const dispatch= useDispatch()
     const closeModal = () => setIsOpen(false)
     const openModal = () => setIsOpen(true)
-    const confirm = () => {
-        callback()
-        closeModal()
+    const confirm = async () => {
+        if (!selectedFile) {
+            alert('Ви не обрали файл')
+            return
+        }else {
+            const formData = new FormData()
+            formData.append('file', selectedFile)
+            let variationAction = new VariationActions()
+
+            if (id === -1) {
+                variationAction.addVariation(formData, state)
+                    .then(() => {
+                        // alert('Успіх!')
+                        // @ts-ignore
+                        location.reload()
+                    })
+                    .catch((res) => alert('Помилка! ' + res))
+            } else {
+                variationAction.updateVariation(formData, state)
+                    .then(() => {
+                        // alert('Успіх!')
+                        location.reload()
+                    })
+                    .catch((res) => alert('Помилка! ' + res))
+            }
+            callback()
+            closeModal()
+        }
     }
     let handleChangeNum = (evt: ChangeEvent<HTMLInputElement>) => {
         let value: string = evt.target.value
@@ -40,15 +70,26 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
             [evt.target.name]: evt.target.value
         });
     }
-    
+
     let [state, setState] = useState<Variation>({
         id: id,
+        idMotorcycle: idMotorcycle,
         colorName: colorName,
         colorHex: colorHex,
         colorHex2: colorHex2,
         available: available,
         photo: photo
     })
+
+    const [selectedFile, setSelectedFile] = useState(null)
+    let fileInput = useRef(null)
+
+    let handleFileChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        if (evt && evt.target && evt.target.files) {
+            // @ts-ignore
+            setSelectedFile(evt.target.files[0])
+        }
+    }
 
     return (
         <>
@@ -72,7 +113,7 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="fixed inset-0 bg-black bg-opacity-25"/>
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -86,7 +127,8 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel
+                                    className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
@@ -164,7 +206,13 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
 
                                             </tbody>
                                         </table>
-                                        <input type="file" className="file-input w-full max-w-xs border-bg rounded-md" />
+                                        <input
+                                            type="file"
+                                            className="file-input w-full max-w-xs border-bg rounded-md"
+                                            ref={fileInput}
+                                            accept={".jpg, .jpeg, .png"}
+                                            onChange={handleFileChange}
+                                        />
                                     </div>
 
                                     <div className="mt-4">

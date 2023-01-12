@@ -17,8 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'password' => $password_hash,
         'firstName' => $_GET['firstName'],
         'lastName' => $_GET['lastName'],
-        'dateOfBirth' => $_GET['dateOfBirth']
+        'dateOfBirth' => $_GET['dateOfBirth'],
+        'role' => 'user'
     ];
 
     Core::getInstance()::$db->insert(tableName: $tableName, newRowArray: $data);
+    echo 'ok';
 }

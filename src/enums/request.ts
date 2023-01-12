@@ -1,6 +1,6 @@
 export enum request {
     users = 'users',
-    variations = 'variations',
+    variations = 'variation',
     motorcycles = 'moto',
     purchase = 'purchase',
 }
