@@ -59,7 +59,7 @@ const Navbar: FC<ContentProps> = ({}) => {
                             htmlFor="my-modal-cart"
                             className="btn text-white"
                         >
-                            Оформити замовлення
+                            Кошик
                         </label>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import {FC, Fragment, useContext} from "react";
+import {FC, Fragment, useContext, useState} from "react";
 import './ShopingCart.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {setNotification} from "../../redux/slices/notificationSlicer";
@@ -9,6 +9,8 @@ import {MyContext} from "../ContextStore/ContextStore";
 import {MyInputNumber} from "./MyInputNumber/MyInputNumber";
 import {PurchaseActions} from "../../actions/purchase";
 import {AiOutlineCloseCircle} from "react-icons/ai";
+import {UserActions} from "../../actions/user";
+import {useNavigate} from "react-router-dom";
 
 interface ShoppingCartProps {
 
@@ -24,6 +26,10 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
 
     const dispatch = useDispatch()
     const buyProducts = (): void => {
+        if ((new UserActions().getCookie()?.length ?? '') < 5) {
+            navigate('/auth')
+            return
+        }
         // let tempOrder: OrderElement = {
         //     "number": order.length,
         //     "products": [],
@@ -75,6 +81,8 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
         dispatch(setCart(tempCart))
     }
 
+    let navigate = useNavigate()
+
     return (
         <div className='ShoppingCart'>
             <input type="checkbox" id="my-modal-cart" className="modal-toggle"/>
@@ -104,7 +112,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                                                 <p>{currentMotorcycle.model}</p>
                                             </div>
                                             <div className="align-item-end text-2xl mr-4">
-                                                {currentMotorcycle.price}$
+                                                {currentMotorcycle.price} грн
                                             </div>
                                             <MyInputNumber
                                                 id={idItem}

@@ -83,33 +83,6 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     navigate("/")
                 }
             })
-
-
-
-        // let fail = false
-        // console.log(login, password)
-        // await axios({
-        //     method: 'GET',
-        //     url: 'http://localhost:8888/api/users/auth/',
-        //     params: {
-        //         'login': login,
-        //         'password': password
-        //     }
-        // })
-        //     .then((response: AxiosResponse<UsersResponse>) => {
-        //             if (typeof response.data == 'boolean') {
-        //                 console.log('Помилка авторизації');
-        //                 fail = true
-        //                 return
-        //             }
-        //             const {id, firstName, lastName, role}: User = response.data;
-        //             dispatch(setUser({id, firstName, lastName, role}))
-        //         }
-        //     )
-        // if (!fail) {
-        //     await navigate("/")
-        // }
-        // await dispatch(toggleAuthForm())
     }
 
 
@@ -123,7 +96,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
         }
         let userAction = await new UserActions()
         await userAction.registerUser(data)
-
+            .then(() => navigate("/"))
     }
 
     return (
