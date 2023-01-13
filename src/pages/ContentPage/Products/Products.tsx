@@ -14,13 +14,18 @@ export const Products: FC<ProductsProps> = ({}) => {
     return (
         <div className='Products'>
             {
-                filtered.map((moto: MotorcycleElement) => (
-                    <Card
-                        key={moto.id}
-                        {...moto}
-                        cartIcon={cache['./cart.png']}
-                    />
-                ))
+                filtered.map((moto: MotorcycleElement) => {
+                    if (moto.variation.length === 0)
+                        return <></>
+
+                    return (
+                        <Card
+                            key={moto.id}
+                            {...moto}
+                            cartIcon={cache['./cart.png']}
+                        />
+                    )
+                })
             }
         </div>
     )

@@ -17,8 +17,6 @@ interface ShoppingCartProps {
 }
 
 export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
-    const context = useContext(MyContext) as ContextStoreType
-    const {notifyRef} = context
     const {motorcycles, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
     const {cache} = useSelector((state: any) => state.cache)
     const {notification} = useSelector((state: any) => state.notification)
@@ -30,40 +28,16 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             navigate('/auth')
             return
         }
-        // let tempOrder: OrderElement = {
-        //     "number": order.length,
-        //     "products": [],
-        //     "totalPrice": 0,
-        //     "rating": 0,
-        //     "comment": ""
-        // }
-        //
-        // let tempMotorcycles = JSON.parse(JSON.stringify(motorcycles))
-        // for (let [id, number] of cart) {
-        //     tempOrder.products.push([motorcycles[id], number])
-        //     tempOrder.totalPrice += motorcycles[id].price * number
-        //     tempMotorcycles[id].number -= number
-        // }
-        //
-        // // dispatch(setOrder([...order, tempOrder]))
-        // dispatch(setMotorcycles(tempMotorcycles))
-        // dispatch(setCart([]))
-        // const notificationValue = {
-        //     header: "Успіх!",
-        //     text: "Побачити квитанцію ви можете в пункті меню 'Мої замовлення'"
-        // }
-        // dispatch(setNotification(notificationValue))
-        // if (notifyRef && notifyRef.current)
-        //     notifyRef.current.checked = true
+
         let newCart = JSON.parse(JSON.stringify(cart))
         for (let i = 0; i < newCart.length; i++) {
             let currentMoto = motorcycles.find((moto: MotorcycleElement) => moto.id === newCart[i][0])
             let currentVariation = currentMoto?.variation[newCart[i][1]]
             newCart[i][1] = currentVariation?.id
         }
-
+        let fullPrice = useSelector((state: any) => state.motorcycles.fullPrice)
         let purchase = new PurchaseActions()
-        purchase.buy(JSON.stringify(newCart))
+        purchase.buy(JSON.stringify(newCart), fullPrice)
             .then(() => {
                 dispatch(setCart([]))
                 // @ts-ignore

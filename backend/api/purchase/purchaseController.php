@@ -19,5 +19,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             Core::getInstance()::$db->update(tableName: $tableName, newValuesArray: ['available' => $select], conditionArray: ['id' => $myData[1]]);
         }
 
+        
+
         break;
 }
