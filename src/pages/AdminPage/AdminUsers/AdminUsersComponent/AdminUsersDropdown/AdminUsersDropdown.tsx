@@ -5,21 +5,25 @@ import {Fragment} from 'react'
 import {BsChevronDown} from "react-icons/bs";
 import {MdDelete, MdEdit} from "react-icons/md";
 import {User} from "../../../../../Types";
+import {useSelector} from "react-redux";
+import {EditUserDialog} from "../../EditUserDialog/EditUserDialog";
+import {ConfirmDialog} from "../../../../../components/ConfirmDialog/ConfirmDialog";
+import {UserActions} from "../../../../../actions/user";
 
-export interface AdminUsersDropdownProps extends User{
+export interface AdminUsersDropdownProps extends User {
 
 }
 
-export const AdminUsersDropdown: FC<AdminUsersDropdownProps> = ({id}) => {
-
+export const AdminUsersDropdown: FC<AdminUsersDropdownProps> = (
+    {
+        id,
+        login,
+        firstName,
+        lastName,
+        role,
+        dateOfBirth
+    }) => {
     const className = (active: boolean) => `${active ? 'bg-orange-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`
-
-    const editHandler = () => {
-        console.log('edit', id)
-    }
-    const deleteHandler = () => {
-        console.log('delete', id)
-    }
 
     return (
         <div className=" top-16 w-30 text-right">
@@ -44,28 +48,27 @@ export const AdminUsersDropdown: FC<AdminUsersDropdownProps> = ({id}) => {
                         className="absolute z-10 right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="px-1 py-1 ">
                             <Menu.Item>
-                                {({active}) => (
-                                    <button
-                                        className={className(active)}
-                                        onClick={editHandler}
+                                {
+                                    <EditUserDialog
+                                        id={id}
+                                        login={login}
+                                        firstName={firstName}
+                                        lastName={lastName}
+                                        role={role}
+                                        dateOfBirth={dateOfBirth}
+                                        text='Редагувати користувача'
                                     >
-                                        <MdEdit color={active ? 'white' : ''}/>
+                                        <MdEdit/>
                                         Редагувати
-                                    </button>
-                                )}
+                                    </EditUserDialog>
+                                }
                             </Menu.Item>
                         </div>
                         <div className="px-1 py-1">
                             <Menu.Item>
-                                {({active}) => (
-                                    <button
-                                        className={className(active)}
-                                        onClick={deleteHandler}
-                                    >
-                                        <MdDelete color={active ? 'white' : ''}/>
-                                        Видалити
-                                    </button>
-                                )}
+                                {
+
+                                }
                             </Menu.Item>
                         </div>
 

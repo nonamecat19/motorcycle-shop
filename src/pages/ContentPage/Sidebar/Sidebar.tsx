@@ -1,6 +1,6 @@
 import './Sidebar.scss'
 import {FC, useContext, useState} from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {cardsFilter, setMinMax} from '../../../redux/slices/motorcyclesSlicer';
 import {MyContext} from '../../../components/ContextStore/ContextStore';
 import {ContextStoreType} from "../../../Types";
@@ -18,7 +18,10 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
 
     const filterHandler = () => {
         // TODO fix TS
-        const data = {
+        const data:{
+            brand: string,
+            model: string,
+        } = {
             // @ts-ignore
             model: filterModel?.current.value,
             // @ts-ignore

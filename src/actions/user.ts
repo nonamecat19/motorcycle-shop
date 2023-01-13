@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {Motorcycles, PostUser, User} from "../Types";
+import {PostUser, User} from "../Types";
 import {DatabaseActions} from "./db";
 import {request} from "../enums/request";
 
@@ -12,11 +12,18 @@ export class UserActions extends DatabaseActions {
             .then((response: AxiosResponse<User[]>) => data = response.data)
         return await data
     }
-    public addUser = async (params: PostUser): Promise<void> => {
+    public addUser = async (params: any): Promise<void> => {
         let path = this.parametrizedAxios(params)
         await axios
-            .post(`${process.env.REACT_APP_HOST}${this.category}${path}`)
+            .post(`${process.env.REACT_APP_HOST}${this.category}?${path}`)
     }
+
+    public updateUser = async (params: any): Promise<void> => {
+        let path = this.parametrizedAxios(params)
+        await axios
+            .put(`${process.env.REACT_APP_HOST}${this.category}?${path}`)
+    }
+
     public deleteUser = async (id: number): Promise<void> => {
         await axios
             .delete(`${process.env.REACT_APP_HOST}${this.category}?id=${id}`)
@@ -53,7 +60,6 @@ export class UserActions extends DatabaseActions {
         return await data
     }
 
-
     public setCookie (name: string, value: any, days:number ) {
         let expires = "";
         if (days) {
@@ -76,5 +82,4 @@ export class UserActions extends DatabaseActions {
         }
         return null;
     }
-
 }

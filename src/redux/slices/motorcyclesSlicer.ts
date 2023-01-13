@@ -1,22 +1,7 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import {Cart, Motorcycles} from "../../Types";
 import {MotorcycleActions} from "../../actions/motorcycle";
-
-const getInitialCart = () => {
-    let Stored = localStorage.getItem('cart')
-    return Stored ? JSON.parse(Stored) : []
-}
-
-const getFullPrice = (): string => {
-    let motorcycles = JSON.parse(localStorage.getItem('motorcycles') || '[]')
-    let cartData = getInitialCart()
-    let sum: number = 0
-    for (let [id, variation, number] of cartData)
-        for (let item of motorcycles)
-            if (item.id === id)
-                sum += item.price * number
-    return sum.toString()
-}
+import {Notify} from "../../notifications/notifications";
 
 interface State {
     motorcycles: Motorcycles
@@ -29,6 +14,22 @@ interface State {
     fullPrice: string
 }
 
+const getInitialCart = () => {
+    let Stored = localStorage.getItem('cart')
+    return JSON.parse(Stored ?? '[]')
+}
+
+const getFullPrice = (): string => {
+    let motorcycles = JSON.parse(localStorage.getItem('motorcycles') ?? '[]')
+    let cartData = getInitialCart()
+    let sum: number = 0
+    for (let [id, variation, number] of cartData)
+        for (let item of motorcycles)
+            if (item.id === id)
+                sum += item.price * number
+    return sum.toString()
+}
+
 const initialState: State = {
     motorcycles: [],
     filtered: [],
@@ -37,7 +38,6 @@ const initialState: State = {
     model: '',
     brand: 'All',
     cart: getInitialCart(),
-    // @ts-ignore
     fullPrice: getFullPrice()
 }
 
@@ -47,8 +47,19 @@ const filterFunc = (brand: string, motorcycles: Motorcycles, model: string, min:
             ?
             motorcycles
             :
-            motorcycles.filter((item: any) => item.brand.toLowerCase().includes(brand.toLowerCase()))
-    return data.filter((item: any) => item.model.toLowerCase().includes(model.toLowerCase()) && item.price >= min && item.price <= max)
+            motorcycles
+                .filter((item: any) =>
+                    item.brand.toLowerCase()
+                        .includes(
+                            brand.toLowerCase()
+                        )
+                )
+    return data.filter((item: any) =>
+        item.model
+            .toLowerCase()
+            .includes(model.toLowerCase())
+            && item.price >= min
+            && item.price <= max)
 }
 
 export const getMotorcyclesAsync = createAsyncThunk(
@@ -59,55 +70,50 @@ export const getMotorcyclesAsync = createAsyncThunk(
     }
 )
 
-
 export const motorcyclesSlicer = createSlice({
     name: 'motorcycles',
     initialState,
     reducers: {
-        setMotorcycles: (state, action) => {
+        setMotorcycles: (state: Draft<State>, action: PayloadAction<Motorcycles>) => {
             state.motorcycles = action.payload
-            localStorage.setItem('motorcycles', JSON.stringify(action.payload))
             state.fullPrice = getFullPrice()
         },
-        setFiltered: (state, action) => {
+        setFiltered: (state: Draft<State>, action: PayloadAction<Motorcycles>) => {
             state.filtered = action.payload
         },
-        cardsFilter: (state, action) => {
+        cardsFilter: (state: Draft<State>, action: PayloadAction<{model: string, brand: string}>) => {
             let {model, brand} = action.payload
             state.model = model
             state.brand = brand
             state.filtered = filterFunc(brand, state.motorcycles, model, state.min, state.max)
         },
-        setMinMax: (state, action) => {
+        setMinMax: (state: Draft<State>, action: PayloadAction<{min: number, max: number}>) => {
             let {min, max} = action.payload
             state.min = min
             state.max = max
             state.filtered = filterFunc(state.brand, state.motorcycles, state.model, min, max)
         },
-        setCart: (state, action) => {
+        setCart: (state: Draft<State>, action: PayloadAction<Cart>) => {
             state.cart = action.payload
             localStorage.setItem('cart', JSON.stringify(action.payload))
             state.fullPrice = getFullPrice()
         },
-        updateFullPrice: (state) => {
+        updateFullPrice: (state: Draft<State>) => {
             state.fullPrice = getFullPrice()
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getMotorcyclesAsync.pending, (state, action) => {
-
-        })
         builder.addCase(getMotorcyclesAsync.fulfilled, (state, action) => {
             // @ts-ignore
             state.motorcycles = action.payload
             // @ts-ignore
             state.filtered = action.payload
         })
-        builder.addCase(getMotorcyclesAsync.rejected, (state, action) => {
-            console.log('rejected')
+        builder.addCase(getMotorcyclesAsync.rejected, () => {
+            new Notify().DbError()
         })
     }
 })
 
-export const {setMotorcycles, setFiltered, cardsFilter, setMinMax, setCart, updateFullPrice} = motorcyclesSlicer.actions
+export const {setMotorcycles, cardsFilter, setMinMax, setCart, updateFullPrice} = motorcyclesSlicer.actions
 export default motorcyclesSlicer.reducer

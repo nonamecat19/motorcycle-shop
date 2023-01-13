@@ -10,10 +10,19 @@ import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
 import {NotFoundPage} from "../../pages/NotFoundPage/NotFoundPage";
 import {getCurrentUserAsync} from "../../redux/slices/currentUserSlicer";
+import {MotorcycleActions} from "../../actions/motorcycle";
 
 export const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
+
+        new MotorcycleActions().getMotorcycles()
+        .then((res: any) =>
+                localStorage.setItem(
+                    'motorcycles',
+                    JSON.stringify(res ?? [])
+                )
+        )
         // @ts-ignore
         dispatch(getMotorcyclesAsync())
         // @ts-ignore

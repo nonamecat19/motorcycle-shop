@@ -69,13 +69,17 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
         if (state.id === -1) {
             moto.addMotorcycle(state)
                 // .then(() => alert('Мотоцикл успішно додано'))
-                .then(() => {location.reload()})
+                .then(() => {
+                    location.reload()
+                })
                 .catch((err) => alert('Сталася помилка: ' + err))
         } else {
             // editMotoHandler()
             moto.updateMotorcycle(state)
                 // .then(() => alert('Мотоцикл успішно змінено'))
-                .then(() => {location.reload()})
+                .then(() => {
+                    location.reload()
+                })
                 .catch((err) => alert('Сталася помилка: ' + err))
         }
     }
@@ -305,7 +309,8 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                                         {colorName}
                                                                     </span>
                                                                     <EditVariationDialog
-                                                                        callback={() => {}}
+                                                                        callback={() => {
+                                                                        }}
                                                                         id={id}
                                                                         idMotorcycle={state.id}
                                                                         colorName={colorName}
@@ -323,10 +328,12 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
                                                                     </EditVariationDialog>
 
 
-                                                                    <ConfirmDialog buttonColorClass={''}
-                                                                                   callback={() => deleteHandler(id)}
-                                                                                   title={'Підтвердити видалення?'}
-                                                                                   text={'Так'}>
+                                                                    <ConfirmDialog
+                                                                        buttonColorClass={'btn w-32 rounded-lg bg-bg hover:bg-orange-700 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-bg focus-visible:ring-offset-2 duration-500'}
+                                                                        callback={() => deleteHandler(id)}
+                                                                        title={'Підтвердити видалення?'}
+                                                                        text={'Так'}
+                                                                    >
                                                                         <MyButton
                                                                             myStyle="MyButtonDanger MyButtonHyper">
                                                                             <MdDelete
@@ -348,7 +355,8 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
 
                                                 <div className="mt-4">
                                                     <EditVariationDialog
-                                                        callback={() => {}}
+                                                        callback={() => {
+                                                        }}
                                                         id={-1}
                                                         idMotorcycle={state.id}
                                                         colorName={''}

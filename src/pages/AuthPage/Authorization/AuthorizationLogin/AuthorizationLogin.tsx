@@ -78,6 +78,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                 }
                 if (response.role == 'admin' || response.role == 'moderator') {
                     navigate("/admin/app")
+                    location.reload()
                 } else {
                     navigate("/")
                 }

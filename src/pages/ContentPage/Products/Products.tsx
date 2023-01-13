@@ -11,8 +11,6 @@ export interface ProductsProps {
 export const Products: FC<ProductsProps> = ({}) => {
     const {cache} = useSelector((state: any) => state.cache)
     const {filtered} = useSelector((state: any) => state.motorcycles)
-    const {motorcycles} = useSelector((state: any) => state.motorcycles)
-    console.table(motorcycles)
     return (
         <div className='Products'>
             {

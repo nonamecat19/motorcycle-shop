@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getUsersAsync} from "../../../redux/slices/usersSlicer";
 import {AdminUsersComponent} from "./AdminUsersComponent/AdminUsersComponent";
 import {User} from "../../../Types";
+import {EditUserDialog} from "./EditUserDialog/EditUserDialog";
+import {MyButton} from "../../../components/MyButton/MyButton";
 
 export interface AdminUsersProps {
 
@@ -18,34 +20,31 @@ export const AdminUsers: FC<AdminUsersProps> = ({}) => {
     }, [])
 
     const users = useSelector((state: any) => state.users.users)
-    console.log(users)
 
     return (
         <div className="AdminUsers">
             <div className="overflow-x-auto m-auto h-[90vh]">
+                <EditUserDialog id={-1} className={'mb-5'} text='Додати користувача'>
+                    <MyButton>Додати користувача</MyButton>
+                </EditUserDialog>
                 <table className="table w-full">
 
                     <thead>
                     <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>Логін</th>
-                        <th>Ім'я</th>
-                        <th>Прізвище</th>
-                        <th>Роль</th>
-                        <th>Дата народження</th>
-                        <th></th>
+                        <td></td>
+                        <td>ID</td>
+                        <td>Логін</td>
+                        <td>Ім'я</td>
+                        <td>Прізвище</td>
+                        <td>Роль</td>
+                        <td>Дата народження</td>
+                        <td></td>
                     </tr>
                     </thead>
                     <tbody>
-
                     {
-                        users.map((user: User) => {
-                            return <AdminUsersComponent key={user.id} {...user}/>
-                        })
+                        users.map((user: User) => <AdminUsersComponent key={user.id} {...user}/>)
                     }
-
-
                     </tbody>
 
                 </table>

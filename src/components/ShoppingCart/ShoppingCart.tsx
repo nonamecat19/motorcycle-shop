@@ -8,6 +8,7 @@ import {Cart, CartElement, ContextStoreType, MotorcycleElement, OrderElement} fr
 import {MyContext} from "../ContextStore/ContextStore";
 import {MyInputNumber} from "./MyInputNumber/MyInputNumber";
 import {PurchaseActions} from "../../actions/purchase";
+import {AiOutlineCloseCircle} from "react-icons/ai";
 
 interface ShoppingCartProps {
 
@@ -66,6 +67,14 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             .catch(() => alert('Недостатня к-сть товару на складі'))
     }
 
+    const deleteProduct = (id: number, variation: number): void => {
+        let tempCart = JSON.parse(JSON.stringify(cart))
+        tempCart = tempCart.filter(([idMoto, varMoto, numberItem]: any) => {
+            return idMoto !== id || variation !== varMoto
+        })
+        dispatch(setCart(tempCart))
+    }
+
     return (
         <div className='ShoppingCart'>
             <input type="checkbox" id="my-modal-cart" className="modal-toggle"/>
@@ -102,6 +111,12 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                                                 variation={variation}
                                                 number={numberItem}
                                             />
+                                            <div
+                                                className='ml-2 mb-12'
+                                                onClick={() => {deleteProduct(idItem, variation)}}
+                                            >
+                                                <AiOutlineCloseCircle/>
+                                            </div>
                                         </div>
                                     </Fragment>
                                 )

@@ -1,8 +1,13 @@
 <?php
 
 use core\Core;
-
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Credentials: true");
 $tableName = 'users';
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
@@ -14,7 +19,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         $data = [
             'login' => $_GET['login'],
-            'password' => $_GET['password'],
+            'password' => md5($_GET['password']),
             'firstName' => $_GET['firstName'],
             'lastName' => $_GET['lastName'],
             'role' => $_GET['role'],
@@ -35,7 +40,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         ];
         $data = [
             'login' => $_GET['login'],
-            'password' => $_GET['password'],
             'firstName' => $_GET['firstName'],
             'lastName' => $_GET['lastName'],
             'role' => $_GET['role'],
