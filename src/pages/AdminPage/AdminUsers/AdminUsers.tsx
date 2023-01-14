@@ -23,7 +23,7 @@ export const AdminUsers: FC<AdminUsersProps> = ({}) => {
 
     return (
         <div className="AdminUsers">
-            <div className="overflow-x-auto m-auto h-[90vh]">
+            <div className="overflow-x-auto m-auto h-[80vh] shadow-2xl">
                 <EditUserDialog id={-1} className={'mb-5'} text='Додати користувача'>
                     <MyButton>Додати користувача</MyButton>
                 </EditUserDialog>

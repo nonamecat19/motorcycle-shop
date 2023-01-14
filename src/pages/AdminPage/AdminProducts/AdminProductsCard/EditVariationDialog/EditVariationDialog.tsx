@@ -41,7 +41,6 @@ export const EditVariationDialog: FC<EditVariationDialogProps> = (
                 variationAction.addVariation(formData, state)
                     .then(() => {
                         // alert('Успіх!')
-                        // @ts-ignore
                         location.reload()
                     })
                     .catch((res) => alert('Помилка! ' + res))

@@ -17,9 +17,7 @@ use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 
 $key = '1234567890';
-
 $jwt = $_GET['jwt'];
-
 
 if ($jwt) {
     try {
@@ -28,7 +26,6 @@ if ($jwt) {
         $aud = 'http://localhost:8000';
         $iat = 1356999524;
         $nbf = 1357000000;
-        // Нам нужно установить отправленные данные (через форму HTML) в свойствах объекта пользователя
 
         $updateData = [
             'id' => $decoded->data->id,
@@ -38,7 +35,7 @@ if ($jwt) {
             'role' => $_GET['role'],
             'dateOfBirth' => $_GET['dateOfBirth']
         ];
-        // Создание пользователя
+
         if (update($updateData)) {
             $token = array(
                 "iss" => $iss,
@@ -51,13 +48,13 @@ if ($jwt) {
             http_response_code(200);
             echo json_encode(
                 array(
-                    "message" => "Пользователь был обновлён",
+                    "message" => "Користувач оновлений успішно",
                     "jwt" => $jwt
                 )
             );
         } else {
             http_response_code(401);
-            echo json_encode(array("message" => "Невозможно обновить пользователя"));
+            echo json_encode(array("message" => "Неможливо оновити корстувача"));
         }
     } catch (Exception $e) {
         http_response_code(401);
@@ -66,10 +63,10 @@ if ($jwt) {
             "error" => $e->getMessage()
         ));
     }
-} // Показать сообщение об ошибке, если jwt пуст
+}
 else {
     http_response_code(401);
-    echo json_encode(array("message" => "Доступ закрыт"));
+    echo json_encode(array("message" => "Доступ заборонено"));
 }
 
 

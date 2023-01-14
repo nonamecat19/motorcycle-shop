@@ -15,24 +15,36 @@ export class UserActions extends DatabaseActions {
     public addUser = async (params: any): Promise<void> => {
         let path = this.parametrizedAxios(params)
         await axios
-            .post(`${process.env.REACT_APP_HOST}${this.category}?${path}`)
+            .post(`${process.env.REACT_APP_HOST}${this.category}?${path}&jwt=${this.getCookie()}`)
     }
 
     public updateUser = async (params: any): Promise<void> => {
         let path = this.parametrizedAxios(params)
         await axios
-            .put(`${process.env.REACT_APP_HOST}${this.category}?${path}`)
+            .put(`${process.env.REACT_APP_HOST}${this.category}?${path}&jwt=${this.getCookie()}`)
     }
 
     public deleteUser = async (id: number): Promise<void> => {
         await axios
-            .delete(`${process.env.REACT_APP_HOST}${this.category}?id=${id}`)
+            .delete(`${process.env.REACT_APP_HOST}${this.category}?id=${id}&jwt=${this.getCookie()}`)
     }
 
     public registerUser = async (params: any): Promise<void> => {
+        let data;
         let path = this.parametrizedAxios(params)
         await axios
             .post(`${process.env.REACT_APP_HOST}register?${path}`)
+            .then((response: AxiosResponse<any>) => data = response.data)
+        return await data
+    }
+
+    public googleAuth = async (params: any): Promise<any> => {
+        let data;
+        let path = this.parametrizedAxios(params)
+        await axios
+            .post(`${process.env.REACT_APP_HOST}googleAuth?${path}`)
+            .then((response: AxiosResponse<any>) => data = response.data)
+        return await data
     }
 
     public loginUser = async (params: any): Promise<any> => {
@@ -44,7 +56,7 @@ export class UserActions extends DatabaseActions {
         return await data
     }
 
-    public validateUser = async (): Promise<any> => {
+    public validateUser = async (token: string = ''): Promise<any> => {
         let data;
         await axios
             .post(`${process.env.REACT_APP_HOST}validateToken?jwt=${this.getCookie()}`)

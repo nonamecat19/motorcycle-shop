@@ -1,5 +1,5 @@
 import {Card} from './Card/Card'
-import {FC} from "react";
+import React, {FC, Fragment} from "react";
 import './Products.scss'
 import {MotorcycleElement} from '../../../Types'
 import {useSelector} from "react-redux";
@@ -16,7 +16,7 @@ export const Products: FC<ProductsProps> = ({}) => {
             {
                 filtered.map((moto: MotorcycleElement) => {
                     if (moto.variation.length === 0)
-                        return <></>
+                        return <Fragment key={moto.id}></Fragment>
 
                     return (
                         <Card

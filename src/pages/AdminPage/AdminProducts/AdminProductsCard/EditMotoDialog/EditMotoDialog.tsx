@@ -102,7 +102,10 @@ export const EditMotoDialog: FC<EditMotoDialogProps> = (
     let deleteHandler = (id: number) => {
         let variationAction = new VariationActions()
         variationAction.deleteVariation(id)
-            .then(() => alert('Успіх!'))
+            .then(() => {
+                alert('Успіх!')
+                location.reload()
+            })
             .catch((res) => alert('Помилка! ' + res))
     }
 

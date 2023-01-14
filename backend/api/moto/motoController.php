@@ -6,10 +6,20 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Credentials: true");
-//error_reporting(E_ALL);
-//ini_set("display_errors", 1);
+
+include_once "vendor/firebase/php-jwt/src/BeforeValidException.php";
+include_once "vendor/firebase/php-jwt/src/ExpiredException.php";
+include_once "vendor/firebase/php-jwt/src/SignatureInvalidException.php";
+include_once "vendor/firebase/php-jwt/src/JWT.php";
+include_once "vendor/firebase/php-jwt/src/Key.php";
+
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 $tableName = 'motorcycles';
+$key = '1234567890';
+$jwt = $_GET['jwt'];
+
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
@@ -37,41 +47,57 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 
     case 'POST':
-        $params = [
-            'model' => $_GET['model'],
-            'brand' => $_GET['brand'],
-            'price' => $_GET['price'],
-            'engineCapacity' => $_GET['engineCapacity'],
-            'enginePower' => $_GET['enginePower'],
-            'fuelConsumption' => $_GET['fuelConsumption'],
-            'fuelCapacity' => $_GET['fuelCapacity'],
-            'gears' => $_GET['gears'],
-            'mass' => $_GET['mass'],
-        ];
+        $decoded = JWT::decode($jwt, new Key($key, algorithm: 'HS256'));
+        if ($decoded->data->role === 'admin' || $decoded->data->role === 'moderator') {
+            $params = [
+                'model' => $_GET['model'],
+                'brand' => $_GET['brand'],
+                'price' => $_GET['price'],
+                'engineCapacity' => $_GET['engineCapacity'],
+                'enginePower' => $_GET['enginePower'],
+                'fuelConsumption' => $_GET['fuelConsumption'],
+                'fuelCapacity' => $_GET['fuelCapacity'],
+                'gears' => $_GET['gears'],
+                'mass' => $_GET['mass'],
+            ];
 
-        Core::getInstance()::$db->insert(tableName: $tableName, newRowArray: $params);
+            Core::getInstance()::$db->insert(tableName: $tableName, newRowArray: $params);
+        }else{
+            http_response_code(response_code: 403);
+        }
+
         break;
 
     case 'PUT':
-        $id = [
-            'id' => $_GET['id']
-        ];
-        $data = [
-            'model' => $_GET['model'],
-            'brand' => $_GET['brand'],
-            'price' => $_GET['price'],
-            'engineCapacity' => $_GET['engineCapacity'],
-            'enginePower' => $_GET['enginePower'],
-            'fuelConsumption' => $_GET['fuelConsumption'],
-            'fuelCapacity' => $_GET['fuelCapacity'],
-            'gears' => $_GET['gears'],
-            'mass' => $_GET['mass'],
-        ];
-        Core::getInstance()::$db->update(tableName: $tableName, newValuesArray: $data, conditionArray: $id);
+        $decoded = JWT::decode($jwt, new Key($key, algorithm: 'HS256'));
+        if ($decoded->data->role === 'admin' || $decoded->data->role === 'moderator') {
+            $id = [
+                'id' => $_GET['id']
+            ];
+            $data = [
+                'model' => $_GET['model'],
+                'brand' => $_GET['brand'],
+                'price' => $_GET['price'],
+                'engineCapacity' => $_GET['engineCapacity'],
+                'enginePower' => $_GET['enginePower'],
+                'fuelConsumption' => $_GET['fuelConsumption'],
+                'fuelCapacity' => $_GET['fuelCapacity'],
+                'gears' => $_GET['gears'],
+                'mass' => $_GET['mass'],
+            ];
+            Core::getInstance()::$db->update(tableName: $tableName, newValuesArray: $data, conditionArray: $id);
+        }else{
+            http_response_code(response_code: 403);
+        }
         break;
 
     case 'DELETE':
-        $data = ['id' => $_GET['id']];
-        Core::getInstance()::$db->delete(tableName: $tableName, conditionArray: $data);
+        $decoded = JWT::decode($jwt, new Key($key, algorithm: 'HS256'));
+        if ($decoded->data->role === 'admin' || $decoded->data->role === 'moderator') {
+            $data = ['id' => $_GET['id']];
+            Core::getInstance()::$db->delete(tableName: $tableName, conditionArray: $data);
+        }else{
+            http_response_code(response_code: 403);
+        }
         break;
 }

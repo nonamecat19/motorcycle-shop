@@ -1,13 +1,10 @@
 import React, {ChangeEvent, FC, useState} from 'react'
 import './AuthorizationLogin.scss'
 import {useDispatch} from "react-redux"
-import {toggleAuthForm} from "../../../../redux/slices/authFormSlicer"
 import {useNavigate} from 'react-router-dom'
 import {GoogleLogin} from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
-import axios, {AxiosResponse} from "axios";
+import jwt_decode, {JwtPayload} from "jwt-decode";
 import {User, UsersResponse} from "../../../../Types";
-import {setUser} from "../../../../redux/slices/currentUserSlicer";
 import {UserActions} from "../../../../actions/user";
 
 export interface AuthorizationLogin {
@@ -25,34 +22,29 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
     const [date, setDate] = useState<string>('')
 
     const dispatch = useDispatch()
-    const responseGoogle = async (response: any) => {
-        let dataObj: any = await jwt_decode(response.credential)
-        let surname: string = await dataObj.family_name ? dataObj.family_name : ''
+    const responseGoogle = (response: any) => {
+        let dataObj: any = jwt_decode(response.credential)
         console.log(dataObj)
-        await axios({
-            method: 'GET',
-            url: 'http://localhost:8888/api/users/register/',
-            params: {
-                'login': dataObj.login,
-                'first_name': dataObj.given_name,
-                'second_name': surname,
-                'password': dataObj.sub,
-            }
-        })
-            .then((response: AxiosResponse<any>) => {
-                    let id = 0
-                    let first_name = dataObj.given_name
-                    let last_name = surname
-                    let role = 'user'
-                    console.log({id, first_name, last_name, role})
-                    dispatch(setUser({id, first_name, last_name, role}))
-                    navigate("/")
-                    dispatch(toggleAuthForm())
-                }
-            )
+        let data = {
+            login: dataObj.email,
+            password: dataObj.sub,
+            firstName: dataObj.given_name ?? '',
+            lastName: dataObj.family_name ?? ''
+        }
+        let userActions = new UserActions()
+        userActions.googleAuth(data)
+            .then((res: UsersResponse) => {
+                userActions.setCookie('jwt', res.jwt, 7)
+                navigate('/')
+                location.reload()
+            })
+            .catch((err: any) => {
+                console.error(err)
+            })
+
     }
     const errorGoogle = () => {
-        console.log('error');
+        alert('Сталася помилка. Спробуйте ще раз.')
     }
 
 
@@ -65,8 +57,7 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
         let userAction = await new UserActions()
         await userAction.loginUser(data)
             .then((response: UsersResponse) => {
-                userAction.setCookie("jwt", response.jwt, 1);
-
+                userAction.setCookie("jwt", response.jwt, 7);
             })
             .catch((error: any) => {
                 console.log(error)
@@ -81,12 +72,18 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
                     location.reload()
                 } else {
                     navigate("/")
+                    location.reload()
                 }
             })
     }
 
 
-    const RegisterSubmitHandler = async (login: string, password: string, firstName: string, lastName: string, date: string) => {
+
+
+
+
+
+    const RegisterSubmitHandler = (login: string, password: string, firstName: string, lastName: string, date: string) => {
         let data = {
             login: login,
             password: password,
@@ -94,10 +91,58 @@ export const AuthorizationLogin: FC<AuthorizationLogin> = ({}) => {
             lastName: lastName,
             dateOfBirth: date
         }
-        let userAction = await new UserActions()
-        await userAction.registerUser(data)
-            .then(() => navigate("/"))
+        let userAction = new UserActions()
+        userAction.registerUser(data)
+            .then((response: any) => {
+                if (response === 'ok'){
+                    alert('Ви успішно зареєструвалися')
+                    setCreate(false)
+                } else {
+                    alert('Дані введені невірно')
+                }
+            })
+            .catch(() => {
+                alert('Користувач з таким логіном вже існує')
+            })
     }
+
+    // const RegisterSubmitHandler = async (login: string, password: string, firstName: string, lastName: string, date: string) => {
+    //     let data = {
+    //         login: login,
+    //         password: password,
+    //         firstName: firstName,
+    //         lastName: lastName,
+    //         dateOfBirth: date
+    //     }
+    //     let userAction = new UserActions()
+    //     let currentToken = ''
+    //     await userAction.registerUser(data)
+    //         .then((response: any) => {
+    //             userAction.setCookie("jwt", response.jwt, 7);
+    //             userAction.validateUser(response.jwt)
+    //                 .then((response: User) => {
+    //                     if (response.id === -1) {
+    //                         return
+    //                     }
+    //                     if (response.role == 'admin' || response.role == 'moderator') {
+    //                         navigate("/admin/app")
+    //                         location.reload()
+    //                     } else {
+    //                         navigate("/")
+    //                         location.reload()
+    //                     }
+    //                 })
+    //         })
+    //         .catch(() => {
+    //             userAction.loginUser(data)
+    //                 .then((response: UsersResponse) => {
+    //                     userAction.setCookie("jwt", response.jwt, 7);
+    //                 })
+    //                 .catch((error: any) => {
+    //                     alert(error)
+    //                 })
+    //         })
+    // }
 
     return (
         <div className="AuthorizationFormLogin">
