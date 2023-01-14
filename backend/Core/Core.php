@@ -3,6 +3,12 @@ namespace core;
 
 include 'DB.php';
 include 'headers.php';
+include_once "vendor/firebase/php-jwt/src/BeforeValidException.php";
+include_once "vendor/firebase/php-jwt/src/ExpiredException.php";
+include_once "vendor/firebase/php-jwt/src/SignatureInvalidException.php";
+include_once "vendor/firebase/php-jwt/src/JWT.php";
+include_once "vendor/firebase/php-jwt/src/Key.php";
+
 
 class Core
 {

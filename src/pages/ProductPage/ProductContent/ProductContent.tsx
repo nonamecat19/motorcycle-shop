@@ -11,6 +11,8 @@ import {RxDotFilled} from "react-icons/rx";
 import {WhiteContent} from "../../../components/WhiteContent/WhiteContent";
 import {ShoppingCart} from "../../../components/ShoppingCart/ShoppingCart";
 import {Notification} from "../../../components/Notification/Notification";
+import {CommentActions} from "../../../actions/comment";
+import {Helmet} from "react-helmet-async";
 
 export interface ProductContentProps {
     motorcycles: MotorcycleElement[]
@@ -34,13 +36,10 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
     const [varNum, setVarNum] = useState<number>(-1)
     const {cache} = useSelector((state: any) => state.cache)
     const dispatch = useDispatch()
-    const comment: Comments = useSelector((state: any) => state.comments.comments)
-    const [currentPhoto, setCurrentPhoto] = useState<string>('')
-    let myComment = comment ? JSON.parse(JSON.stringify(comment)) : []
 
-    let thisMotoComment = myComment.find(({productId, data}: CommentsMoto) => {
-        return productId === motoId
-    })
+    let currentUser = useSelector((state: any) => state.currentUser)
+    let currentUserId = currentUser.id
+
 
     const prevSlide = (): void => {
         setCurrentIndex(currentIndex === 0 ? variation.length - 1 : currentIndex - 1)
@@ -74,29 +73,44 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
         })
         return flag
     }
+    let commentActions = new CommentActions()
+    const [textareaValue, setTextareaValue] = useState<string>('')
+    const CommentHandler = (e: any): void => {
+        e.preventDefault()
 
-    // const CommentHandler = (e: any): void => {
-    //     e.preventDefault()
-    //
-    //     if (typeof thisMotoComment === 'undefined') {
-    //         myComment.push({
-    //             // productId: id,
-    //             data: [
-    //                 {
-    //                     userId: 1,
-    //                     comment: commentRef.current?.value,
-    //                 }
-    //             ]
-    //         })
-    //     } else {
-    //         thisMotoComment.data.push({
-    //             userId: 1,
-    //             comment: commentRef.current?.value,
-    //         })
-    //     }
-    //     dispatch(setComments(myComment))
-    // }
+        commentActions.addComment(textareaValue, motoId)
+            .then(() => {
+                commentActions.getComments(motoId)
+                    .then((res: any) => {
+                        setComments(res)
+                        setTextareaValue('')
+                    })
+                    .catch(() => {
+                        alert('Виникла помилка при отриманні коментарів')
+                    })
+            })
+            .catch(() => {
+                alert('Виникла помилка при завантаженні коментарів')
+            })
 
+        //     if (typeof thisMotoComment === 'undefined') {
+        //         myComment.push({
+        //             // productId: id,
+        //             data: [
+        //                 {
+        //                     userId: 1,
+        //                     comment: commentRef.current?.value,
+        //                 }
+        //             ]
+        //         })
+        //     } else {
+        //         thisMotoComment.data.push({
+        //             userId: 1,
+        //             comment: commentRef.current?.value,
+        //         })
+        //     }
+        //     dispatch(setComments(myComment))
+    }
 
 
     if (typeof currentMoto.variation === 'undefined') {
@@ -143,11 +157,25 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
         ['Масса', mass + 'кг'],
     ] as [string, string][]
 
-    const comments = () => {
+    const [comments, setComments] = useState<CommentElement[]>([])
+
+
+    useEffect(() => {
+        commentActions.getComments(motoId)
+            .then((res: any) => {
+                setComments(res)
+            })
+            .catch((err: any) => {
+                console.error(err)
+            })
+    }, [])
+
+
+    const commentsComponent = () => {
         return (
-            thisMotoComment && thisMotoComment.data
+            comments.length > 0
                 ?
-                thisMotoComment.data.map(({userId, comment}: CommentElement) => {
+                comments.map(({userName, text}: CommentElement) => {
                     return (
                         <div key={nanoid(8)}>
                             <div className="chat chat-start">
@@ -157,10 +185,10 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
                                     </div>
                                 </div>
                                 <div className="chat-header">
-                                    Петро
+                                    {userName}
                                 </div>
                                 <div className="chat-bubble">
-                                    {comment}
+                                    {text}
                                 </div>
                             </div>
                         </div>
@@ -173,6 +201,9 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
 
     return (
         <div className="ProductPage">
+            <Helmet>
+                <title>{brand} {model}</title>
+            </Helmet>
             <Navbar/>
             <Link to='/'>
                 <img
@@ -238,7 +269,7 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
                             >
                                 {getAviability() ? 'В кошику' : 'Купити'}
                             </button>
-                            <h2>{variation[currentIndex]?.colorName ?? ''}</h2>
+                            <h2 className='h-24'>{variation[currentIndex]?.colorName ?? ''}</h2>
                             <div className="ProductBoxes">
                                 {
                                     exampleDetails.map(([title, content]): JSX.Element => (
@@ -259,20 +290,22 @@ export const ProductContent: FC<ProductContentProps> = ({motorcycles, currentMot
             <div className="ProductComments">
                 <div className="CommentsList">
                     <h1>Коментарі</h1>
-                    {comments()}
+                    {commentsComponent()}
                 </div>
                 <div className="FeedbackForm">
                     <h1>Залишити відгук</h1>
                     <textarea
                         className="textarea textarea-bordered"
                         placeholder="Ваш коментар"
-                        ref={commentRef}
-                    ></textarea>
+                        value={textareaValue}
+                        onChange={(e) => setTextareaValue(e.target.value)}
+                    />
                     <button
                         className="btn"
-                        // onClick={CommentHandler}
+                        onClick={CommentHandler}
+                        disabled={currentUserId === -1}
                     >
-                        Відправити
+                        {currentUserId === -1 ? 'Необхідна авторизація' : 'Відправити'}
                     </button>
                 </div>
 

@@ -2,7 +2,7 @@
 
 use core\Core;
 
-$tableName = 'variation';
+
 
 include_once "vendor/firebase/php-jwt/src/BeforeValidException.php";
 include_once "vendor/firebase/php-jwt/src/ExpiredException.php";
@@ -13,11 +13,15 @@ include_once "vendor/firebase/php-jwt/src/Key.php";
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         break;
 
     case 'POST':
+        $tableName = 'variation';
         $key = '1234567890';
         $jwt = $_GET['jwt'];
         $decoded = JWT::decode($jwt, new Key($key, algorithm: 'HS256'));
@@ -38,17 +42,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
             );
         }
 
-
         $data = [
             'fullPrice' => $_GET['fullPrice'],
             'idUser' => $decoded->data->id,
-            'time' => date("Y-m-d H:i:s"),
+            'date' => strval(date("Y-m-d H:i:s")),
         ];
 
         Core::getInstance()::$db->insert(
             tableName: 'orders',
             newRowArray: $data
         );
-
         break;
 }

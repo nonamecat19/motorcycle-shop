@@ -3,4 +3,5 @@ export enum request {
     variations = 'variation',
     motorcycles = 'moto',
     purchase = 'purchase',
+    comments = 'comments',
 }

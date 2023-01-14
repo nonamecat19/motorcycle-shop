@@ -91,11 +91,6 @@ const Navbar: FC<ContentProps> = ({}) => {
                 {
                     role === ''
                         ? null
-                        : <li><label htmlFor="my-modal-order">Мої замовлення</label></li>
-                }
-                {
-                    role === ''
-                        ? null
                         : <li><a className="justify-between" onClick={profileHandler}>Профіль</a></li>
                 }
             </ul>

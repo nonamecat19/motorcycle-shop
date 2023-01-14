@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import './NotFoundPage.scss'
+import {Helmet} from "react-helmet-async";
 
 export interface NotFoundPageProps {
 
@@ -8,6 +9,9 @@ export interface NotFoundPageProps {
 export const NotFoundPage: FC<NotFoundPageProps> = ({}) => {
     return(
         <div className="NotFoundPage">
+            <Helmet>
+                <title>Сторінку не знайдено!</title>
+            </Helmet>
             <div className="flex-container">
                 <div className="text-center">
                     <h1>

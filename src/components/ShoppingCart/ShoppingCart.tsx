@@ -22,6 +22,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
     const {notification} = useSelector((state: any) => state.notification)
     const {order} = useSelector((state: any) => state.order)
 
+
     const dispatch = useDispatch()
     const buyProducts = (): void => {
         if ((new UserActions().getCookie()?.length ?? '') < 5) {
@@ -35,7 +36,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             let currentVariation = currentMoto?.variation[newCart[i][1]]
             newCart[i][1] = currentVariation?.id
         }
-        let fullPrice = useSelector((state: any) => state.motorcycles.fullPrice)
+
         let purchase = new PurchaseActions()
         purchase.buy(JSON.stringify(newCart), fullPrice)
             .then(() => {
@@ -44,7 +45,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                 dispatch(getMotorcyclesAsync())
                 alert("Успіх!")
             })
-            .catch(() => alert('Недостатня к-сть товару на складі'))
+            .catch((error) => alert('Недостатня к-сть товару на складі' + error))
     }
 
     const deleteProduct = (id: number, variation: number): void => {
@@ -107,7 +108,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                     </div>
                     <hr/>
                     <h1>Всього:</h1>
-                    <b className="text-3xl">{fullPrice}$</b>
+                    <b className="text-3xl">{fullPrice} грн</b>
                     <label
                         htmlFor="my-modal-cart"
                         className="btn btn-m absolute right-5 bottom-5 text-1xl"

@@ -80,8 +80,10 @@ export type CommentsMoto = {
 }
 
 export type CommentElement = {
-    userId: number
-    comment: string
+    id: number
+    idMotorcycle: number
+    text: string
+    userName: string
 }
 
 export type User = {
