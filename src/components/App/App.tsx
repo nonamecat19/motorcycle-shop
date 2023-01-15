@@ -6,7 +6,6 @@ import {ProductPage} from "../../pages/ProductPage/ProductPage"
 import {useEffect} from "react"
 import {getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer"
 import {useDispatch} from 'react-redux'
-import {ProfilePage} from "../../pages/ProfilePage/ProfilePage"
 import {AdminPage} from "../../pages/AdminPage/AdminPage"
 import {NotFoundPage} from "../../pages/NotFoundPage/NotFoundPage";
 import {getCurrentUserAsync} from "../../redux/slices/currentUserSlicer";
@@ -50,11 +49,6 @@ export const App = () => {
                 <Route
                     path='admin/:category'
                     element={<AdminPage/>}
-                />
-
-                <Route
-                    path='profile'
-                    element={<ProfilePage/>}
                 />
 
                 <Route
