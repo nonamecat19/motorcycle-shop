@@ -10,14 +10,22 @@ export interface AdminDashboardProps {
 }
 
 export const AdminDashboard: FC<AdminDashboardProps> = ({}) => {
-    const [stat, setStat] = useState<any>([[], [], [], []])
-    useEffect(() => {
-        new StatsActions().getStats().then((res: any) => {
-            setStat(res)
-        })
+    const [stat, setStat] = useState<any>([
+        [
+            {
+                id: '',
+                value: 0
+            }
+        ], [], [], []
+    ])
+    new StatsActions().getStats().then((res: any) => {
+        setStat(res)
     })
+
+
     return (
         <div className="AdminDashboard">
+
             <DashboardCard title='Мотоцикли'>
                 <PieChart data={stat[0]}/>
             </DashboardCard>
@@ -33,6 +41,7 @@ export const AdminDashboard: FC<AdminDashboardProps> = ({}) => {
             <DashboardCard title='К-сть на складі'>
                 <PieChart data={stat[3]}/>
             </DashboardCard>
+
         </div>
     )
 }

@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }catch (Exception $e) {
             $brandNum[$resultMoto[$i]['brand']] = 0;
         }
-
     }
 
     $priceMoto = [

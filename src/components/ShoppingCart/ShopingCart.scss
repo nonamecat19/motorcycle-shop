@@ -1,10 +1,32 @@
 @import "../../scss/variables";
 
-.windowCart{
-    @apply min-h-[120px] overflow-y-scroll max-h-[calc(100vh-200px)]
-    border border-[#dcdcdc]
+.windowCart {
+  @apply min-h-[120px] overflow-y-scroll max-h-[calc(100vh-200px)]
+  border border-[#dcdcdc]
 }
 
-.cart{
-    @apply min-h-[200px] max-h-[96vh] max-w-[600px]
+.cart {
+  @apply min-h-[200px] max-h-[96vh] max-w-[600px]
+}
+
+.mapouter {;
+  right: 200px;
+  position: fixed;
+  text-align: right;
+  width: 300px;
+  height: 400px;
+}
+
+.gmap_canvas {
+  overflow: hidden;
+  width: 300px;
+  height: 400px;
+
+}
+
+.gmap_iframe {
+  width: 300px !important;
+  height: 400px !important;
+  border-radius: 10px;
+  border: 15px solid white;
 }

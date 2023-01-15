@@ -25,6 +25,7 @@
     "@nivo/line": "^0.79.1",
     "@nivo/pie": "^0.80.0",
     "@react-buddy/ide-toolbox": "^2.2.1",
+    "@react-buddy/palette-mui": "^5.0.1",
     "@react-oauth/google": "^0.5.1",
     "@splinetool/react-spline": "^2.2.3",
     "@splinetool/runtime": "^0.9.138",
@@ -43,6 +44,7 @@
     "eslint": "^8.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "formik": "^2.2.9",
+    "google-maps-react": "^2.0.6",
     "http-proxy-middleware": "^2.0.6",
     "numeral": "^2.0.6",
     "prop-types": "^15.8.1",
@@ -69,8 +71,7 @@
     "typescript": "*",
     "web-vitals": "^2.1.4",
     "webpack-dev-middleware": "^5.3.3",
-    "yup": "^0.32.11",
-    "@react-buddy/palette-mui": "^5.0.1"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "lint": "eslint --ext .ts, .tsx src --fix",
@@ -99,6 +100,7 @@
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.9.0",
+    "@types/google-map-react": "^2.1.7",
     "@types/react-slick": "^0.23.10",
     "@types/react-transition-group": "^4.4.5",
     "@types/uuid": "^9.0.0",
@@ -114,6 +116,7 @@
     "eslint-plugin-react": "^7.31.10",
     "gapi-script": "^1.2.0",
     "generate-react-cli": "^8.0.1",
+    "google-map-react": "^2.2.0",
     "jwt-decode": "^3.1.2",
     "react-gapi": "^1.0.2",
     "react-icons": "^4.7.1",

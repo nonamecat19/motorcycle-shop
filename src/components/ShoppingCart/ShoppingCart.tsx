@@ -1,11 +1,8 @@
-import {FC, Fragment, useContext, useState} from "react";
+import {FC, Fragment, useState} from "react";
 import './ShopingCart.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {setNotification} from "../../redux/slices/notificationSlicer";
-import {setMotorcycles, setCart, getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
-import {setOrder} from "../../redux/slices/orderSlicer";
-import {Cart, CartElement, ContextStoreType, MotorcycleElement, OrderElement} from "../../Types";
-import {MyContext} from "../ContextStore/ContextStore";
+import {setCart, getMotorcyclesAsync} from "../../redux/slices/motorcyclesSlicer";
+import {CartElement, MotorcycleElement} from "../../Types";
 import {MyInputNumber} from "./MyInputNumber/MyInputNumber";
 import {PurchaseActions} from "../../actions/purchase";
 import {AiOutlineCloseCircle} from "react-icons/ai";
@@ -16,12 +13,16 @@ interface ShoppingCartProps {
 
 }
 
+const MyMarker = ({text, tooltip}: any) => (
+    <div className="circle">
+    <span className="circleText" title={tooltip}>
+      {text}
+    </span>
+    </div>
+);
+
 export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
     const {motorcycles, cart, fullPrice} = useSelector((state: any) => state.motorcycles)
-    const {cache} = useSelector((state: any) => state.cache)
-    const {notification} = useSelector((state: any) => state.notification)
-    const {order} = useSelector((state: any) => state.order)
-
 
     const dispatch = useDispatch()
     const buyProducts = (): void => {
@@ -38,12 +39,12 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
         }
 
         let purchase = new PurchaseActions()
-        purchase.buy(JSON.stringify(newCart), fullPrice)
+        purchase.buy(JSON.stringify(newCart), fullPrice, selected)
             .then(() => {
                 dispatch(setCart([]))
                 // @ts-ignore
                 dispatch(getMotorcyclesAsync())
-                alert("Успіх!")
+                alert("Успіх! З вами звяжеться менеджер для уточнення деталей.\nОрієнтований час доставки: 1-2 дні.")
             })
             .catch((error) => alert('Недостатня к-сть товару на складі' + error))
     }
@@ -57,6 +58,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
     }
 
     let navigate = useNavigate()
+    const [selected, setSelected] = useState<number>(1);
 
     return (
         <div className='ShoppingCart'>
@@ -64,7 +66,7 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             <div className="modal">
                 <div className="modal-box cart max-w-4xl relative">
                     <label htmlFor="my-modal-cart" className="btn btn-sm absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">Ваша корзина</h3>
+                    <h3 className="text-lg font-bold">Ваш кошик</h3>
                     <div className="windowCart">
                         {
                             cart.map(([idItem, variation, numberItem]: CartElement) => {
@@ -107,15 +109,51 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
                         }
                     </div>
                     <hr/>
-                    <h1>Всього:</h1>
-                    <b className="text-3xl">{fullPrice} грн</b>
-                    <label
-                        htmlFor="my-modal-cart"
-                        className="btn btn-m absolute right-5 bottom-5 text-1xl"
-                        onClick={buyProducts}
-                    >Замовити товар</label>
+                    <div className='flex'>
+                        <div>
+                            <h1>Всього:</h1>
+                            <b className="text-3xl">{fullPrice} грн</b>
+                        </div>
+
+                        <select
+                            className='absolute left-40 select mt-4 ml-16 border-bg border-2 w-48'
+                            defaultValue={selected}
+                            onChange={(e) => setSelected(parseInt(e.target.value))}
+                        >
+                            <option value={1}>Житомирська політехніка</option>
+                            <option value={2}>Івана Франка</option>
+                            <option value={3}>Поліський національний</option>
+                        </select>
+
+                        <label
+                            htmlFor="my-modal-cart"
+                            className="btn btn-m absolute right-5 bottom-5 text-1xl"
+                            onClick={buyProducts}
+                        >
+                            Замовити товар
+                        </label>
+                    </div>
+
+
+                </div>
+                <div className="mapouter">
+                    <div className="gmap_canvas">
+                        <iframe
+                            className="gmap_iframe"
+                            frameBorder="0"
+                            scrolling="no"
+                            src="https://maps.google.com/maps?width=300&amp;height=400&amp;hl=en&amp;q=Zhytomyr Державний університет&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                        />
+                        <a href="https://www.gachacute.com/">
+                            Download
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
+
+
+
+

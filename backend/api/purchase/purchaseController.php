@@ -2,8 +2,6 @@
 
 use core\Core;
 
-
-
 include_once "vendor/firebase/php-jwt/src/BeforeValidException.php";
 include_once "vendor/firebase/php-jwt/src/ExpiredException.php";
 include_once "vendor/firebase/php-jwt/src/SignatureInvalidException.php";
@@ -13,8 +11,8 @@ include_once "vendor/firebase/php-jwt/src/Key.php";
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
@@ -46,6 +44,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             'fullPrice' => $_GET['fullPrice'],
             'idUser' => $decoded->data->id,
             'date' => strval(date("Y-m-d H:i:s")),
+            'shopNum' => $_GET['shopNum'],
         ];
 
         Core::getInstance()::$db->insert(
