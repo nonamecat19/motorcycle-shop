@@ -9,7 +9,7 @@ export const PieChart = ({ data }: any) => (
         padAngle={2}
         cornerRadius={5}
         activeOuterRadiusOffset={8}
-        colors={{ scheme: 'oranges' }}
+        colors={{ scheme: 'red_yellow_green' }}
         borderColor={{
             from: 'color',
             modifiers: [

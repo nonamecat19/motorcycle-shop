@@ -7,8 +7,8 @@ $tableName = 'comments';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':

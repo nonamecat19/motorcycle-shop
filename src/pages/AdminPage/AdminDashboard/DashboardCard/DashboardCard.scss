@@ -1,5 +1,5 @@
 .DashboardCard{
 
   @apply bg-white m-2 p-4 rounded-lg shadow-lg text-center
-  w-[300px] h-[200px];
+  w-[300px] h-[200px]  xl:w-[700px] xl:h-[350px];
 }

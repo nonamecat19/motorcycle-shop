@@ -1,73 +1,37 @@
-import React, { FC } from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import './AdminDashboard.scss'
 import {DashboardCard} from "./DashboardCard/DashboardCard"
 import {PieChart} from "./PieChart/PieChart"
 import {LineChart} from "./LineChart/LineChart";
+import {StatsActions} from "../../../actions/stat";
 
 export interface AdminDashboardProps {
 
 }
 
-
-
-
-const data1 =
-    [
-        {
-            "id": "Україна",
-            "value": 132,
-        },
-        {
-            "id": "Німеччина",
-            "value": 180,
-        },
-        {
-            "id": "Польща",
-            "value": 568,
-        },
-        {
-            "id": "Франція",
-            "value": 112,
-        },
-        {
-            "id": "Інші",
-            "value": 498,
-        }
-    ]
-
-
-const data2 = [
-    {
-        "country": "Чоловіки",
-        "Кількість": 58,
-    },
-    {
-        "country": "Жінки",
-        "Кількість": 40,
-    },
-    {
-        "country": "Не зазначено",
-        "Кількість": 15,
-    }
-]
-
 export const AdminDashboard: FC<AdminDashboardProps> = ({}) => {
-    return(
+    const [stat, setStat] = useState<any>([[], [], [], []])
+    useEffect(() => {
+        new StatsActions().getStats().then((res: any) => {
+            setStat(res)
+        })
+    })
+    return (
         <div className="AdminDashboard">
-            <DashboardCard title='Популярні країни'>
-                <PieChart data={data1}/>
+            <DashboardCard title='Мотоцикли'>
+                <PieChart data={stat[0]}/>
             </DashboardCard>
 
-            <DashboardCard title='Стать користувачів'>
-                <LineChart data={data2}/>
+            <DashboardCard title='Ціна мотоциклів'>
+                <LineChart data={stat[1]}/>
             </DashboardCard>
 
-            <DashboardCard>
-                <PieChart data={data1}/>
+            <DashboardCard title='Привілеї'>
+                <PieChart data={stat[2]}/>
             </DashboardCard>
 
-            <DashboardCard>
-                <PieChart data={data1}/>
+            <DashboardCard title='К-сть на складі'>
+                <PieChart data={stat[3]}/>
             </DashboardCard>
         </div>
     )
