@@ -27,9 +27,6 @@ const Navbar: FC<ContentProps> = ({}) => {
         navigate('/auth')
         dispatch(toggleAuthForm())
     }
-    const profileHandler = () => {
-        navigate('/profile')
-    }
     const adminHandler = () => {
         navigate('/admin/app')
     }
@@ -84,14 +81,9 @@ const Navbar: FC<ContentProps> = ({}) => {
                     </a>
                 </li>
                 {
-                    role === 'admin'
+                    role === 'admin' || role === 'moderator'
                         ? <li><label onClick={adminHandler}>Адмінпанель</label></li>
                         : null
-                }
-                {
-                    role === ''
-                        ? null
-                        : <li><a className="justify-between" onClick={profileHandler}>Профіль</a></li>
                 }
             </ul>
         </div>

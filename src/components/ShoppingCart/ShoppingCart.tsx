@@ -30,7 +30,10 @@ export const ShoppingCart: FC<ShoppingCartProps> = ({}) => {
             navigate('/auth')
             return
         }
-
+        if (cart.length === 0){
+            alert('Кошик порожній')
+            return
+        }
         let newCart = JSON.parse(JSON.stringify(cart))
         for (let i = 0; i < newCart.length; i++) {
             let currentMoto = motorcycles.find((moto: MotorcycleElement) => moto.id === newCart[i][0])

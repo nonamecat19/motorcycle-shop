@@ -1,10 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Cart, User} from "../../Types";
-import JSONData from "../../data.json";
+import {User} from "../../Types";
 import {UserActions} from "../../actions/user";
-import {MotorcycleActions} from "../../actions/motorcycle";
-
-
 
 interface State {
     users: User[]
@@ -46,5 +42,5 @@ export const usersSlicer = createSlice({
     }
 })
 
-export const {setUsers} = usersSlicer.actions
+export const {} = usersSlicer.actions
 export default usersSlicer.reducer

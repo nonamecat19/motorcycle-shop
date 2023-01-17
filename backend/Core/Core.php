@@ -9,7 +9,6 @@ include_once "vendor/firebase/php-jwt/src/SignatureInvalidException.php";
 include_once "vendor/firebase/php-jwt/src/JWT.php";
 include_once "vendor/firebase/php-jwt/src/Key.php";
 
-
 class Core
 {
     private static ?Core $instance = null;
@@ -25,7 +24,6 @@ class Core
     }
     public static function getDB(): DB
     {
-//        session_start();
         require 'config/config.php';
         return new DB(
             hostname: DATABASE_HOST,

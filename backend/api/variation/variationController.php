@@ -44,8 +44,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 
     case 'PUT':
-//        $decoded = JWT::decode($jwt, new Key($key, algorithm: 'HS256'));
-//        if ($decoded->data->role === 'admin' || $decoded->data->role === 'moderator') {
             $photo = null;
             if ($_FILES['file']) {
                 do {
@@ -70,9 +68,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 'photo' => $photo
             ];
             Core::getInstance()::$db->update(tableName: $tableName, newValuesArray: $data, conditionArray: $id);
-//        } else {
-//            http_response_code(response_code: 403);
-//        }
         break;
 
     case 'DELETE':

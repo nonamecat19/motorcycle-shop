@@ -7,10 +7,13 @@ include_once "vendor/firebase/php-jwt/src/JWT.php";
 
 use core\Core;
 use \Firebase\JWT\JWT;
-
+$iss = "http://localhost:3000";
+$aud = 'http://localhost:8000';
+$iat = 1356999524;
+$nbf = 1357000000;
 $key = '1234567890';
-$tableName = 'users';
 
+$tableName = 'users';
 $userLogin = $_GET['login'];
 $userPassword = md5($_GET['password']);
 $dataFromDB = Core::getInstance()::$db->select(
@@ -19,11 +22,6 @@ $dataFromDB = Core::getInstance()::$db->select(
 )[0];
 
 if (count($dataFromDB) && $dataFromDB['password'] === $userPassword) {
-    $iss = "http://localhost:3000";
-    $aud = 'http://localhost:8000';
-    $iat = 1356999524;
-    $nbf = 1357000000;
-
     $token = array(
         "iss" => $iss,
         "aud" => $aud,
@@ -38,7 +36,6 @@ if (count($dataFromDB) && $dataFromDB['password'] === $userPassword) {
             "dateOfBirth" => $dataFromDB['dateOfBirth']
         )
     );
-
     http_response_code(response_code: 200);
 
     $jwt = JWT::encode(payload: $token, key: $key, alg: 'HS256');
@@ -53,5 +50,8 @@ if (count($dataFromDB) && $dataFromDB['password'] === $userPassword) {
 
 else {
     http_response_code(401);
-    echo json_encode(array("message" => "Ошибка входа"), JSON_UNESCAPED_UNICODE);
+    echo json_encode(
+        array("message" => "Auth Error"),
+        JSON_UNESCAPED_UNICODE
+    );
 }

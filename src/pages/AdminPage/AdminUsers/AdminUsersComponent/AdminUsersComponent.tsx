@@ -1,7 +1,6 @@
 import React, {FC} from 'react'
 import {User} from '../../../../Types'
 import './AdminUsersComponent.scss'
-import {AdminUsersDropdown} from "./AdminUsersDropdown/AdminUsersDropdown";
 import {RiUser3Line, RiVipCrown2Fill, RiVipCrown2Line} from "react-icons/ri";
 import {MdDelete, MdEdit} from "react-icons/md";
 import {useSelector} from "react-redux";
@@ -86,7 +85,7 @@ export const AdminUsersComponent: FC<AdminUsersComponentProps> = (
                     idCurrentUser === id
                     ||
                     (
-                        role === 'admin' && roleCurrentUser === 'moderator'
+                        role === 'admin' && roleCurrentUser === 'moderator' || role === 'moderator' && roleCurrentUser === 'moderator'
                             ?
                             <div className="">
                                 <AiFillLock size={40}/>

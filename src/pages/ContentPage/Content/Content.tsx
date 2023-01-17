@@ -11,22 +11,13 @@ export interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({}) => {
-    // const handleClick = () => {
-    //     addMotorcycle()
-    // }
     return (
         <div className="Content">
-            {/*<button*/}
-            {/*    onClick={handleClick}*/}
-            {/*>*/}
-            {/*    asdfsadfasdf*/}
-            {/*</button>*/}
             <Navbar/>
             <div className='content'>
                 <ShoppingCart/>
                 <Products/>
                 <Sidebar/>
-                {/*<AdminPanel/>*/}
                 <Notification/>
                 <OrderList/>
             </div>

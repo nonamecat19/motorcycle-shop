@@ -10,13 +10,14 @@ import {AdminPage} from "../../pages/AdminPage/AdminPage"
 import {NotFoundPage} from "../../pages/NotFoundPage/NotFoundPage";
 import {getCurrentUserAsync} from "../../redux/slices/currentUserSlicer";
 import {MotorcycleActions} from "../../actions/motorcycle";
+import {MotorcycleElement, Motorcycles} from "../../Types";
+import {AxiosResponse} from "axios";
 
 export const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-
         new MotorcycleActions().getMotorcycles()
-        .then((res: any) =>
+        .then((res: Motorcycles | undefined) =>
                 localStorage.setItem(
                     'motorcycles',
                     JSON.stringify(res ?? [])
@@ -35,22 +36,18 @@ export const App = () => {
                     path='/'
                     element={<ContentPage/>}
                 />
-
                 <Route
                     path='auth'
                     element={<AuthPage/>}
                 />
-
                 <Route
                     path='products/:category/:id'
                     element={<ProductPage/>}
                 />
-
                 <Route
                     path='admin/:category'
                     element={<AdminPage/>}
                 />
-
                 <Route
                     path='*'
                     element={<NotFoundPage/>}

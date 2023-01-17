@@ -33,7 +33,7 @@ const getFullPrice = (): string => {
 const initialState: State = {
     motorcycles: [],
     filtered: [],
-    min: 1,
+    min: 0,
     max: 10_000_000,
     model: '',
     brand: 'All',
@@ -115,5 +115,5 @@ export const motorcyclesSlicer = createSlice({
     }
 })
 
-export const {setMotorcycles, cardsFilter, setMinMax, setCart, updateFullPrice} = motorcyclesSlicer.actions
+export const {cardsFilter, setMinMax, setCart, updateFullPrice} = motorcyclesSlicer.actions
 export default motorcyclesSlicer.reducer

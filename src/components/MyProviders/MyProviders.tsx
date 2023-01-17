@@ -4,7 +4,6 @@ import {Provider} from "react-redux";
 import {store} from "../../redux/store";
 import {IconContext} from "react-icons/lib";
 import {BrowserRouter} from "react-router-dom";
-import {DevSupport} from "@react-buddy/ide-toolbox";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import {ContextStore} from "../ContextStore/ContextStore"
 import {HelmetProvider} from 'react-helmet-async'

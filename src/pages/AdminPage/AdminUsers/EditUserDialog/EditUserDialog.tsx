@@ -59,7 +59,7 @@ export const EditUserDialog: FC<EditUserDialogProps> = (
         password: '',
         firstName: firstName ?? '',
         lastName: lastName ?? '',
-        role: role ?? '',
+        role: role ?? 'user',
         dateOfBirth: dateOfBirth ?? ''
     })
     let roleCurrentUser = useSelector((state: any) => state.currentUser).role

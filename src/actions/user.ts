@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {PostUser, User} from "../Types";
+import {User} from "../Types";
 import {DatabaseActions} from "./db";
 import {request} from "../enums/request";
 
